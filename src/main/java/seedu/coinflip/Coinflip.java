@@ -3,19 +3,26 @@ package seedu.coinflip;
 import java.util.Scanner;
 
 public class Coinflip {
+    private int balance = 500;
+
     /**
      * Main entry-point for the java.seedu.coinflip.Coinflip application.
      */
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What is your name?");
 
         Scanner in = new Scanner(System.in);
-        System.out.println("Hello " + in.nextLine());
+
+        System.out.println("Welcome to Coinflip!");
+
+        while (true)
+        {
+            String input = in.nextLine();
+            System.out.println("Your input is " + input);
+
+            if (input.equals("exit")) {
+                System.out.println("Thank you for using Coinflip. Goodbye!");
+                break;
+            }
+        }
     }
 }
