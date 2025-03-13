@@ -1,4 +1,4 @@
-# Duke
+# Coinflip
 
 {Give product intro here}
 
