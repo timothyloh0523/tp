@@ -1,10 +1,10 @@
-package seedu.duke;
+package seedu.coinflip;
 
 import java.util.Scanner;
 
-public class Duke {
+public class Coinflip {
     /**
-     * Main entry-point for the java.duke.Duke application.
+     * Main entry-point for the java.seedu.coinflip.Coinflip application.
      */
     public static void main(String[] args) {
         String logo = " ____        _        \n"
