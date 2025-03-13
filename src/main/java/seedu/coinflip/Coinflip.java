@@ -17,7 +17,6 @@ public class Coinflip {
         while (true)
         {
             String input = in.nextLine();
-            System.out.println("Your input is " + input);
 
             if (input.equals("exit")) {
                 System.out.println("Thank you for using Coinflip. Goodbye!");
