@@ -3,7 +3,7 @@ package seedu.coinflip;
 import java.util.Scanner;
 
 public class Coinflip {
-    private int balance = 500;
+    private static int balance = 500;
 
     /**
      * Main entry-point for the java.seedu.coinflip.Coinflip application.
@@ -17,9 +17,14 @@ public class Coinflip {
         while (true)
         {
             String input = in.nextLine();
-
-            if (input.equals("exit")) {
+            switch (input) {
+            case "check balance":
+                System.out.println("Your remaining balance is: " + balance);
+                break;
+            case "exit":
                 System.out.println("Thank you for using Coinflip. Goodbye!");
+                break;
+            default:
                 break;
             }
         }
