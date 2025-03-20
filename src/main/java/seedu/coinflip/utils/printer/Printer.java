@@ -52,4 +52,8 @@ public class Printer {
     public static void printException(CoinflipException e) {
         System.out.println(e.message);
     }
+
+    public static void printLoggerFail() {
+        System.out.println("Coinflip could not start due errors initializing its Java logger: ");
+    }
 }
