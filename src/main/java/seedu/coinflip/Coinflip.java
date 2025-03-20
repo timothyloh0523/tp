@@ -55,6 +55,7 @@ public class Coinflip {
             String data;
             reader.readLine();
             while (((data = reader.readLine()) != null)) {
+                data = data.replace("\r", "");
                 try {
                     int savedBalance = Integer.parseInt(data.trim());
                     balance = savedBalance;
