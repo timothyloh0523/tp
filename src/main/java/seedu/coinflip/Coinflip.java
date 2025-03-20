@@ -34,6 +34,13 @@ public class Coinflip {
         logger = Logger.getLogger("seedu.coinflip");
         logger.setUseParentHandlers(false);
 
+        File log = new File(logFilePath);
+        if (!log.exists()) {
+            Files.createDirectories(Paths.get("./data"));
+            Files.createFile(Paths.get(logFilePath));
+            Printer.printNewSaveFileNote();
+        }
+
         fileHandler = new FileHandler(logFilePath);
         logger.addHandler(fileHandler);
 
