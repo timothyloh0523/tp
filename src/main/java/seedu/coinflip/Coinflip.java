@@ -9,16 +9,20 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
 
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.exceptions.CoinflipFileException;
 import seedu.coinflip.utils.printer.Printer;
 
 public class Coinflip {
-    private static String filePath = "./data/coinflip.csv";
-    private static Logger logger = Logger.getLogger("Coinflip");
+    private static String saveFilePath = "./data/coinflip.csv";
+    private static String logFilePath = "./data/coinflip.log";
+    private static Logger logger;
+    private FileHandler fileHandler;
 
     private int balance = 500;
     private int betAmount = 20;
@@ -26,7 +30,21 @@ public class Coinflip {
     /**
      * Constructs Coinflip object
      */
-    Coinflip() {
+    Coinflip() throws SecurityException, IOException {
+        logger = Logger.getLogger("seedu.coinflip");
+        logger.setUseParentHandlers(false);
+
+        File log = new File(logFilePath);
+        if (!log.exists()) {
+            Files.createDirectories(Paths.get("./data"));
+            Files.createFile(Paths.get(logFilePath));
+        }
+
+        fileHandler = new FileHandler(logFilePath);
+        logger.addHandler(fileHandler);
+
+        SimpleFormatter formatter = new SimpleFormatter();
+        fileHandler.setFormatter(formatter);
     }
 
     /**
@@ -48,11 +66,11 @@ public class Coinflip {
     }
 
     private void setupFile() throws CoinflipFileException {
-        File userData = new File(filePath);
+        File userData = new File(saveFilePath);
         try {
             if (!userData.exists()) {
                 Files.createDirectories(Paths.get("./data"));
-                Files.createFile(Paths.get(filePath));
+                Files.createFile(Paths.get(saveFilePath));
                 Printer.printNewSaveFileNote();
             }
         } catch (IOException E) {
@@ -61,7 +79,7 @@ public class Coinflip {
     }
 
     private void loadFromFile() throws CoinflipFileException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(saveFilePath))) {
             String data;
             reader.readLine();
             while (((data = reader.readLine()) != null)) {
@@ -78,7 +96,7 @@ public class Coinflip {
 
     private void saveToFile() throws CoinflipFileException {
         try {
-            FileWriter writer = new FileWriter(filePath);
+            FileWriter writer = new FileWriter(saveFilePath);
             writer.write("Balance\n");
             writer.write(balance + "\n");
             writer.close();
@@ -215,7 +233,12 @@ public class Coinflip {
      * @param args Arguments included with command to start Coinflip
      */
     public static void main(String[] args) {
-        Coinflip program = new Coinflip();
-        program.run(args);
+        try {
+            Coinflip program = new Coinflip();
+            program.run(args);
+        } catch (SecurityException | IOException e) {
+            Printer.printLoggerFail();
+            e.printStackTrace();
+        }
     }
 }

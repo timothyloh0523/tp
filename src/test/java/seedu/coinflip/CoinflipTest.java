@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 class CoinflipTest {
     @Test
     public void sampleTest() {
@@ -12,7 +14,7 @@ class CoinflipTest {
     }
 
     @Test
-    public void testDefaultValues() {
+    public void testDefaultValues() throws SecurityException, IOException {
         Coinflip program = new Coinflip();
         assertEquals(500, program.getBalance());
         assertEquals(20, program.getBetAmount());
