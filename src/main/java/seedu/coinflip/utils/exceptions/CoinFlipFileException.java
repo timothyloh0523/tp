@@ -2,14 +2,6 @@ package seedu.coinflip.utils.exceptions;
 
 public class CoinFlipFileException extends CoinFlipException {
 
-    public CoinFlipFileException() {
-
-    }
-
-    public CoinFlipFileException(String message) {
-        super(message);
-    }
-
     public static final String SAVE_FILE_CORRUPTED = "Warning: Your save file was corrupted!" +
             "Your previous progress will not be loaded.";
 
@@ -21,4 +13,12 @@ public class CoinFlipFileException extends CoinFlipException {
 
     public static final String SAVE_FILE_CANNOT_SAVE = "Warning: Coinflip could not save your save file! " +
             "Your progress will not be saved.";
+
+    public CoinFlipFileException() {
+
+    }
+
+    public CoinFlipFileException(String message) {
+        super(message);
+    }
 }
