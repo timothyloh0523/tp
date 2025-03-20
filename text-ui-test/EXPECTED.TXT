@@ -1,2 +1,2 @@
 Welcome to Coinflip!
-Invalid Command!
+Invalid command!
