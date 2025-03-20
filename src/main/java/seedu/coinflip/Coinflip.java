@@ -62,7 +62,6 @@ public class Coinflip {
                     System.out.println("Invalid integer");
                 }
             }
-            System.out.println("Data successfully loaded");
         } catch (IOException e) {
             System.out.println("Error loading data");
         }
