@@ -1,7 +1,5 @@
 package seedu.coinflip;
 
-
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -71,12 +69,13 @@ public class Coinflip {
                 isExit = true;
                 break;
             case "flip":
-                if (words.length != 3){
-                    System.out.println("Please follow the format: Flip <Heads>/<Tails> <Amount>");
+                if (words.length != 2){
+                    System.out.println("Please follow the format: Flip <Heads>/<Tails>");
                 }
                 else {
-                bet(Integer.parseInt(words[1]), words[2]);
+                bet(words[1]);
                 }
+                break;
             case "help":
                 System.out.println("Here are the commands you can use:");
                 System.out.println("\ncheck balance - Shows your remaining balance.");
@@ -93,17 +92,17 @@ public class Coinflip {
             }
         }
     }
-    public void bet (int amount, String words) {
-        balance -= amount;
-        System.out.println("Your current bet amount is: " + betAmount + ".");
+
+    public void bet(String words) {
+        balance -= getBetAmount();
+        System.out.println("Your current bet amount is: " + getBetAmount() + ".");
         Random random = new Random();
-        boolean coinFlip = random.nextBoolean();
-        String result = coinFlip ? "Heads" : "Tails";
-        if (result.equalsIgnoreCase(Arrays.toString(words.toCharArray()))) {
+        String coinFlip = random.nextBoolean() ? "Heads" : "Tails";
+        System.out.println(coinFlip);
+        if (coinFlip.equalsIgnoreCase(words)) {
             System.out.println("Correct! You won: " + betAmount + ".");
-            balance += 2 * amount;
-        }
-        else {
+            balance += 2 * getBetAmount();
+        } else {
             System.out.println("Wrong! You lost: " + betAmount + ".");
         }
     }
