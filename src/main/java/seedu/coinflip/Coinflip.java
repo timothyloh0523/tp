@@ -91,10 +91,6 @@ public class Coinflip {
         loadFromFile();
         boolean isExit = false;
         while (!isExit) {
-            if (!in.hasNextLine()) {
-                System.out.println("No input provided. Exiting...");
-                break;
-            }
             String input = in.nextLine();
             String[] words = input.split("\\s+");
             switch (words[0]) {

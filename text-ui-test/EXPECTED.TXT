@@ -1,3 +1,2 @@
 Welcome to Coinflip!
-No input provided. Exiting...
 Invalid command!
