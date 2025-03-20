@@ -1,6 +1,7 @@
 package seedu.coinflip;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class Coinflip {
     private int balance = 500;
@@ -67,6 +68,14 @@ public class Coinflip {
                 System.out.println("Thank you for using Coinflip. Goodbye!");
                 isExit = true;
                 break;
+            case "flip":
+                if (words.length != 2){
+                    System.out.println("Please follow the format: Flip <Heads>/<Tails>");
+                }
+                else {
+                    bet(words[1]);
+                }
+                break;
             case "help":
                 System.out.println("Here are the commands you can use:");
                 System.out.println("\ncheck balance - Shows your remaining balance.");
@@ -81,6 +90,20 @@ public class Coinflip {
                 System.out.println("Invalid command!");
                 break;
             }
+        }
+    }
+
+    public void bet(String words) {
+        balance -= getBetAmount();
+        System.out.println("Your current bet amount is: " + getBetAmount() + ".");
+        Random random = new Random();
+        String coinFlip = random.nextBoolean() ? "Heads" : "Tails";
+        System.out.println(coinFlip);
+        if (coinFlip.equalsIgnoreCase(words)) {
+            System.out.println("Correct! You won: " + betAmount + ".");
+            balance += 2 * getBetAmount();
+        } else {
+            System.out.println("Wrong! You lost: " + betAmount + ".");
         }
     }
 
