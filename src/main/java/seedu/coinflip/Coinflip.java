@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.*;
 
 import seedu.coinflip.utils.exceptions.CoinFlipException;
 import seedu.coinflip.utils.exceptions.CoinFlipFileException;
@@ -18,6 +19,8 @@ public class Coinflip {
     private static String filePath = "./data/coinflip.csv";
     private int balance = 500;
     private int betAmount = 20;
+
+    private static Logger logger = Logger.getLogger("Coinflip");
 
     /**
      * Constructs Coinflip object
@@ -146,6 +149,8 @@ public class Coinflip {
         Printer.printBetAmount(betAmount);
         Printer.printFlipOutcome(coinFlip, outcome, betAmount);
         Printer.printBalance(balance);
+
+        assert balance >= 0 : "balance should be more than or equal to 0";
     }
 
     /**
@@ -170,6 +175,8 @@ public class Coinflip {
 
         while (!isExit) {
             String input = in.nextLine();
+            logger.log(Level.INFO, "New Command Received");
+
             String[] words = input.split("\\s+");
 
             try {
