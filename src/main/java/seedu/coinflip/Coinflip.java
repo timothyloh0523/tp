@@ -10,9 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Coinflip {
+    private static String filePath = "./src/main/java/data/coinflip.csv";
     private int balance = 500;
     private int betAmount = 20;
-    private static String filePath = "./src/main/java/data/coinflip.csv";
     /**
      * Constructs Coinflip object
      */
@@ -46,6 +46,7 @@ public class Coinflip {
                 Files.createFile(Paths.get(filePath));
             }
         } catch (IOException E) {
+            System.out.println("Error setting up file.");
         }
     }
 
@@ -63,6 +64,7 @@ public class Coinflip {
             }
             System.out.println("Data successfully loaded");
         } catch (IOException e) {
+            System.out.println("Error loading data");
         }
     }
 
