@@ -9,7 +9,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
-import java.util.logging.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.exceptions.CoinflipFileException;
@@ -17,10 +18,10 @@ import seedu.coinflip.utils.printer.Printer;
 
 public class Coinflip {
     private static String filePath = "./data/coinflip.csv";
+    private static Logger logger = Logger.getLogger("Coinflip");
+
     private int balance = 500;
     private int betAmount = 20;
-
-    private static Logger logger = Logger.getLogger("Coinflip");
 
     /**
      * Constructs Coinflip object
