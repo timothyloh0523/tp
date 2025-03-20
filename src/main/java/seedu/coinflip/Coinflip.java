@@ -9,13 +9,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
-import seedu.coinflip.utils.exceptions.CoinFlipException;
-import seedu.coinflip.utils.exceptions.CoinFlipFileException;
+import seedu.coinflip.utils.exceptions.CoinflipException;
+import seedu.coinflip.utils.exceptions.CoinflipFileException;
 import seedu.coinflip.utils.printer.Printer;
 
 public class Coinflip {
     private static String filePath = "./data/coinflip.csv";
+    private static Logger logger = Logger.getLogger("Coinflip");
+
     private int balance = 500;
     private int betAmount = 20;
 
@@ -43,7 +47,7 @@ public class Coinflip {
         return betAmount;
     }
 
-    private void setupFile() throws CoinFlipFileException {
+    private void setupFile() throws CoinflipFileException {
         File userData = new File(filePath);
         try {
             if (!userData.exists()) {
@@ -52,11 +56,11 @@ public class Coinflip {
                 Printer.printNewSaveFileNote();
             }
         } catch (IOException E) {
-            throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_CANNOT_CREATE);
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_CREATE);
         }
     }
 
-    private void loadFromFile() throws CoinFlipFileException {
+    private void loadFromFile() throws CoinflipFileException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String data;
             reader.readLine();
@@ -64,32 +68,32 @@ public class Coinflip {
                 try {
                     balance = Integer.parseInt(data.trim());
                 } catch (NumberFormatException e) {
-                    throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_CORRUPTED);
+                    throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
                 }
             }
         } catch (IOException e) {
-            throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_NO_ACCESS);
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_NO_ACCESS);
         }
     }
 
-    private void saveToFile() throws CoinFlipFileException {
+    private void saveToFile() throws CoinflipFileException {
         try {
             FileWriter writer = new FileWriter(filePath);
             writer.write("Balance\n");
             writer.write(balance + "\n");
             writer.close();
         } catch (IOException e) {
-            throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_CANNOT_SAVE);
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_SAVE);
         }
     }
 
-    private void check(String[] words) throws CoinFlipException {
+    private void check(String[] words) throws CoinflipException {
         if (words.length != 2) {
-            throw new CoinFlipException(CoinFlipException.CHECK_INVALID_FORMAT);
+            throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
         }
 
         if (!words[1].equals("balance") && !words[1].equals("bet")) {
-            throw new CoinFlipException(CoinFlipException.CHECK_INVALID_FORMAT);
+            throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
         }
 
         if (words[1].equals("balance")) {
@@ -99,12 +103,12 @@ public class Coinflip {
         }
     }
 
-    private void change(String[] words) throws CoinFlipException {
+    private void change(String[] words) throws CoinflipException {
         try {
             betAmount = Integer.parseInt(words[1]);
 
             if (betAmount < 0) {
-                throw new CoinFlipException(CoinFlipException.BET_AMOUNT_INVALID_FORMAT);
+                throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
             }
 
             if (betAmount > balance) {
@@ -115,17 +119,17 @@ public class Coinflip {
             Printer.printBetAmount(betAmount);
 
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new CoinFlipException(CoinFlipException.BET_AMOUNT_INVALID_FORMAT);
+            throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
         }
     }
 
-    private void bet(String[] words) throws CoinFlipException {
+    private void bet(String[] words) throws CoinflipException {
         if (words.length != 2) {
-            throw new CoinFlipException(CoinFlipException.FLIP_INVALID_FORMAT);
+            throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
         }
 
         if (!words[1].equals("heads") && !words[1].equals("tails")) {
-            throw new CoinFlipException(CoinFlipException.FLIP_INVALID_FORMAT);
+            throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
         }
 
         if (betAmount > balance) {
@@ -146,6 +150,8 @@ public class Coinflip {
         Printer.printBetAmount(betAmount);
         Printer.printFlipOutcome(coinFlip, outcome, betAmount);
         Printer.printBalance(balance);
+
+        assert balance >= 0 : "balance should be more than or equal to 0";
     }
 
     /**
@@ -162,7 +168,7 @@ public class Coinflip {
         try {
             setupFile();
             loadFromFile();
-        } catch (CoinFlipFileException e) {
+        } catch (CoinflipFileException e) {
             Printer.printException(e);
         }
 
@@ -170,6 +176,8 @@ public class Coinflip {
 
         while (!isExit) {
             String input = in.nextLine();
+            logger.log(Level.INFO, "New Command Received");
+
             String[] words = input.split("\\s+");
 
             try {
@@ -195,7 +203,7 @@ public class Coinflip {
                     Printer.printInvalidCommand();
                     break;
                 }
-            } catch (CoinFlipException e) {
+            } catch (CoinflipException e) {
                 Printer.printException(e);
             }
         }

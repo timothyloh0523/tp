@@ -1,6 +1,6 @@
 package seedu.coinflip.utils.printer;
 
-import seedu.coinflip.utils.exceptions.CoinFlipException;
+import seedu.coinflip.utils.exceptions.CoinflipException;
 
 public class Printer {
 
@@ -49,7 +49,7 @@ public class Printer {
                 \n\nFor more information, please visit our User Guide: <insert user guide URL>""");
     }
 
-    public static void printException(CoinFlipException e) {
+    public static void printException(CoinflipException e) {
         System.out.println(e.message);
     }
 }
