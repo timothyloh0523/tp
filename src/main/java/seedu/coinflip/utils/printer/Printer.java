@@ -1,7 +1,6 @@
 package seedu.coinflip.utils.printer;
 
 import seedu.coinflip.utils.exceptions.CoinFlipException;
-import seedu.coinflip.utils.exceptions.CoinFlipFileException;
 
 public class Printer {
 
