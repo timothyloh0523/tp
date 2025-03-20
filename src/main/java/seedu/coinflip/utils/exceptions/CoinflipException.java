@@ -1,6 +1,6 @@
 package seedu.coinflip.utils.exceptions;
 
-public class CoinFlipException extends Exception {
+public class CoinflipException extends Exception {
 
     public static final String FLIP_INVALID_FORMAT = "Invalid command format! " +
             "Please follow this format: flip <heads>/<tails>";
@@ -12,11 +12,11 @@ public class CoinFlipException extends Exception {
 
     public String message = "";
 
-    public CoinFlipException() {
+    public CoinflipException() {
 
     }
 
-    public CoinFlipException(String message) {
+    public CoinflipException(String message) {
         this.message = message;
     }
 }
