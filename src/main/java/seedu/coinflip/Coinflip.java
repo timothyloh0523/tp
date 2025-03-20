@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Coinflip {
-    private static String filePath = "./src/main/java/data/coinflip.csv";
+    private static String filePath = "./data/coinflip.csv";
     private int balance = 500;
     private int betAmount = 20;
     /**
@@ -42,7 +42,7 @@ public class Coinflip {
         File userData = new File(filePath);
         try {
             if (!userData.exists()) {
-                Files.createDirectories(Paths.get("./src/main/java/data"));
+                Files.createDirectories(Paths.get("./data"));
                 Files.createFile(Paths.get(filePath));
             }
         } catch (IOException E) {
