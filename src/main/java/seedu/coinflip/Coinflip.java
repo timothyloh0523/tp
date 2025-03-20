@@ -38,7 +38,6 @@ public class Coinflip {
         if (!log.exists()) {
             Files.createDirectories(Paths.get("./data"));
             Files.createFile(Paths.get(logFilePath));
-            Printer.printNewSaveFileNote();
         }
 
         fileHandler = new FileHandler(logFilePath);
