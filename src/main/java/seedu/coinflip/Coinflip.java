@@ -14,6 +14,24 @@ public class Coinflip {
     }
 
     /**
+     * Returns user's coin balance
+     *
+     * @return user's balance in coins
+     */
+    public int getBalance() {
+        return balance;
+    }
+
+    /**
+     * Returns the amount of coins a user bets on each coinflip
+     *
+     * @return user's betting amount in coins
+     */
+    public int getBetAmount() {
+        return betAmount;
+    }
+
+    /**
      * Runs main Coinflip program, which waits for next line of user input
      * before outputting an appropriate response
      *
