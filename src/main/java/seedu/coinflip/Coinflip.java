@@ -10,15 +10,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
+import seedu.coinflip.utils.printer.Printer;
+
 public class Coinflip {
     private static String filePath = "./data/coinflip.csv";
     private int balance = 500;
     private int betAmount = 20;
+
     /**
      * Constructs Coinflip object
      */
     Coinflip() {
-
     }
 
     /**
@@ -39,7 +41,7 @@ public class Coinflip {
         return betAmount;
     }
 
-    private void setupFile(){
+    private void setupFile() {
         File userData = new File(filePath);
         try {
             if (!userData.exists()) {
@@ -78,6 +80,7 @@ public class Coinflip {
             System.out.println("Error saving to .csv file");
         }
     }
+
     /**
      * Runs main Coinflip program, which waits for next line of user input
      * before outputting an appropriate response
@@ -87,13 +90,16 @@ public class Coinflip {
     public void run(String[] args) {
 
         Scanner in = new Scanner(System.in);
-        System.out.println("Welcome to Coinflip!");
+        Printer.printWelcome();
         setupFile();
         loadFromFile();
+
         boolean isExit = false;
+
         while (!isExit) {
             String input = in.nextLine();
             String[] words = input.split("\\s+");
+
             switch (words[0]) {
             case "check":
                 if (words.length > 1 && words[1].equals("balance")) {
@@ -111,31 +117,23 @@ public class Coinflip {
                     System.out.println("Please provide a valid bet amount!");
                 }
                 break;
-            case "exit":
-                saveToFile();
-                System.out.println("Thank you for using Coinflip. Goodbye!");
-                isExit = true;
-                break;
             case "flip":
-                if (words.length != 2){
+                if (words.length != 2) {
                     System.out.println("Please follow the format: Flip <Heads>/<Tails>");
-                }
-                else {
+                } else {
                     bet(words[1]);
                 }
                 break;
             case "help":
-                System.out.println("Here are the commands you can use:");
-                System.out.println("\ncheck balance - Shows your remaining balance.");
-                System.out.println("check bet - Shows your current bet amount.");
-                System.out.println("change <amount> - Changes your bet amount.");
-                System.out.println("flip <heads/tails> - Bet on a coin flip being heads or tails.");
-                System.out.println("exit - Exits the application.");
-                System.out.println("help - Shows this help message.");
-                System.out.println("\nFor more information, please visit our User Guide: <insert user guide URL>");
+                Printer.printHelp();
+                break;
+            case "exit":
+                Printer.printBye();
+                saveToFile();
+                isExit = true;
                 break;
             default:
-                System.out.println("Invalid command!");
+                Printer.printInvalidCommand();
                 break;
             }
         }
