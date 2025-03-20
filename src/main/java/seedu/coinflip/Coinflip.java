@@ -49,6 +49,7 @@ public class Coinflip {
             if (!userData.exists()) {
                 Files.createDirectories(Paths.get("./data"));
                 Files.createFile(Paths.get(filePath));
+                Printer.printNewSaveFileNote();
             }
         } catch (IOException E) {
             throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_CANNOT_CREATE);
@@ -149,7 +150,7 @@ public class Coinflip {
                     if (!words[1].equals("heads") && !words[1].equals("tails")) {
                         throw new CoinFlipException(CoinFlipException.FLIP_INVALID_FORMAT);
                     }
-                    
+
                     bet(words[1]);
                     break;
                 case "help":

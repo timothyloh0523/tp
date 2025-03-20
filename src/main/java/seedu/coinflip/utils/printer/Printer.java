@@ -30,6 +30,10 @@ public class Printer {
         System.out.println(coinFlip + "! " + outcomeMessage + betAmount + " coins.");
     }
 
+    public static void printNewSaveFileNote() {
+        System.out.println("Note: No save file found. A new one will be created for you.");
+    }
+
     public static void printHelp() {
         System.out.println("""
                 Here are the commands you can use:\
