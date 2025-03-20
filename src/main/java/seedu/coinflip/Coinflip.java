@@ -73,7 +73,7 @@ public class Coinflip {
                     System.out.println("Please follow the format: Flip <Heads>/<Tails>");
                 }
                 else {
-                bet(words[1]);
+                    bet(words[1]);
                 }
                 break;
             case "help":
