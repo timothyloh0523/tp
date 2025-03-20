@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
+import seedu.coinflip.utils.exceptions.CoinFlipException;
+import seedu.coinflip.utils.exceptions.CoinFlipFileException;
 import seedu.coinflip.utils.printer.Printer;
 
 public class Coinflip {
@@ -41,7 +43,7 @@ public class Coinflip {
         return betAmount;
     }
 
-    private void setupFile() {
+    private void setupFile() throws CoinFlipFileException {
         File userData = new File(filePath);
         try {
             if (!userData.exists()) {
@@ -49,11 +51,11 @@ public class Coinflip {
                 Files.createFile(Paths.get(filePath));
             }
         } catch (IOException E) {
-            System.out.println("Error setting up file.");
+            throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_CANNOT_CREATE);
         }
     }
 
-    private void loadFromFile() {
+    private void loadFromFile() throws CoinFlipFileException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String data;
             reader.readLine();
@@ -62,23 +64,39 @@ public class Coinflip {
                     int savedBalance = Integer.parseInt(data.trim());
                     balance = savedBalance;
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid integer");
+                    throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_CORRUPTED);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error loading data");
+            throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_NO_ACCESS);
         }
     }
 
-    private void saveToFile() {
+    private void saveToFile() throws CoinFlipFileException {
         try {
             FileWriter writer = new FileWriter(filePath);
             writer.write("Balance\n");
             writer.write(balance + "\n");
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error saving to .csv file");
+            throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_CANNOT_SAVE);
         }
+    }
+
+    private void bet(String words) {
+        Random random = new Random();
+        String coinFlip = random.nextBoolean() ? "Heads" : "Tails";
+        Boolean outcome = coinFlip.equalsIgnoreCase(words);
+
+        if (outcome) {
+            balance += getBetAmount();
+        } else {
+            balance -= getBetAmount();
+        }
+
+        Printer.printBetAmount(betAmount);
+        Printer.printFlipOutcome(coinFlip, outcome, betAmount);
+        Printer.printBalance(balance);
     }
 
     /**
@@ -91,8 +109,13 @@ public class Coinflip {
 
         Scanner in = new Scanner(System.in);
         Printer.printWelcome();
-        setupFile();
-        loadFromFile();
+
+        try {
+            setupFile();
+            loadFromFile();
+        } catch (CoinFlipFileException e) {
+            Printer.printException(e);
+        }
 
         boolean isExit = false;
 
@@ -100,56 +123,50 @@ public class Coinflip {
             String input = in.nextLine();
             String[] words = input.split("\\s+");
 
-            switch (words[0]) {
-            case "check":
-                if (words.length > 1 && words[1].equals("balance")) {
-                    System.out.println("Your remaining balance is: " + balance);
-                }
-                if (words.length > 1 && words[1].equals("bet")) {
-                    System.out.println("Your current bet amount is: " + betAmount);
-                }
-                break;
-            case "change":
-                try {
-                    betAmount = Integer.parseInt(words[1]);
-                    System.out.println("Changed your bet amount to " + betAmount + "!");
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Please provide a valid bet amount!");
-                }
-                break;
-            case "flip":
-                if (words.length != 2) {
-                    System.out.println("Please follow the format: Flip <Heads>/<Tails>");
-                } else {
-                    bet(words[1]);
-                }
-                break;
-            case "help":
-                Printer.printHelp();
-                break;
-            case "exit":
-                Printer.printBye();
-                saveToFile();
-                isExit = true;
-                break;
-            default:
-                Printer.printInvalidCommand();
-                break;
-            }
-        }
-    }
+            try {
+                switch (words[0]) {
+                case "check":
+                    if (words.length > 1 && words[1].equals("balance")) {
+                        Printer.printBalance(balance);
+                    }
+                    if (words.length > 1 && words[1].equals("bet")) {
+                        Printer.printBetAmount(betAmount);
+                    }
+                    break;
+                case "change":
+                    try {
+                        betAmount = Integer.parseInt(words[1]);
+                        Printer.printBetAmount(betAmount);
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        throw new CoinFlipException(CoinFlipException.BET_AMOUNT_INVALID_FORMAT);
+                    }
+                    break;
+                case "flip":
+                    if (words.length != 2) {
+                        throw new CoinFlipException(CoinFlipException.FLIP_INVALID_FORMAT);
+                    }
 
-    public void bet(String words) {
-        balance -= getBetAmount();
-        System.out.println("Your current bet amount is: " + getBetAmount() + ".");
-        Random random = new Random();
-        String coinFlip = random.nextBoolean() ? "Heads" : "Tails";
-        System.out.println(coinFlip);
-        if (coinFlip.equalsIgnoreCase(words)) {
-            System.out.println("Correct! You won: " + betAmount + ".");
-            balance += 2 * getBetAmount();
-        } else {
-            System.out.println("Wrong! You lost: " + betAmount + ".");
+                    if (!words[1].equals("heads") && !words[1].equals("tails")) {
+                        throw new CoinFlipException(CoinFlipException.FLIP_INVALID_FORMAT);
+                    }
+                    
+                    bet(words[1]);
+                    break;
+                case "help":
+                    Printer.printHelp();
+                    break;
+                case "exit":
+                    Printer.printBye();
+                    saveToFile();
+                    isExit = true;
+                    break;
+                default:
+                    Printer.printInvalidCommand();
+                    break;
+                }
+            } catch (CoinFlipException e) {
+                Printer.printException(e);
+            }
         }
     }
 
