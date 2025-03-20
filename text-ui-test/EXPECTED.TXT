@@ -1,2 +1,3 @@
 Welcome to Coinflip!
+Note: No save file found. A new one will be created for you.
 Invalid command!
