@@ -1,11 +1,18 @@
 package seedu.coinflip;
 
 import java.util.Scanner;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Coinflip {
     private int balance = 500;
     private int betAmount = 20;
-
+    private static String filePath = "./src/main/java/data/coinflip.csv";
     /**
      * Constructs Coinflip object
      */
@@ -31,6 +38,44 @@ public class Coinflip {
         return betAmount;
     }
 
+    private void setupFile(){
+        File userData = new File(filePath);
+        try {
+            if (!userData.exists()) {
+                Files.createDirectories(Paths.get("./src/main/java/data"));
+                Files.createFile(Paths.get(filePath));
+            }
+        } catch (IOException E) {
+        }
+    }
+
+    private void loadFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String data;
+            reader.readLine();
+            while (((data = reader.readLine()) != null)) {
+                try {
+                    int savedBalance = Integer.parseInt(data.trim());
+                    balance = savedBalance;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid integer");
+                }
+            }
+            System.out.println("Data successfully loaded");
+        } catch (IOException e) {
+        }
+    }
+
+    private void saveToFile() {
+        try {
+            FileWriter writer = new FileWriter(filePath);
+            writer.write("Balance\n");
+            writer.write(balance + "\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving to .csv file");
+        }
+    }
     /**
      * Runs main Coinflip program, which waits for next line of user input
      * before outputting an appropriate response
@@ -41,7 +86,8 @@ public class Coinflip {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to Coinflip!");
-
+        setupFile();
+        loadFromFile();
         boolean isExit = false;
         while (!isExit) {
             String input = in.nextLine();
@@ -64,6 +110,7 @@ public class Coinflip {
                 }
                 break;
             case "exit":
+                saveToFile();
                 System.out.println("Thank you for using Coinflip. Goodbye!");
                 isExit = true;
                 break;
