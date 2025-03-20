@@ -233,7 +233,6 @@ public class Coinflip {
         } catch (SecurityException | IOException e) {
             Printer.printLoggerFail();
             e.printStackTrace();
-            return;
         }
     }
 }
