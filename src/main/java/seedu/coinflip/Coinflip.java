@@ -3,20 +3,47 @@ package seedu.coinflip;
 import java.util.Scanner;
 
 public class Coinflip {
-    private static int balance = 500;
-    private static int betAmount = 20;
+    private int balance = 500;
+    private int betAmount = 20;
 
     /**
-     * Main entry-point for the java.seedu.coinflip.Coinflip application.
+     * Constructs Coinflip object
      */
-    public static void main(String[] args) {
+    Coinflip() {
+
+    }
+
+    /**
+     * Returns user's coin balance
+     *
+     * @return user's balance in coins
+     */
+    public int getBalance() {
+        return balance;
+    }
+
+    /**
+     * Returns the amount of coins a user bets on each coinflip
+     *
+     * @return user's betting amount in coins
+     */
+    public int getBetAmount() {
+        return betAmount;
+    }
+
+    /**
+     * Runs main Coinflip program, which waits for next line of user input
+     * before outputting an appropriate response
+     *
+     * @param args Arguments included with command to start Coinflip
+     */
+    public void run(String[] args) {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Welcome to Coinflip!");
 
         boolean isExit = false;
-        while (!isExit)
-        {
+        while (!isExit) {
             String input = in.nextLine();
             String[] words = input.split("\\s+");
             switch (words[0]) {
@@ -55,5 +82,15 @@ public class Coinflip {
                 break;
             }
         }
+    }
+
+    /**
+     * Main entry-point for the java.seedu.coinflip.Coinflip application.
+     *
+     * @param args Arguments included with command to start Coinflip
+     */
+    public static void main(String[] args) {
+        Coinflip program = new Coinflip();
+        program.run(args);
     }
 }
