@@ -62,8 +62,7 @@ public class Coinflip {
             reader.readLine();
             while (((data = reader.readLine()) != null)) {
                 try {
-                    int savedBalance = Integer.parseInt(data.trim());
-                    balance = savedBalance;
+                    balance = Integer.parseInt(data.trim());
                 } catch (NumberFormatException e) {
                     throw new CoinFlipFileException(CoinFlipFileException.SAVE_FILE_CORRUPTED);
                 }
@@ -84,10 +83,59 @@ public class Coinflip {
         }
     }
 
-    private void bet(String words) {
+    private void check(String[] words) throws CoinFlipException {
+        if (words.length != 2) {
+            throw new CoinFlipException(CoinFlipException.CHECK_INVALID_FORMAT);
+        }
+
+        if (!words[1].equals("balance") && !words[1].equals("bet")) {
+            throw new CoinFlipException(CoinFlipException.CHECK_INVALID_FORMAT);
+        }
+
+        if (words[1].equals("balance")) {
+            Printer.printBalance(balance);
+        } else {
+            Printer.printBetAmount(betAmount);
+        }
+    }
+
+    private void change(String[] words) throws CoinFlipException {
+        try {
+            betAmount = Integer.parseInt(words[1]);
+
+            if (betAmount < 0) {
+                throw new CoinFlipException(CoinFlipException.BET_AMOUNT_INVALID_FORMAT);
+            }
+
+            if (betAmount > balance) {
+                Printer.printNotEnoughCoins();
+                return;
+            }
+
+            Printer.printBetAmount(betAmount);
+
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new CoinFlipException(CoinFlipException.BET_AMOUNT_INVALID_FORMAT);
+        }
+    }
+
+    private void bet(String[] words) throws CoinFlipException {
+        if (words.length != 2) {
+            throw new CoinFlipException(CoinFlipException.FLIP_INVALID_FORMAT);
+        }
+
+        if (!words[1].equals("heads") && !words[1].equals("tails")) {
+            throw new CoinFlipException(CoinFlipException.FLIP_INVALID_FORMAT);
+        }
+
+        if (betAmount > balance) {
+            Printer.printNotEnoughCoins();
+            return;
+        }
+
         Random random = new Random();
         String coinFlip = random.nextBoolean() ? "Heads" : "Tails";
-        Boolean outcome = coinFlip.equalsIgnoreCase(words);
+        Boolean outcome = coinFlip.equalsIgnoreCase(words[1]);
 
         if (outcome) {
             balance += getBetAmount();
@@ -127,31 +175,13 @@ public class Coinflip {
             try {
                 switch (words[0]) {
                 case "check":
-                    if (words.length > 1 && words[1].equals("balance")) {
-                        Printer.printBalance(balance);
-                    }
-                    if (words.length > 1 && words[1].equals("bet")) {
-                        Printer.printBetAmount(betAmount);
-                    }
+                    check(words);
                     break;
                 case "change":
-                    try {
-                        betAmount = Integer.parseInt(words[1]);
-                        Printer.printBetAmount(betAmount);
-                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                        throw new CoinFlipException(CoinFlipException.BET_AMOUNT_INVALID_FORMAT);
-                    }
+                    change(words);
                     break;
                 case "flip":
-                    if (words.length != 2) {
-                        throw new CoinFlipException(CoinFlipException.FLIP_INVALID_FORMAT);
-                    }
-
-                    if (!words[1].equals("heads") && !words[1].equals("tails")) {
-                        throw new CoinFlipException(CoinFlipException.FLIP_INVALID_FORMAT);
-                    }
-
-                    bet(words[1]);
+                    bet(words);
                     break;
                 case "help":
                     Printer.printHelp();

@@ -24,6 +24,10 @@ public class Printer {
         System.out.println("Your current bet amount is: " + betAmount);
     }
 
+    public static void printNotEnoughCoins() {
+        System.out.println("You are betting more coins than you currently have! Please change your bet amount.");
+    }
+
     public static void printFlipOutcome(String coinFlip, Boolean outcome, int betAmount) {
         String outcomeMessage = outcome ? "You won " : "You lost ";
         System.out.println(coinFlip + "! " + outcomeMessage + betAmount + " coins.");
@@ -36,15 +40,13 @@ public class Printer {
     public static void printHelp() {
         System.out.println("""
                 Here are the commands you can use:\
-                
-                check balance - Shows your remaining balance.\
-                check bet - Shows your current bet amount.\
-                change <amount> - Changes your bet amount.\
-                flip <heads/tails> - Bet on a coin flip being heads or tails.\
-                exit - Exits the application.\
-                help - Shows this help message.\
-                
-                For more information, please visit our User Guide: <insert user guide URL>""");
+                \n\ncheck balance - Shows your remaining balance.\
+                \ncheck bet - Shows your current bet amount.\
+                \nchange <amount> - Changes your bet amount.\
+                \nflip <heads/tails> - Bet on a coin flip being heads or tails.\
+                \nexit - Exits the application.\
+                \nhelp - Shows this help message.\
+                \n\nFor more information, please visit our User Guide: <insert user guide URL>""");
     }
 
     public static void printException(CoinFlipException e) {
