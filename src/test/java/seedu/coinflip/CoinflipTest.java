@@ -26,7 +26,9 @@ class CoinflipTest {
     @Test
     public void changeBetAmount() throws SecurityException, IOException {
         Coinflip coinflip = new Coinflip();
-        coinflip.run(new String[]{"change", "50"});
+        String testInput = "change 50\n";
+        System.setIn(new ByteArrayInputStream(testInput.getBytes()));
+        coinflip.run(new String[]{});
         assertEquals(50, coinflip.getBetAmount());
     }
 
