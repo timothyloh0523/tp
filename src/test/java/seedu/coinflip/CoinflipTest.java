@@ -27,7 +27,7 @@ class CoinflipTest {
     @Test
     public void changeBetAmount() throws SecurityException, IOException {
         Coinflip coinflip = new Coinflip();
-        String testInput = "change 50\n";
+        String testInput = "change 50\nexit\n";
         System.setIn(new ByteArrayInputStream(testInput.getBytes()));
         coinflip.run(new String[]{});
         assertEquals(50, coinflip.getBetAmount());
@@ -37,9 +37,8 @@ class CoinflipTest {
     @Test
     public void setupFile() throws SecurityException, IOException {
         Coinflip coinflip = new Coinflip();
-        String testInput = "";
+        String testInput = "exit\n";
         System.setIn(new ByteArrayInputStream(testInput.getBytes()));
-
         coinflip.run(new String[]{});
         File file = new File("./data/coinflip.csv");
         assertTrue(file.exists());
