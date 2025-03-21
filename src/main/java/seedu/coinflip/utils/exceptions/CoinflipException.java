@@ -1,5 +1,7 @@
 package seedu.coinflip.utils.exceptions;
 
+//@@author HTY2003
+
 public class CoinflipException extends Exception {
 
     public static final String FLIP_INVALID_FORMAT = "Invalid command format! " +

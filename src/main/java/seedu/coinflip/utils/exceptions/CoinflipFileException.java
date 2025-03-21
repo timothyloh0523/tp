@@ -1,5 +1,7 @@
 package seedu.coinflip.utils.exceptions;
 
+//@@author CRL006
+
 public class CoinflipFileException extends CoinflipException {
 
     public static final String SAVE_FILE_CORRUPTED = "Warning: Your save file was corrupted!" +

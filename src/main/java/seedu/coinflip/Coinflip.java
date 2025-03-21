@@ -27,6 +27,8 @@ public class Coinflip {
     private int balance = 500;
     private int betAmount = 20;
 
+    //@@author HTY2003
+
     /**
      * Constructs Coinflip object
      */
@@ -65,6 +67,7 @@ public class Coinflip {
         return betAmount;
     }
 
+    //@@author CRL006
     private void setupFile() throws CoinflipFileException {
         File userData = new File(saveFilePath);
         try {
@@ -105,6 +108,7 @@ public class Coinflip {
         }
     }
 
+    //@@author timothyloh0523
     private void check(String[] words) throws CoinflipException {
         if (words.length != 2) {
             throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
@@ -121,6 +125,7 @@ public class Coinflip {
         }
     }
 
+    //@@author OliverQiL
     private void change(String[] words) throws CoinflipException {
         try {
             betAmount = Integer.parseInt(words[1]);
@@ -141,6 +146,7 @@ public class Coinflip {
         }
     }
 
+    //@@author wongyihao0506
     private void bet(String[] words) throws CoinflipException {
         if (words.length != 2) {
             throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
@@ -172,6 +178,8 @@ public class Coinflip {
         assert balance >= 0 : "balance should be more than or equal to 0";
     }
 
+    //@@author HTY2003
+    
     /**
      * Runs main Coinflip program, which waits for next line of user input
      * before outputting an appropriate response
