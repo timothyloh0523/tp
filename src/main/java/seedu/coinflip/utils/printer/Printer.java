@@ -4,6 +4,7 @@ import seedu.coinflip.utils.exceptions.CoinflipException;
 
 public class Printer {
 
+    //@@author HTY2003
     public static void printWelcome() {
         System.out.println("Welcome to Coinflip!");
     }
@@ -16,6 +17,15 @@ public class Printer {
         System.out.println("Invalid command!");
     }
 
+    public static void printException(CoinflipException e) {
+        System.out.println(e.message);
+    }
+
+    public static void printLoggerFail() {
+        System.out.println("Coinflip could not start due errors initializing its Java logger: ");
+    }
+
+    //@@author timothyloh0523
     public static void printBalance(int balance) {
         System.out.println("Your remaining balance is: " + balance);
     }
@@ -28,6 +38,7 @@ public class Printer {
         System.out.println("You are betting more coins than you currently have! Please change your bet amount.");
     }
 
+    //@@author wongyihao0506
     public static void printFlipOutcome(String coinFlip, Boolean outcome, int betAmount) {
         String outcomeMessage = outcome ? "You won " : "You lost ";
         System.out.println(coinFlip + "! " + outcomeMessage + betAmount + " coins.");
@@ -37,6 +48,7 @@ public class Printer {
         System.out.println("Note: No save file found. A new one will be created for you.");
     }
 
+    //@@author OliverQiL
     public static void printHelp() {
         System.out.println("""
                 Here are the commands you can use:\
@@ -47,13 +59,5 @@ public class Printer {
                 \nexit - Exits the application.\
                 \nhelp - Shows this help message.\
                 \n\nFor more information, please visit our User Guide: <insert user guide URL>""");
-    }
-
-    public static void printException(CoinflipException e) {
-        System.out.println(e.message);
-    }
-
-    public static void printLoggerFail() {
-        System.out.println("Coinflip could not start due errors initializing its Java logger: ");
     }
 }

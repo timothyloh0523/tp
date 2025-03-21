@@ -13,6 +13,7 @@ class CoinflipTest {
         assertTrue(true);
     }
 
+    //@@author HTY2003
     @Test
     public void testDefaultValues() throws SecurityException, IOException {
         Coinflip program = new Coinflip();
