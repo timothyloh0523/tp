@@ -35,8 +35,11 @@ class CoinflipTest {
 
     //@@author CRL006
     @Test
-    public void setupFile() throws SecurityException, IOException{
+    public void setupFile() throws SecurityException, IOException {
         Coinflip coinflip = new Coinflip();
+        String testInput = "";
+        System.setIn(new ByteArrayInputStream(testInput.getBytes()));
+
         coinflip.run(new String[]{});
         File file = new File("./data/coinflip.csv");
         assertTrue(file.exists());
