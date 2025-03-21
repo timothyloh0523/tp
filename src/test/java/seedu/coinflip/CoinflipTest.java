@@ -24,7 +24,7 @@ class CoinflipTest {
 
     //@@author CRL006
     @Test
-    public void changeBetAmount() {
+    public void changeBetAmount() throws SecurityException, IOException {
         Coinflip coinflip = new Coinflip();
         coinflip.run(new String[]{"change", "50"});
         assertEquals(50, coinflip.getBetAmount());
@@ -32,7 +32,7 @@ class CoinflipTest {
 
     //@@author CRL006
     @Test
-    public void setupFile() {
+    public void setupFile() throws SecurityException, IOException{
         Coinflip coinflip = new Coinflip();
         coinflip.run(new String[]{});
         File file = new File("./data/coinflip.csv");
