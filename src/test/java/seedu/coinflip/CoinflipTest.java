@@ -20,4 +20,21 @@ class CoinflipTest {
         assertEquals(500, program.getBalance());
         assertEquals(20, program.getBetAmount());
     }
+
+    //@@author CRL006
+    @Test
+    public void changeBetAmount() {
+        Coinflip coinflip = new Coinflip();
+        coinflip.run(new String[]{"change", "50"});
+        assertEquals(50, coinflip.getBetAmount());
+    }
+
+    //@@author CRL006
+    @Test
+    public void setupFile() {
+        Coinflip coinflip = new Coinflip();
+        coinflip.run(new String[]{});
+        File file = new File("./data/coinflip.csv");
+        assertTrue(file.exists());
+    }
 }
