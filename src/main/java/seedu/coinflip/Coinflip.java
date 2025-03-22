@@ -68,26 +68,48 @@ public class Coinflip {
     }
 
     //@@author CRL006
+    private void createSaveFile() throws CoinflipFileException {
+        try {
+            Files.createDirectories(Paths.get("./data"));
+            Files.createFile(Paths.get(saveFilePath));
+        } catch (IOException e) {
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_CREATE);
+        }
+
+    }
+
+    //@@author CRL006
     private void setupFile() throws CoinflipFileException {
         File userData = new File(saveFilePath);
-        try {
-            if (!userData.exists()) {
-                Files.createDirectories(Paths.get("./data"));
-                Files.createFile(Paths.get(saveFilePath));
-                Printer.printNewSaveFileNote();
-            }
-        } catch (IOException E) {
-            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_CREATE);
+        if (!userData.exists()) {
+            createSaveFile();
+            Printer.printNewSaveFileNote();
         }
     }
 
-    private void loadFromFile() throws CoinflipFileException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(saveFilePath))) {
-            String data;
+    //@@author CRL006
+    private void skipHeader(BufferedReader reader) throws IOException, CoinflipFileException {
+        try {
             reader.readLine();
+        } catch (IOException e) {
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_READ);
+        }
+    }
+
+    //@@author CRL006
+    private int getSavedBalance(String data) {
+        return Integer.parseInt(data.trim());
+    }
+
+    //@@author CRL006
+    private void loadFromFile() throws CoinflipFileException {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(saveFilePath));
+            String data;
+            skipHeader(reader);
             while (((data = reader.readLine()) != null)) {
                 try {
-                    balance = Integer.parseInt(data.trim());
+                    balance = getSavedBalance(data);
                 } catch (NumberFormatException e) {
                     throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
                 }
@@ -97,7 +119,8 @@ public class Coinflip {
         }
     }
 
-    private void saveToFile() throws CoinflipFileException {
+    //@@author CRL006
+    private void saveBalance(int balance) throws CoinflipFileException {
         try {
             FileWriter writer = new FileWriter(saveFilePath);
             writer.write("Balance\n");
@@ -106,6 +129,11 @@ public class Coinflip {
         } catch (IOException e) {
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_SAVE);
         }
+    }
+
+    //@@author CRL006
+    private void saveToFile() throws CoinflipFileException {
+        saveBalance(balance);
     }
 
     //@@author timothyloh0523
@@ -222,7 +250,11 @@ public class Coinflip {
                     break;
                 case "exit":
                     Printer.printBye();
-                    saveToFile();
+                    try {
+                        saveToFile();
+                    } catch (CoinflipFileException e) {
+                        Printer.printException(e);
+                    }
                     isExit = true;
                     break;
                 default:

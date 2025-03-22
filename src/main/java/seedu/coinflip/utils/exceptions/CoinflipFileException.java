@@ -10,6 +10,9 @@ public class CoinflipFileException extends CoinflipException {
     public static final String SAVE_FILE_NO_ACCESS = "Warning: Coinflip could not access your save file! " +
             "Your previous progress will not be loaded.";
 
+    public static final String SAVE_FILE_CANNOT_READ = "Warning: Coinflip could not read from your save file! " +
+            "Your previous progress will not be loaded.";
+
     public static final String SAVE_FILE_CANNOT_CREATE = "Warning: Coinflip could not create a save file! " +
             "Your progress will not be saved.";
 
