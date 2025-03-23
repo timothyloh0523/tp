@@ -131,7 +131,7 @@ public class Coinflip {
      *
      * @param data
      * @return the saved balance as an integer after formatting.
-     * @throws {@link NumberFormatException} if the given data string cannot be parsed into an integer.
+     * @throws NumberFormatException if the given data string cannot be parsed into an integer.
      */
     private int getSavedBalance(String data) {
         return Integer.parseInt(data.trim());
