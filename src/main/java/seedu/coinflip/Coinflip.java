@@ -68,17 +68,34 @@ public class Coinflip {
     }
 
     //@@author CRL006
+
+    /**
+     * Creates a save file in the designated directory.
+     * Ensures that the parent directory exists before attempting to create the file.
+     * If the file creation fails, a custom {@code CoinflipFileException} is thrown.
+     *
+     * @throws CoinflipFileException if the save file cannot be created
+     */
     private void createSaveFile() throws CoinflipFileException {
         try {
             Files.createDirectories(Paths.get("./data"));
+            assert Files.exists(Paths.get("./data")) : "Directory './data' should have been created";
             Files.createFile(Paths.get(saveFilePath));
         } catch (IOException e) {
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_CREATE);
         }
-
     }
 
     //@@author CRL006
+
+    /**
+     * Ensures the presence of a save file at the specified path.
+     * If the save file does not exist, this method creates the necessary file
+     * and directory structure by calling the {@link #createSaveFile()} method. It also
+     * prints a notification using {@link Printer#printNewSaveFileNote()}.
+     *
+     * @throws CoinflipFileException if the save file cannot be created.
+     */
     private void setupFile() throws CoinflipFileException {
         File userData = new File(saveFilePath);
         if (!userData.exists()) {
@@ -88,6 +105,16 @@ public class Coinflip {
     }
 
     //@@author CRL006
+
+    /**
+     * Skips the header line of the csv file by
+     * reading the first line in the csv file without using it for anything.
+     * If an error occurs while reading, a {@link CoinflipFileException} is thrown.
+     *
+     * @param reader the BufferedReader object used to read the file content.
+     * @throws IOException if an I/O error occurs while reading the header.
+     * @throws CoinflipFileException if the header line cannot be read.
+     */
     private void skipHeader(BufferedReader reader) throws IOException, CoinflipFileException {
         try {
             reader.readLine();
@@ -97,11 +124,29 @@ public class Coinflip {
     }
 
     //@@author CRL006
+
+    /**
+     * Parses the provided string data to obtain the saved balance as an integer.
+     * Formats the string to convert it into an integer.
+     *
+     * @param data
+     * @return the saved balance as an integer after formatting.
+     * @throws {@link NumberFormatException} if the given data string cannot be parsed into an integer.
+     */
     private int getSavedBalance(String data) {
         return Integer.parseInt(data.trim());
     }
 
     //@@author CRL006
+
+    /**
+     * Loads the saved balance data from the specified save file with path {@code saveFilePath}.
+     * Reads the file line by line after skipping the header,
+     * processing each line to load the user data from the csv file.
+     * If an error occurs, {@link CoinflipFileException} will be thrown.
+     *
+     * @throws CoinflipFileException
+     */
     private void loadFromFile() throws CoinflipFileException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(saveFilePath));
