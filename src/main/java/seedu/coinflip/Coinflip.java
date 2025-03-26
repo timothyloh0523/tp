@@ -182,6 +182,15 @@ public class Coinflip {
     }
 
     //@@author timothyloh0523
+
+    /**
+     * Checks the user's existing balance or bet amount
+     * depending on the second word in the user's response
+     * The balance or bet is printed accordingly.
+     *
+     * @param words Words from the user's response
+     * @throws CoinflipException if the user gives an invalid command
+     */
     private void check(String[] words) throws CoinflipException {
         if (words.length != 2) {
             throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
