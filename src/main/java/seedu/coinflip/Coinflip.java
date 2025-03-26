@@ -14,8 +14,11 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.SimpleFormatter;
 
+import seedu.coinflip.utils.command.Command;
+import seedu.coinflip.utils.command.ExitCommand;
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.exceptions.CoinflipFileException;
+import seedu.coinflip.utils.parser.Parser;
 import seedu.coinflip.utils.printer.Printer;
 
 public class Coinflip {
@@ -177,12 +180,20 @@ public class Coinflip {
     }
 
     //@@author CRL006
-    private void saveToFile() throws CoinflipFileException {
+    public void saveToFile() throws CoinflipFileException {
         saveBalance(balance);
     }
 
     //@@author timothyloh0523
-    private void check(String[] words) throws CoinflipException {
+    /**
+     * Checks the user's existing balance or bet amount
+     * depending on the second word in the user's response.
+     * Prints balance or bet accordingly.
+     *
+     * @param words Words from the user's response
+     * @throws CoinflipException if the user gives an invalid command
+     */
+    public void check(String[] words) throws CoinflipException {
         if (words.length != 2) {
             throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
         }
@@ -199,7 +210,7 @@ public class Coinflip {
     }
 
     //@@author OliverQiL
-    private void change(String[] words) throws CoinflipException {
+    public void change(String[] words) throws CoinflipException {
         try {
             betAmount = Integer.parseInt(words[1]);
 
@@ -220,7 +231,7 @@ public class Coinflip {
     }
 
     //@@author wongyihao0506
-    private void bet(String[] words) throws CoinflipException {
+    public void bet(String[] words) throws CoinflipException {
         if (words.length != 2) {
             throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
         }
@@ -272,40 +283,20 @@ public class Coinflip {
         }
 
         boolean isExit = false;
+        Parser parser = new Parser(this);
 
         while (!isExit) {
             String input = in.nextLine();
             logger.log(Level.INFO, "New Command Received");
 
-            String[] words = input.split("\\s+");
-
             try {
-                switch (words[0]) {
-                case "check":
-                    check(words);
-                    break;
-                case "change":
-                    change(words);
-                    break;
-                case "flip":
-                    bet(words);
-                    break;
-                case "help":
-                    Printer.printHelp();
-                    break;
-                case "exit":
-                    Printer.printBye();
-                    try {
-                        saveToFile();
-                    } catch (CoinflipFileException e) {
-                        Printer.printException(e);
-                    }
+                Command command = (parser).parseUserInput(input);
+                command.execute();
+
+                if (command instanceof ExitCommand) {
                     isExit = true;
-                    break;
-                default:
-                    Printer.printInvalidCommand();
-                    break;
                 }
+
             } catch (CoinflipException e) {
                 Printer.printException(e);
             }
