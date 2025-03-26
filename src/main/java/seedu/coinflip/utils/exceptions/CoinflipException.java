@@ -12,6 +12,9 @@ public class CoinflipException extends Exception {
     public static final String CHECK_INVALID_FORMAT = "Invalid command format! " +
             "Please follow this format: check <bet>/<balance>.";
 
+    public static final String INVALID_COMMAND = "You have entered an unrecognised command! " +
+            "Please type \"help\" for a list of possible commands.";
+
     public String message = "";
 
     public CoinflipException() {
