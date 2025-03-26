@@ -10,7 +10,10 @@ import seedu.coinflip.utils.command.ExitCommand;
 import seedu.coinflip.utils.command.FlipCommand;
 import seedu.coinflip.utils.command.HelpCommand;
 
-
+/**
+ * Handles the parsing of user inputs, and converts them
+ * into executable commands for the program.
+ */
 public class Parser {
     private Coinflip coinflip;
 

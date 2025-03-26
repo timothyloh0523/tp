@@ -4,6 +4,9 @@ import seedu.coinflip.Coinflip;
 import seedu.coinflip.utils.exceptions.CoinflipFileException;
 import seedu.coinflip.utils.printer.Printer;
 
+/**
+ * Handles the command to exit the program.
+ */
 public class ExitCommand extends Command {
     private final Coinflip coinflip;
 
