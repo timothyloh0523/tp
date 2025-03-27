@@ -4,13 +4,10 @@ package seedu.coinflip.utils.exceptions;
 
 public class CoinflipFileException extends CoinflipException {
 
-    public static final String SAVE_FILE_CORRUPTED = "Warning: Your save file was corrupted!" +
+    public static final String SAVE_FILE_CORRUPTED = "Warning: Your save file was corrupted! " +
             "Your previous progress will not be loaded.";
 
     public static final String SAVE_FILE_NO_ACCESS = "Warning: Coinflip could not access your save file! " +
-            "Your previous progress will not be loaded.";
-
-    public static final String SAVE_FILE_CANNOT_READ = "Warning: Coinflip could not read from your save file! " +
             "Your previous progress will not be loaded.";
 
     public static final String SAVE_FILE_CANNOT_CREATE = "Warning: Coinflip could not create a save file! " +

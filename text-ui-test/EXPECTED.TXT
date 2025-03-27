@@ -1,3 +1,6 @@
 Welcome to Coinflip!
 Note: No save file found. A new one will be created for you.
+__________________________________________________
+__________________________________________________
 You have entered an unrecognised command! Please type "help" for a list of possible commands.
+__________________________________________________

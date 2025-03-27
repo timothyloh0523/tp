@@ -3,8 +3,14 @@ package seedu.coinflip.utils.printer;
 import seedu.coinflip.utils.exceptions.CoinflipException;
 
 public class Printer {
+    private static final int NUM_OF_UNDERSCORES = 50;
+    private static final String USER_GUIDE_URL = "https://ay2425s2-cs2113-f13-1.github.io/tp/UserGuide.html";
 
     //@@author HTY2003
+    public static void printUnderscoreLine() {
+        System.out.println(new String(new char[NUM_OF_UNDERSCORES]).replace("\0", "_"));
+    }
+
     public static void printWelcome() {
         System.out.println("Welcome to Coinflip!");
     }
@@ -58,6 +64,7 @@ public class Printer {
                 \nflip <heads/tails> - Bet on a coin flip being heads or tails.\
                 \nexit - Exits the application.\
                 \nhelp - Shows this help message.\
-                \n\nFor more information, please visit our User Guide: <insert user guide URL>""");
+                \n\nFor more information, please visit our User Guide: \n"""
+                + USER_GUIDE_URL);
     }
 }

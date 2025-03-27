@@ -1,7 +1,5 @@
 package seedu.coinflip.utils.parser;
 
-import seedu.coinflip.Coinflip;
-
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.command.Command;
 import seedu.coinflip.utils.command.ChangeCommand;
@@ -10,16 +8,20 @@ import seedu.coinflip.utils.command.ExitCommand;
 import seedu.coinflip.utils.command.FlipCommand;
 import seedu.coinflip.utils.command.HelpCommand;
 import seedu.coinflip.utils.logger.CoinflipLogger;
+import seedu.coinflip.utils.storage.Storage;
+import seedu.coinflip.utils.userdata.UserData;
 
 /**
  * Handles the parsing of user inputs, and converts them
  * into executable commands for the program.
  */
 public class Parser {
-    private Coinflip coinflip;
+    private final Storage storage;
+    private UserData userData;
 
-    public Parser(Coinflip coinflip) {
-        this.coinflip = coinflip;
+    public Parser(UserData userData, Storage storage) {
+        this.userData = userData;
+        this.storage = storage;
         CoinflipLogger.info("Parser Initialized");
     }
 
@@ -33,19 +35,19 @@ public class Parser {
         switch (words[0]) {
         case "check":
             CoinflipLogger.fine("Creating CheckCommand");
-            return new CheckCommand(words, coinflip);
+            return new CheckCommand(words, userData);
         case "change":
             CoinflipLogger.fine("Creating ChangeCommand");
-            return new ChangeCommand(words, coinflip);
+            return new ChangeCommand(words, userData, storage);
         case "flip":
             CoinflipLogger.fine("Creating FlipCommand");
-            return new FlipCommand(words, coinflip);
+            return new FlipCommand(words, userData, storage);
         case "help":
             CoinflipLogger.fine("Creating HelpCommand");
             return new HelpCommand();
         case "exit":
             CoinflipLogger.fine("Creating ExitCommand");
-            return new ExitCommand(coinflip);
+            return new ExitCommand();
         default:
             CoinflipLogger.warning("Invalid command: " + words[0]);
             throw new CoinflipException(CoinflipException.INVALID_COMMAND);
