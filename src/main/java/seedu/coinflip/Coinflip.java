@@ -106,7 +106,6 @@ public class Coinflip {
 
         Scanner in = new Scanner(System.in);
         Printer.printWelcome();
-        Printer.printUnderscoreLine();
 
         try {
             userData = storage.loadSave();
@@ -115,8 +114,9 @@ public class Coinflip {
             Printer.printException(e);
         }
 
-        Parser parser = new Parser(userData, storage);
+        Printer.printUnderscoreLine();
 
+        Parser parser = new Parser(userData, storage);
         boolean isExit = false;
 
         while (!isExit) {
