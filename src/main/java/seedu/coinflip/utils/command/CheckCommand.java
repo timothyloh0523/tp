@@ -2,6 +2,7 @@ package seedu.coinflip.utils.command;
 
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.Coinflip;
+import seedu.coinflip.utils.logger.CoinflipLogger;
 
 /**
  * Handles the command to check either the bet or balance amount,
@@ -18,6 +19,7 @@ public class CheckCommand extends Command {
 
     @Override
     public void execute() throws CoinflipException {
+        CoinflipLogger.info("Executing check command");
         coinflip.check(words);
     }
 }

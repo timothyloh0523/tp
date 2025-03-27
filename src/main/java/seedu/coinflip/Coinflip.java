@@ -9,23 +9,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.util.logging.SimpleFormatter;
 
 import seedu.coinflip.utils.command.Command;
 import seedu.coinflip.utils.command.ExitCommand;
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.exceptions.CoinflipFileException;
+import seedu.coinflip.utils.logger.CoinflipLogger;
 import seedu.coinflip.utils.parser.Parser;
 import seedu.coinflip.utils.printer.Printer;
 
 public class Coinflip {
     private static String saveFilePath = "./data/coinflip.csv";
-    private static String logFilePath = "./data/coinflip.log";
-    private static Logger logger;
-    private FileHandler fileHandler;
 
     private int balance = 500;
     private int betAmount = 20;
@@ -40,20 +34,11 @@ public class Coinflip {
      * Constructs Coinflip object
      */
     Coinflip() throws SecurityException, IOException {
-        logger = Logger.getLogger("seedu.coinflip");
-        logger.setUseParentHandlers(false);
-
-        File log = new File(logFilePath);
-        if (!log.exists()) {
-            Files.createDirectories(Paths.get("./data"));
-            Files.createFile(Paths.get(logFilePath));
+        // Initialize the logger
+        if (!CoinflipLogger.init()) {
+            throw new IOException("Failed to initialize logger");
         }
-
-        fileHandler = new FileHandler(logFilePath);
-        logger.addHandler(fileHandler);
-
-        SimpleFormatter formatter = new SimpleFormatter();
-        fileHandler.setFormatter(formatter);
+        CoinflipLogger.info("Coinflip application started");
     }
 
     /**
@@ -134,7 +119,9 @@ public class Coinflip {
             Files.createDirectories(Paths.get("./data"));
             assert Files.exists(Paths.get("./data")) : "Directory './data' should have been created";
             Files.createFile(Paths.get(saveFilePath));
+            CoinflipLogger.info("Created new save file at " + saveFilePath);
         } catch (IOException e) {
+            CoinflipLogger.exception("Failed to create save file", e);
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_CREATE);
         }
     }
@@ -152,8 +139,11 @@ public class Coinflip {
     private void setupFile() throws CoinflipFileException {
         File userData = new File(saveFilePath);
         if (!userData.exists()) {
+            CoinflipLogger.info("Save file not found, creating new one");
             createSaveFile();
             Printer.printNewSaveFileNote();
+        } else {
+            CoinflipLogger.info("Using existing save file at " + saveFilePath);
         }
     }
 
@@ -187,6 +177,7 @@ public class Coinflip {
      * @throws CoinflipFileException
      */
     private void loadFromFile() throws CoinflipFileException {
+        CoinflipLogger.info("Attempting to load data from save file");
         try {
             BufferedReader reader = new BufferedReader(new FileReader(saveFilePath));
             String data;
@@ -195,6 +186,7 @@ public class Coinflip {
                 try {
                     String[] values = data.split(",");
                     if (values.length != 5) {
+                        CoinflipLogger.warning("Corrupted save file: incorrect column count");
                         throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
                     }
                     balance = parseToInt(values[0]);
@@ -202,17 +194,21 @@ public class Coinflip {
                     loseCount = parseToInt(values[2]);
                     totalWinnings = parseToInt(values[3]);
                     totalLosses = parseToInt(values[4]);
+                    CoinflipLogger.info("Successfully loaded user data");
                 } catch (NumberFormatException e) {
+                    CoinflipLogger.exception("Failed to parse save file data", e);
                     throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
                 }
             }
         } catch (IOException e) {
+            CoinflipLogger.exception("Failed to access save file", e);
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_NO_ACCESS);
         }
     }
 
     //@@author CRL006
     private void saveData() throws CoinflipFileException {
+        CoinflipLogger.info("Saving user data to file");
         try {
             FileWriter writer = new FileWriter(saveFilePath);
             writer.write("Balance,WinCount,LoseCount,Total Winnings,Total Losses\n");
@@ -220,7 +216,9 @@ public class Coinflip {
                     getLoseCount() + "," + getTotalWinnings() + "," +
                     getTotalLosses() + "\n");
             writer.close();
+            CoinflipLogger.info("Successfully saved user data");
         } catch (IOException e) {
+            CoinflipLogger.exception("Failed to save user data", e);
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_SAVE);
         }
     }
@@ -261,16 +259,20 @@ public class Coinflip {
      */
     public void check(String[] words) throws CoinflipException {
         if (words.length != 2) {
+            CoinflipLogger.warning("Invalid check command format");
             throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
         }
 
         if (!words[1].equals("balance") && !words[1].equals("bet")) {
+            CoinflipLogger.warning("Invalid check command format");
             throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
         }
 
         if (words[1].equals("balance")) {
+            CoinflipLogger.info("User checked balance = " + balance);
             Printer.printBalance(balance);
         } else {
+            CoinflipLogger.info("User checked bet amount = " + betAmount);
             Printer.printBetAmount(betAmount);
         }
     }
@@ -281,10 +283,12 @@ public class Coinflip {
             betAmount = parseToInt(words[1]);
 
             if (betAmount < 0) {
+                CoinflipLogger.warning("Invalid bet amount");
                 throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
             }
 
             if (betAmount > balance) {
+                CoinflipLogger.warning("Bet amount exceeded balance");
                 Printer.printNotEnoughCoins();
                 return;
             }
@@ -292,21 +296,27 @@ public class Coinflip {
             Printer.printBetAmount(betAmount);
 
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            CoinflipLogger.warning("Invalid bet amount");
             throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
         }
     }
 
     //@@author wongyihao0506
     public void bet(String[] words) throws CoinflipException {
+        CoinflipLogger.info("User attempting to flip a coin");
+
         if (words.length != 2) {
+            CoinflipLogger.warning("Invalid flip command format");
             throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
         }
 
         if (!words[1].equals("heads") && !words[1].equals("tails")) {
+            CoinflipLogger.warning("Invalid flip choice: " + words[1]);
             throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
         }
 
         if (betAmount > balance) {
+            CoinflipLogger.warning("Bet amount exceeds balance: bet = " + betAmount + ", balance = " + balance);
             Printer.printNotEnoughCoins();
             return;
         }
@@ -319,10 +329,12 @@ public class Coinflip {
             balance += getBetAmount();
             increaseWinCount();
             increaseTotalWinnings(getBetAmount());
+            CoinflipLogger.info("User won " + getBetAmount() + " coins. New balance: " + balance);
         } else {
             balance -= getBetAmount();
             increaseLoseCount();
             increaseTotalLosses(getBetAmount());
+            CoinflipLogger.info("User lost " + getBetAmount() + " coins. New balance: " + balance);
         }
 
         Printer.printBetAmount(betAmount);
@@ -341,6 +353,7 @@ public class Coinflip {
      * @param args Arguments included with command to start Coinflip
      */
     public void run(String[] args) {
+        CoinflipLogger.info("Starting Coinflip application run loop");
 
         Scanner in = new Scanner(System.in);
         Printer.printWelcome();
@@ -349,6 +362,7 @@ public class Coinflip {
             setupFile();
             loadFromFile();
         } catch (CoinflipFileException e) {
+            CoinflipLogger.warning("File setup / loading issue: " + e.message);
             Printer.printException(e);
         }
 
@@ -357,20 +371,25 @@ public class Coinflip {
 
         while (!isExit) {
             String input = in.nextLine();
-            logger.log(Level.INFO, "New Command Received");
+            CoinflipLogger.info("Received user input: " + input);
 
             try {
                 Command command = (parser).parseUserInput(input);
                 command.execute();
 
                 if (command instanceof ExitCommand) {
+                    CoinflipLogger.info("Exit command received. Terminating application");
                     isExit = true;
                 }
 
             } catch (CoinflipException e) {
+                CoinflipLogger.warning("Command execution error: " + e.message);
                 Printer.printException(e);
             }
         }
+
+        CoinflipLogger.info("Coinflip application terminated");
+        CoinflipLogger.close();
     }
 
     /**
