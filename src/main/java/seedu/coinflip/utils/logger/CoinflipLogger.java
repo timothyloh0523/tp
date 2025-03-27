@@ -105,7 +105,7 @@ public class CoinflipLogger {
      * Logs an exception with a custom message at SEVERE level.
      *
      * @param message the custom message
-     * @param e the exception to log
+     * @param e       the exception to log
      */
     public static void exception(String message, Exception e) {
         if (ensureInitialized()) {

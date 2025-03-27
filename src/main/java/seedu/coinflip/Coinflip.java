@@ -2,7 +2,6 @@ package seedu.coinflip;
 
 import java.util.Scanner;
 import java.io.IOException;
-import java.util.Random;
 
 import seedu.coinflip.utils.command.Command;
 import seedu.coinflip.utils.command.ExitCommand;
@@ -15,9 +14,8 @@ import seedu.coinflip.utils.storage.Storage;
 import seedu.coinflip.utils.userdata.UserData;
 
 public class Coinflip {
-    private Storage storage;
+    private final Storage storage;
     private UserData userData;
-    private Parser parser;
 
     //@@author HTY2003
 
@@ -32,7 +30,6 @@ public class Coinflip {
 
         storage = new Storage();
         userData = new UserData();
-        parser = new Parser(this);
 
         CoinflipLogger.info("Coinflip application started");
     }
@@ -96,131 +93,6 @@ public class Coinflip {
         storage.saveData(userData);
     }
 
-    //@@author CRL006
-    public void increaseWinCount() {
-        userData.winCount += 1;
-    }
-
-    //@@author CRL006
-    public void increaseLoseCount() {
-        userData.loseCount += 1;
-    }
-
-    //@@author CRL006
-    public void increaseTotalWinnings(int winnings) {
-        userData.totalWinnings += winnings;
-    }
-
-    //@@author CRL006
-    public void increaseTotalLosses(int losses) {
-        userData.totalLosses += losses;
-    }
-
-    //@@author timothyloh0523
-
-    /**
-     * Checks the user's existing balance or bet amount
-     * depending on the second word in the user's response.
-     * Prints balance or bet accordingly.
-     *
-     * @param words Words from the user's response
-     * @throws CoinflipException if the user gives an invalid command
-     */
-    public void check(String[] words) throws CoinflipException {
-        if (words.length != 2) {
-            CoinflipLogger.warning("Invalid check command format");
-            throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
-        }
-
-        if (!words[1].equals("balance") && !words[1].equals("bet")) {
-            CoinflipLogger.warning("Invalid check command format");
-            throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
-        }
-
-        if (words[1].equals("balance")) {
-            CoinflipLogger.info("User checked balance = " + userData.balance);
-            Printer.printBalance(userData.balance);
-        } else {
-            CoinflipLogger.info("User checked bet amount = " + userData.betAmount);
-            Printer.printBetAmount(userData.betAmount);
-        }
-    }
-
-    //@@author OliverQiL
-    public void change(String[] words) throws CoinflipException {
-
-        if (words.length < 2) {
-            CoinflipLogger.warning("Invalid bet amount");
-            throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
-        }
-
-        if (!words[1].matches("[0-9]+")) {
-            CoinflipLogger.warning("Invalid bet amount");
-            throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
-        }
-
-        userData.betAmount = Integer.parseInt(words[1]);
-
-        if (userData.betAmount < 0) {
-            CoinflipLogger.warning("Invalid bet amount");
-            throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
-        }
-
-        if (userData.betAmount > userData.balance) {
-            CoinflipLogger.warning("Bet amount exceeded balance");
-            Printer.printNotEnoughCoins();
-            return;
-        }
-
-        Printer.printBetAmount(userData.betAmount);
-    }
-
-    //@@author wongyihao0506
-    public void bet(String[] words) throws CoinflipException {
-        CoinflipLogger.info("User attempting to flip a coin");
-
-        if (words.length != 2) {
-            CoinflipLogger.warning("Invalid flip command format");
-            throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
-        }
-
-        if (!words[1].equals("heads") && !words[1].equals("tails")) {
-            CoinflipLogger.warning("Invalid flip choice: " + words[1]);
-            throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
-        }
-
-        if (userData.betAmount > userData.balance) {
-            CoinflipLogger.warning("Bet amount exceeds balance: bet = "
-                    + userData.betAmount
-                    + ", balance = "
-                    + userData.balance);
-            Printer.printNotEnoughCoins();
-            return;
-        }
-
-        Random random = new Random();
-        String coinFlip = random.nextBoolean() ? "Heads" : "Tails";
-        Boolean outcome = coinFlip.equalsIgnoreCase(words[1]);
-
-        if (outcome) {
-            userData.balance += getBetAmount();
-            increaseWinCount();
-            increaseTotalWinnings(getBetAmount());
-            CoinflipLogger.info("User won " + getBetAmount() + " coins. New balance: " + userData.balance);
-        } else {
-            userData.balance -= getBetAmount();
-            increaseLoseCount();
-            increaseTotalLosses(getBetAmount());
-            CoinflipLogger.info("User lost " + getBetAmount() + " coins. New balance: " + userData.balance);
-        }
-
-        Printer.printBetAmount(userData.betAmount);
-        Printer.printFlipOutcome(coinFlip, outcome, userData.betAmount);
-        Printer.printBalance(userData.balance);
-
-        assert userData.balance >= 0 : "balance should be more than or equal to 0";
-    }
-
     //@@author HTY2003
 
     /**
@@ -230,7 +102,7 @@ public class Coinflip {
      * @param args Arguments included with command to start Coinflip
      */
     public void run(String[] args) {
-        CoinflipLogger.info("Starting Coinflip application run loop");
+        CoinflipLogger.info("Starting Coinflip application main program loop");
 
         Scanner in = new Scanner(System.in);
         Printer.printWelcome();
@@ -241,6 +113,8 @@ public class Coinflip {
             CoinflipLogger.warning("File setup / loading issue: " + e.message);
             Printer.printException(e);
         }
+
+        Parser parser = new Parser(userData, storage);
 
         boolean isExit = false;
 
@@ -263,7 +137,6 @@ public class Coinflip {
             }
         }
 
-        CoinflipLogger.info("Coinflip application terminated");
         CoinflipLogger.close();
     }
 
