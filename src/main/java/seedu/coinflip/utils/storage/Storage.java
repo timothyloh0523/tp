@@ -22,10 +22,9 @@ public class Storage {
 
     /**
      * Returns UserData object extracted from save file.
-     * If file cannot be accessed or data is corrupted, {@link CoinflipFileException} will be thrown.
      *
      * @return UserData object containing data from save file
-     * @throws CoinflipFileException
+     * @throws CoinflipFileException when file cannot be accessed or data is corrupted
      */
     public UserData loadSave() throws CoinflipFileException {
 
