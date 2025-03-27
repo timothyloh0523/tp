@@ -71,7 +71,7 @@ public class Coinflip {
     }
 
     /**
-     * Returns the cumulative total of all winnings the user has in all coinflips
+     * Returns the cumulative total of all winnings the user has
      *
      * @return user's total winnings in coins
      */
@@ -80,7 +80,7 @@ public class Coinflip {
     }
 
     /**
-     * Returns the cumulative total of all losses the user has in all coinflips
+     * Returns the cumulative total of all losses the user has
      *
      * @return user's total losses in coins
      */
@@ -106,6 +106,7 @@ public class Coinflip {
 
         Scanner in = new Scanner(System.in);
         Printer.printWelcome();
+        Printer.printUnderscoreLine();
 
         try {
             userData = storage.loadSave();
@@ -120,6 +121,7 @@ public class Coinflip {
 
         while (!isExit) {
             String input = in.nextLine();
+            Printer.printUnderscoreLine();
             CoinflipLogger.info("Received user input: " + input);
 
             try {
@@ -135,6 +137,8 @@ public class Coinflip {
                 CoinflipLogger.warning("Command execution error: " + e.message);
                 Printer.printException(e);
             }
+
+            Printer.printUnderscoreLine();
         }
 
         CoinflipLogger.close();
