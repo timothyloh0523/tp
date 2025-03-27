@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
         CoinflipLogger.info("Executing exit command");
         Printer.printBye();
         try {
-            coinflip.saveToFile();
+            coinflip.saveData();
             CoinflipLogger.info("Game state saved successfully");
         } catch (CoinflipFileException e) {
             CoinflipLogger.severe("Failed to save game state: " + e.message);
