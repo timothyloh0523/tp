@@ -2,6 +2,7 @@ package seedu.coinflip.utils.command;
 
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.Coinflip;
+import seedu.coinflip.utils.logger.CoinflipLogger;
 
 /**
  * Handles the command to change the bet amount.
@@ -17,6 +18,7 @@ public class ChangeCommand extends Command {
 
     @Override
     public void execute() throws CoinflipException {
+        CoinflipLogger.info("Executing change command");
         coinflip.change(words);
     }
 }
