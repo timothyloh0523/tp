@@ -23,19 +23,15 @@ public class ChangeCommand extends Command {
     @Override
     public void execute() throws CoinflipException {
         CoinflipLogger.info("Executing change command");
-        this.change(words);
+        this.change();
+        storage.saveData(userData);
     }
 
     //@@author OliverQiL
-    private void change(String[] words) throws CoinflipException {
+    public void change() throws CoinflipException {
 
-        if (words.length < 2) {
-            CoinflipLogger.warning("Invalid bet command format: too few words");
-            throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
-        }
-
-        if (words.length > 2) {
-            CoinflipLogger.warning("Invalid bet command format: too many words");
+        if (words.length != 2) {
+            CoinflipLogger.warning("Invalid bet command format");
             throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
         }
 
@@ -58,7 +54,5 @@ public class ChangeCommand extends Command {
         }
 
         Printer.printBetAmount(userData.betAmount);
-
-        storage.saveData(userData);
     }
 }

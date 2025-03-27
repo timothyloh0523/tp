@@ -26,11 +26,12 @@ public class FlipCommand extends Command {
     @Override
     public void execute() throws CoinflipException {
         CoinflipLogger.info("Executing flip command");
-        this.bet(words);
+        this.flip();
+        storage.saveData(userData);
     }
 
     //@@author wongyihao0506
-    public void bet(String[] words) throws CoinflipException {
+    public void flip() throws CoinflipException {
         CoinflipLogger.info("User attempting to flip a coin");
 
         if (words.length != 2) {
@@ -76,8 +77,6 @@ public class FlipCommand extends Command {
         Printer.printBalance(userData.balance);
 
         assert userData.balance >= 0 : "balance should be more than or equal to 0";
-
-        storage.saveData(userData);
     }
 
     //@@author CRL006
