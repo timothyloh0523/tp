@@ -29,6 +29,10 @@ public class Coinflip {
 
     private int balance = 500;
     private int betAmount = 20;
+    private int winCount = 0;
+    private int loseCount = 0;
+    private int totalWinnings = 0;
+    private int totalLosses = 0;
 
     //@@author HTY2003
 
@@ -70,8 +74,54 @@ public class Coinflip {
         return betAmount;
     }
 
-    //@@author CRL006
+    /**
+     * Returns the total number of times a user has won
+     *
+     * @return user's win count
+     */
+    public int getWinCount() {
+        return winCount;
+    }
 
+    /**
+     * Returns the total number of times a user has lost
+     *
+     * @return user's lose count
+     */
+    public int getLoseCount() {
+        return loseCount;
+    }
+
+    /**
+     * Returns the cumulative total of all winnings the user has in all coinflips
+     *
+     * @return user's total winnings in coins
+     */
+    public int getTotalWinnings() {
+        return totalWinnings;
+    }
+
+    /**
+     * Returns the cumulative total of all losses the user has in all coinflips
+     *
+     * @return user's total losses in coins
+     */
+    public int getTotalLosses() {
+        return totalLosses;
+    }
+
+    /**
+     * Parses a string to an integer, handling potential number format exceptions.
+     *
+     * @param input The string to parse into an integer.
+     * @return The parsed integer.
+     * @throws NumberFormatException If the input is not a valid integer.
+     */
+    public static int parseToInt(String input) throws NumberFormatException {
+        return Integer.parseInt(input.trim());
+    }
+
+    //@@author CRL006
     /**
      * Creates a save file in the designated directory.
      * Ensures that the parent directory exists before attempting to create the file.
@@ -129,20 +179,6 @@ public class Coinflip {
     //@@author CRL006
 
     /**
-     * Parses the provided string data to obtain the saved balance as an integer.
-     * Formats the string to convert it into an integer.
-     *
-     * @param data
-     * @return the saved balance as an integer after formatting.
-     * @throws NumberFormatException if the given data string cannot be parsed into an integer.
-     */
-    private int getSavedBalance(String data) {
-        return Integer.parseInt(data.trim());
-    }
-
-    //@@author CRL006
-
-    /**
      * Loads the saved balance data from the specified save file with path {@code saveFilePath}.
      * Reads the file line by line after skipping the header,
      * processing each line to load the user data from the csv file.
@@ -157,7 +193,15 @@ public class Coinflip {
             skipHeader(reader);
             while (((data = reader.readLine()) != null)) {
                 try {
-                    balance = getSavedBalance(data);
+                    String[] values = data.split(",");
+                    if (values.length != 5) {
+                        throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
+                    }
+                    balance = parseToInt(values[0]);
+                    winCount = parseToInt(values[1]);
+                    loseCount = parseToInt(values[2]);
+                    totalWinnings = parseToInt(values[3]);
+                    totalLosses = parseToInt(values[4]);
                 } catch (NumberFormatException e) {
                     throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
                 }
@@ -168,11 +212,13 @@ public class Coinflip {
     }
 
     //@@author CRL006
-    private void saveBalance(int balance) throws CoinflipFileException {
+    private void saveData() throws CoinflipFileException {
         try {
             FileWriter writer = new FileWriter(saveFilePath);
-            writer.write("Balance\n");
-            writer.write(balance + "\n");
+            writer.write("Balance,WinCount,LoseCount,Total Winnings,Total Losses\n");
+            writer.write(getBalance() + "," + getWinCount() + "," +
+                    getLoseCount() + "," + getTotalWinnings() + "," +
+                    getTotalLosses() + "\n");
             writer.close();
         } catch (IOException e) {
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_SAVE);
@@ -181,7 +227,27 @@ public class Coinflip {
 
     //@@author CRL006
     public void saveToFile() throws CoinflipFileException {
-        saveBalance(balance);
+        saveData();
+    }
+
+    //@@author CRL006
+    public void increaseWinCount() {
+        winCount += 1;
+    }
+
+    //@@author CRL006
+    public void increaseLoseCount() {
+        loseCount += 1;
+    }
+
+    //@@author CRL006
+    public void increaseTotalWinnings(int winnings) {
+        totalWinnings += winnings;
+    }
+
+    //@@author CRL006
+    public void increaseTotalLosses(int losses) {
+        totalLosses += losses;
     }
 
     //@@author timothyloh0523
@@ -212,7 +278,7 @@ public class Coinflip {
     //@@author OliverQiL
     public void change(String[] words) throws CoinflipException {
         try {
-            betAmount = Integer.parseInt(words[1]);
+            betAmount = parseToInt(words[1]);
 
             if (betAmount < 0) {
                 throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
@@ -251,8 +317,12 @@ public class Coinflip {
 
         if (outcome) {
             balance += getBetAmount();
+            increaseWinCount();
+            increaseTotalWinnings(getBetAmount());
         } else {
             balance -= getBetAmount();
+            increaseLoseCount();
+            increaseTotalLosses(getBetAmount());
         }
 
         Printer.printBetAmount(betAmount);
