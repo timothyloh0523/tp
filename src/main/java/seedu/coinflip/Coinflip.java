@@ -75,7 +75,7 @@ public class Coinflip {
      *
      * @return user's total winnings in coins
      */
-    public int getTotalGains() {
+    public int getTotalWinnings() {
         return userData.totalWinnings;
     }
 
@@ -84,13 +84,8 @@ public class Coinflip {
      *
      * @return user's total losses in coins
      */
-    public int getTotalLosses() {
+    public int getTotalLosings() {
         return userData.totalLosings;
-    }
-
-    //@@author CRL006
-    public void saveData() throws CoinflipFileException {
-        storage.saveData(userData);
     }
 
     //@@author HTY2003

@@ -21,6 +21,10 @@ class CoinflipTest {
         Coinflip program = new Coinflip();
         assertEquals(500, program.getBalance());
         assertEquals(20, program.getBetAmount());
+        assertEquals(0, program.getWinCount());
+        assertEquals(0, program.getLoseCount());
+        assertEquals(0, program.getTotalWinnings());
+        assertEquals(0, program.getTotalLosings());
     }
 
     //@@author CRL006
