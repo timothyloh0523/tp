@@ -24,6 +24,41 @@ public class CheckCommand extends Command {
         this.check(words);
     }
 
+    //@@CRL006
+    private void processCheckCommand(String word) throws CoinflipException {
+        switch (word) {
+        case "balance":
+            CoinflipLogger.info("User checked balance = " + userData.balance);
+            Printer.printBalance(userData.balance);
+            break;
+        case "bet":
+            CoinflipLogger.info("User checked bet amount = " + userData.betAmount);
+            Printer.printBetAmount(userData.betAmount);
+            break;
+        case "wins":
+            CoinflipLogger.info("User checked wins = " + userData.winCount);
+            Printer.printWins(userData.winCount, userData.loseCount);
+            break;
+        case "losses":
+            CoinflipLogger.info("User checked losses = " + userData.loseCount);
+            Printer.printLosses(userData.winCount, userData.loseCount);
+            break;
+        case "winnings":
+            CoinflipLogger.info("User checked winnings = " + userData.totalWinnings);
+            Printer.printWinnings(userData.totalWinnings, userData.loseCount);
+            break;
+        case "losings":
+            CoinflipLogger.info("User checked wins = " + userData.totalLosings);
+            Printer.printLosings(userData.totalLosings, userData.winCount);
+            break;
+        default:
+            CoinflipLogger.warning("Invalid check command format");
+            throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
+            //fallthrough
+        }
+    }
+
+
     //@@author timothyloh0523
 
     /**
@@ -39,18 +74,6 @@ public class CheckCommand extends Command {
             CoinflipLogger.warning("Invalid check command format");
             throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
         }
-
-        if (!words[1].equals("balance") && !words[1].equals("bet")) {
-            CoinflipLogger.warning("Invalid check command format");
-            throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
-        }
-
-        if (words[1].equals("balance")) {
-            CoinflipLogger.info("User checked balance = " + userData.balance);
-            Printer.printBalance(userData.balance);
-        } else {
-            CoinflipLogger.info("User checked bet amount = " + userData.betAmount);
-            Printer.printBetAmount(userData.betAmount);
-        }
+        processCheckCommand(words[1]);
     }
 }

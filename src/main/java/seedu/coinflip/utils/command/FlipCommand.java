@@ -96,6 +96,6 @@ public class FlipCommand extends Command {
 
     //@@author CRL006
     private void increaseTotalLosses(int losses) {
-        userData.totalLosses += losses;
+        userData.totalLosings += losses;
     }
 }

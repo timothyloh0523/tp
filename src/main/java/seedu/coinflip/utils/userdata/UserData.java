@@ -6,7 +6,7 @@ public class UserData {
     public int winCount = 0;
     public int loseCount = 0;
     public int totalWinnings = 0;
-    public int totalLosses = 0;
+    public int totalLosings = 0;
 
     public UserData() {
 

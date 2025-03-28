@@ -152,7 +152,7 @@ public class Storage {
         userData.winCount = Integer.parseInt(values[1]);
         userData.loseCount = Integer.parseInt(values[2]);
         userData.totalWinnings = Integer.parseInt(values[3]);
-        userData.totalLosses = Integer.parseInt(values[4]);
+        userData.totalLosings = Integer.parseInt(values[4]);
 
         return userData;
     }
@@ -181,6 +181,6 @@ public class Storage {
                 userData.winCount + "," +
                 userData.loseCount + "," +
                 userData.totalWinnings + "," +
-                userData.totalLosses + "\n");
+                userData.totalLosings + "\n");
     }
 }
