@@ -35,21 +35,12 @@ public class CheckCommand extends Command {
             CoinflipLogger.info("User checked bet amount = " + userData.betAmount);
             Printer.printBetAmount(userData.betAmount);
             break;
-        case "wins":
-            CoinflipLogger.info("User checked wins = " + userData.winCount);
-            Printer.printWins(userData.winCount, userData.loseCount);
-            break;
-        case "losses":
-            CoinflipLogger.info("User checked losses = " + userData.loseCount);
-            Printer.printLosses(userData.winCount, userData.loseCount);
-            break;
-        case "winnings":
-            CoinflipLogger.info("User checked winnings = " + userData.totalWinnings);
-            Printer.printWinnings(userData.totalWinnings, userData.loseCount);
-            break;
-        case "losings":
-            CoinflipLogger.info("User checked wins = " + userData.totalLosings);
-            Printer.printLosings(userData.totalLosings, userData.winCount);
+        case "history":
+            CoinflipLogger.info("User checked stats: \nUser win count: " + userData.winCount +
+                    "\nUser lose count: " + userData.loseCount +
+                    "\nUser total winnings: " + userData.totalWinnings +
+                    "\nUser total losings: " + userData.totalLosings);
+            Printer.printStats(userData.winCount, userData.loseCount, userData.totalWinnings, userData.totalLosings);
             break;
         default:
             CoinflipLogger.warning("Invalid check command format");

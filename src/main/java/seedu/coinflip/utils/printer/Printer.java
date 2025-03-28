@@ -37,47 +37,15 @@ public class Printer {
     }
 
     //@@author CRL006
-    public static void printWins(int wins, int losses) {
-        if (wins == 0 && losses != 0) {
-            System.out.println("You have not won before... Better luck next time!");
-        } else if (wins == 0 && losses == 0) {
-            System.out.println("You have not played a coinflip before! Type in 'flip heads' or 'flip tails' to play!");
-        }
-        else if (wins == 1) {
-            System.out.println("You have won once!");
+    public static void printStats(int wins, int losses, int totalWinnings, int totalLosings) {
+        if (wins == 0 && losses == 0) {
+            System.out.println("You have not played a coinflip before! " +
+                    "Type in 'flip heads' or 'flip tails' to play!");
         } else {
-            System.out.println("You have won " + wins + "times!");
-        }
-    }
-
-    //@@author CRL006
-    public static void printLosses(int wins, int losses) {
-        if (losses == 0 && wins != 0) {
-            System.out.println("You have not lost before!! Nice!");
-        } else if (losses == 0 && wins == 0) {
-            System.out.println("You have not played a coinflip before! Type in 'flip heads' or 'flip tails' to play!");
-        } else if (losses == 1) {
-            System.out.println("You have only lost once!");
-        } else {
-            System.out.println("You have lost " + losses + "times");
-        }
-    }
-
-    //@@author CRL006
-    public static void printWinnings(int winnings, int loseCount) {
-        if (winnings == 0 && loseCount == 0) {
-            System.out.println("You have not played a coinflip before! Type in 'flip heads' or 'flip tails' to play!");
-        } else {
-            System.out.println("Your total winnings are: " + winnings);
-        }
-    }
-
-    //@@author CRL006
-    public static void printLosings(int losings, int winCount) {
-        if (losings == 0 && winCount == 0) {
-            System.out.println("You have not played a coinflip before! Type in 'flip heads' or 'flip tails' to play!");
-        } else {
-            System.out.println("Your total losings are: " + losings);
+            System.out.println("Wins: " + wins +
+                    "\nLosses: " + losses +
+                    "\nTotal winnings: " + totalWinnings +
+                    "\nTotal losings: " + totalLosings);
         }
     }
 
@@ -105,10 +73,7 @@ public class Printer {
                 Here are the commands you can use:\
                 \n\ncheck balance - Shows your remaining balance.\
                 \ncheck bet - Shows your current bet amount.\
-                \ncheck wins - Shows your total win count.\
-                \ncheck losses - Shows your total lose count.\
-                \ncheck winnings - Shows your total winnings.\
-                \ncheck losings - Shows your total losings.\
+                \ncheck history - Shows your game history.\
                 \nchange <amount> - Changes your bet amount.\
                 \nflip <heads/tails> - Bet on a coin flip being heads or tails.\
                 \nexit - Exits the application.\
