@@ -36,6 +36,19 @@ public class Printer {
         System.out.println("Your remaining balance is: " + balance);
     }
 
+    //@@author CRL006
+    public static void printStats(int wins, int losses, int totalWinnings, int totalLosings) {
+        if (wins == 0 && losses == 0) {
+            System.out.println("You have not played a coinflip before! " +
+                    "Type in 'flip heads' or 'flip tails' to play!");
+        } else {
+            System.out.println("Wins: " + wins +
+                    "\nLosses: " + losses +
+                    "\nTotal winnings: " + totalWinnings +
+                    "\nTotal losings: " + totalLosings);
+        }
+    }
+
     public static void printBetAmount(int betAmount) {
         System.out.println("Your current bet amount is: " + betAmount);
     }
@@ -60,6 +73,7 @@ public class Printer {
                 Here are the commands you can use:\
                 \n\ncheck balance - Shows your remaining balance.\
                 \ncheck bet - Shows your current bet amount.\
+                \ncheck history - Shows your game history.\
                 \nchange <amount> - Changes your bet amount.\
                 \nflip <heads/tails> - Bet on a coin flip being heads or tails.\
                 \nexit - Exits the application.\

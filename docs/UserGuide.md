@@ -47,6 +47,16 @@ Example of usage:
 
 <br>
 
+### Viewing previous flips: `check history`
+Shows results of all previous coinflips
+
+Format: `check history`
+
+Example of usage:
+
+`check history`
+
+<br>
 
 ### Viewing bet amount: `check bet`
 Shows bet amount that will be used if a bet were to be made.
