@@ -31,6 +31,18 @@ public class FlipCommand extends Command {
     }
 
     //@@author wongyihao0506
+
+    /**
+     * Simulates flipping a coin and determines the outcome based on the user's choice.
+     * <p>
+     * This method validates the input, checks if the user has sufficient balance to place a bet,
+     * and then performs a coin flip to determine the result. If the user wins, their balance is
+     * increased by the bet amount; otherwise, it is decreased. The method also updates the user's
+     * win/loss counts and total winnings/losses.
+     * </p>
+     *
+     * @throws CoinflipException If the input command format is invalid or the flip choice is not "heads" or "tails".
+     */
     public void flip() throws CoinflipException {
         CoinflipLogger.info("User attempting to flip a coin");
 
