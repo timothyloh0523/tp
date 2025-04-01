@@ -57,3 +57,32 @@ These components share usage of some other common utility classes:
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+```mermaid
+sequenceDiagram
+actor User
+participant "UI" as Ui
+participant "Parser" as Parser
+participant "HelpCommand" as HelpCommand
+
+User ->> Ui: input command "help"
+activate Ui
+Ui ->> Parser: parseUserInput(userInput)
+activate Parser
+
+note right of Parser: Parse "help"
+Parser ->> HelpCommand: new HelpCommand()
+activate HelpCommand
+HelpCommand -->> Parser: command
+deactivate HelpCommand
+Parser -->> Ui: command
+deactivate Parser
+
+Ui ->> HelpCommand: execute()
+activate HelpCommand
+
+HelpCommand ->> Ui: showHelpMessage()
+Ui -->> User: display help message
+deactivate Ui
+deactivate HelpCommand
+```
