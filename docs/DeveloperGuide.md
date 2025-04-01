@@ -33,22 +33,31 @@ These components share usage of some other common utility classes:
 
 ### Target user profile
 
-{Describe the target user profile}
+Children who are not of age to gamble
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+The app will allow children to simulate a gambling environment without using actual money 
+like some games on the App Store. This will be done by allowing them to bet in-game currency 
+on a coin flip, and educate them about the dangers of gambling.
 
 ## User Stories
 
-| Version | As a ... | I want to ...             | So that I can ...                                           |
-|---------|----------|---------------------------|-------------------------------------------------------------|
-| v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application      |
-| v2.0    | user     | find a to-do item by name | locate a to-do without having to go through the entire list |
+| Version | As a ...   | I want to ...                                       | So that I can ...                                            |
+|---------|------------|-----------------------------------------------------|--------------------------------------------------------------|
+| v1.0    | new player | start the game with a fixed amount of virtual money | experience the consequences of gambling                      |
+| v1.0    | new player | view all the commands I can use                     | use the programme as intended                                |
+| v1.0    | new player | view my current virtual money balance               | know how much I can bet on my next coinflip                  |
+| v1.0    | new player | choose different betting amounts                    | see how risky bets affect my virtual balance                 |
+| v1.0    | new player | randomly win or lose money when gambling            | experience the unpredictability of gambling                  |
+| v1.0    | user       | continue my coin balance from my previous session   | the wins or losses from my previous bets are permanent to me |
+| v2.0    | user       | view my previous coinflip results                   | see the long-term effect of my playing                       |
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* Should work on any _mainstream_ OS with Java 17 installed.
+* A user with decent typing speed for normal text should be able to complete most tasks faster through typing out 
+commands, compared to using the mouse to navigate a GUI application.
 
 ## Glossary
 
@@ -56,13 +65,64 @@ These components share usage of some other common utility classes:
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+Viewing available commands
+
+* Format: `help`
+* Features: Shows available functions
+
+
+<br>
+
+Viewing balance
+
+* Format: `check balance`
+* Feature: Shows balance available to be used for betting
+
+<br>
+
+Viewing previous flips
+
+* Format: `check history`
+* Feature: Shows results of all previous coinflips
+
+<br>
+
+Viewing bet amount
+
+* Format: `check bet`
+* Feature: Shows bet amount that will be used if a bet were to be made.
+
+<br>
+
+Changing betting amount
+
+* Format: `change NEW_BET_AMOUNT`
+* Feature: Gets new betting amount from user to be used in next bet.
+* Example of usage:
+`change 10`
+
+<br>
+
+Playing coinflip
+
+* Format: `flip HEADS_OR_TAILS`
+* Feature: Flips a coin and either gains or loses the bet amount
+* Example of usage:
+`flip heads`
+`flip tails`
+
+<br>
+
+Terminating programme
+* Format: `exit`
+* Features: Exits the programme
 
 ```mermaid
 sequenceDiagram
   actor User
   participant Parser as Parser
   participant HelpCommand as HelpCommand
+  participant Printer as Printer
 
   User ->> Parser: input command "help"
   activate Parser
@@ -75,5 +135,5 @@ sequenceDiagram
   Parser -->> User: command
   deactivate Parser
 
-  HelpCommand ->> User: showHelpMessage()
+  HelpCommand ->> Printer: printHelpMessage()
 ```
