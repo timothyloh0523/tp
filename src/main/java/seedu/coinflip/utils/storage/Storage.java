@@ -73,10 +73,9 @@ public class Storage {
 
     private void createSave() throws CoinflipFileException {
         try {
-
             this.createSaveFileDirectory();
             this.createSaveFile();
-
+            assert Files.exists(Path.of(saveFileFolderPath)) : "Directory at saveFileFolderPath should exist";
         } catch (IOException e) {
             CoinflipLogger.exception("Failed to create save file", e);
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CANNOT_CREATE);
