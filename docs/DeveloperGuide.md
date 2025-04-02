@@ -117,6 +117,10 @@ Terminating programme
 * Format: `exit`
 * Features: Exits the programme
 
+## Sequence Diagrams
+
+Viewing available commands (help function)
+
 ```mermaid
 sequenceDiagram
   actor User
@@ -136,4 +140,33 @@ sequenceDiagram
   deactivate Parser
 
   HelpCommand ->> Printer: printHelpMessage()
+```
+
+Viewing balance
+``` mermaid
+sequenceDiagram
+  actor User as User
+  participant Parser as :Parser
+  participant CheckCommand as :CheckCommand
+  participant Printer as :Printer
+
+  User ->> Parser: input command "check {COMMAND}"
+  activate Parser
+  
+  Parser ->> CheckCommand: new CheckCommand(COMMAND)
+  activate CheckCommand
+ 
+  alt COMMAND == "balance"
+    CheckCommand ->> Printer: printBalance(...)
+  else COMMAND == "bet"
+    CheckCommand ->> Printer: printBetAmount(...)
+  else COMMAND = "history"
+    CheckCommand ->> Printer: printStats(...)
+  end
+  
+  CheckCommand -->> Parser: command
+  deactivate CheckCommand
+  
+  Parser -->> User: command
+  deactivate Parser
 ```
