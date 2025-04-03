@@ -11,7 +11,7 @@ public class Printer {
         System.out.println(new String(new char[NUM_OF_UNDERSCORES]).replace("\0", "_"));
     }
 
-    //@@author wongyihao0506
+    //@@author HTY2003
     public static void printWelcome() {
         System.out.println("Welcome to Coinflip!");
     }
@@ -54,7 +54,7 @@ public class Printer {
         System.out.println("Your current bet amount is: " + betAmount);
     }
 
-    //@@author HTY2003
+    //@@author wongyihao0506
     private static void sleepForAnimation() throws CoinflipException {
         try {
             Thread.sleep(350);
@@ -63,7 +63,7 @@ public class Printer {
         }
     }
 
-    //@@author HTY2003
+    //@@author wongyihao0506
     private static void printLoadingAnimation() throws CoinflipException {
         System.out.print('-');
         sleepForAnimation();
