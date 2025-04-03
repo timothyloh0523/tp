@@ -11,8 +11,21 @@ public class Printer {
         System.out.println(new String(new char[NUM_OF_UNDERSCORES]).replace("\0", "_"));
     }
 
+    //@@author wongyihao0506
     public static void printWelcome() {
-        System.out.println("Welcome to Coinflip!");
+        System.out.println("Welcome to \n" +
+                " ██████╗ ██████╗ ██╗███╗   ██╗\n" +
+                "██╔════╝██╔═══██╗██║████╗  ██║\n" +
+                "██║     ██║   ██║██║██╔██╗ ██║\n" +
+                "██║     ██║   ██║██║██║╚██╗██║\n" +
+                "╚██████╗╚██████╔╝██║██║ ╚████║\n" +
+                " ╚═════╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝\n" +
+                "███████╗██╗     ██╗██████╗    \n" +
+                "██╔════╝██║     ██║██╔══██╗   \n" +
+                "█████╗  ██║     ██║██████╔╝   \n" +
+                "██╔══╝  ██║     ██║██╔═══╝    \n" +
+                "██║     ███████╗██║██║        \n" +
+                "╚═╝     ╚══════╝╚═╝╚═╝        ");
     }
 
     public static void printBye() {
@@ -53,10 +66,35 @@ public class Printer {
         System.out.println("Your current bet amount is: " + betAmount);
     }
 
+    //@@author HTY2003
+    private static void sleepForAnimation() throws CoinflipException {
+        try {
+            Thread.sleep(350);
+        } catch (InterruptedException e) {
+            throw new CoinflipException(CoinflipException.ANIMATION_ERROR);
+        }
+    }
+
+    //@@author HTY2003
+    private static void printLoadingAnimation() throws CoinflipException {
+        System.out.print('-');
+        sleepForAnimation();
+        System.out.print("\b\\");
+        sleepForAnimation();
+        System.out.print("\b|");
+        sleepForAnimation();
+        System.out.print("\b/");
+        sleepForAnimation();
+        System.out.print("\b-");
+        sleepForAnimation();
+        System.out.print("\b");
+    }
+
     //@@author wongyihao0506
-    public static void printFlipOutcome(String coinFlip, Boolean outcome, int betAmount) {
+    public static void printFlipOutcome(String actualFlip, Boolean outcome, int betAmount) throws CoinflipException {
+        printLoadingAnimation();
         String outcomeMessage = outcome ? "You won " : "You lost ";
-        System.out.println(coinFlip + "! " + outcomeMessage + betAmount + " coins.");
+        System.out.println(actualFlip + "! " + outcomeMessage + betAmount + " coins.");
     }
 
     public static void printNewSaveFileNote() {

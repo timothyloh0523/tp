@@ -55,8 +55,9 @@ public class FlipCommand extends Command {
         Boolean outcome = getOutcome(actualFlip, words[1]);
         processOutcome(outcome);
 
-        Printer.printBetAmount(userData.betAmount);
+
         Printer.printFlipOutcome(actualFlip, outcome, userData.betAmount);
+        Printer.printBetAmount(userData.betAmount);
         Printer.printBalance(userData.balance);
 
         assert userData.balance >= 0 : "balance should be more than or equal to 0";

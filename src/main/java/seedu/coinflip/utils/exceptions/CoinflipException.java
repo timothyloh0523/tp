@@ -3,6 +3,9 @@ package seedu.coinflip.utils.exceptions;
 //@@author HTY2003
 
 public class CoinflipException extends Exception {
+    public static final String ANIMATION_ERROR = "Sorry! My animation timer has stopped working. " +
+            "Let's proceed to the outcome.";
+
     public static final String CHANGE_INVALID_FORMAT = "Invalid command format! " +
             "Please follow this format: change <number representing new bet amount>";
 
