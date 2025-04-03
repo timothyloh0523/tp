@@ -39,7 +39,7 @@ public class Printer {
     //@@author CRL006
     public static void printStats(int wins, int losses, int totalWinnings, int totalLosings) {
         if (wins == 0 && losses == 0) {
-            System.out.println("You have not played a coinflip before! " +
+            System.out.println("You have not flipped a coin before! " +
                     "Type in 'flip heads' or 'flip tails' to play!");
         } else {
             System.out.println("Wins: " + wins +
@@ -51,10 +51,6 @@ public class Printer {
 
     public static void printBetAmount(int betAmount) {
         System.out.println("Your current bet amount is: " + betAmount);
-    }
-
-    public static void printNotEnoughCoins() {
-        System.out.println("You are betting more coins than you currently have! Please change your bet amount.");
     }
 
     //@@author wongyihao0506

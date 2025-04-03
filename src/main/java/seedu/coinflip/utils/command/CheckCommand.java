@@ -10,6 +10,7 @@ import seedu.coinflip.utils.userdata.UserData;
  * depending on user input.
  */
 public class CheckCommand extends Command {
+    private static final Integer NUMBER_OF_WORDS = 2;
     private final String[] words;
     private final UserData userData;
 
@@ -18,53 +19,65 @@ public class CheckCommand extends Command {
         this.userData = userData;
     }
 
-    @Override
-    public void execute() throws CoinflipException {
-        CoinflipLogger.info("Executing check command");
-        this.check(words);
-    }
-
-    //@@CRL006
-    private void processCheckCommand(String word) throws CoinflipException {
-        switch (word) {
-        case "balance":
-            CoinflipLogger.info("User checked balance = " + userData.balance);
-            Printer.printBalance(userData.balance);
-            break;
-        case "bet":
-            CoinflipLogger.info("User checked bet amount = " + userData.betAmount);
-            Printer.printBetAmount(userData.betAmount);
-            break;
-        case "history":
-            CoinflipLogger.info("User checked stats: \nUser win count: " + userData.winCount +
-                    "\nUser lose count: " + userData.loseCount +
-                    "\nUser total winnings: " + userData.totalWinnings +
-                    "\nUser total losings: " + userData.totalLosings);
-            Printer.printStats(userData.winCount, userData.loseCount, userData.totalWinnings, userData.totalLosings);
-            break;
-        default:
-            CoinflipLogger.warning("Invalid check command format");
-            throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
-            //fallthrough
-        }
-    }
-
-
     //@@author timothyloh0523
 
     /**
      * Checks the user's existing balance or bet amount
      * depending on the second word in the user's response.
-     * Prints balance or bet accordingly.
+     * Prints balance, bet or flip history accordingly
      *
-     * @param words Words from the user's response
      * @throws CoinflipException if the user gives an invalid command
      */
-    private void check(String[] words) throws CoinflipException {
-        if (words.length != 2) {
+    @Override
+    public void execute() throws CoinflipException {
+        CoinflipLogger.info("Executing check command");
+
+        checkNumberOfWords(words);
+        check(words[1]);
+
+        CoinflipLogger.info("Finished executing check command");
+    }
+
+    private static void checkNumberOfWords(String[] words) throws CoinflipException {
+        if (words.length != NUMBER_OF_WORDS) {
             CoinflipLogger.warning("Invalid check command format");
             throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
         }
-        processCheckCommand(words[1]);
+    }
+
+    //@@CRL006
+    private void check(String word) throws CoinflipException {
+        switch (word) {
+        case "balance":
+            checkBalance();
+            break;
+        case "bet":
+            checkBet();
+            break;
+        case "history":
+            checkHistory();
+            break;
+        default:
+            CoinflipLogger.warning("Invalid check command format");
+            throw new CoinflipException(CoinflipException.CHECK_INVALID_FORMAT);
+        }
+    }
+
+    private void checkBalance() {
+        CoinflipLogger.info("User checked balance = " + userData.balance);
+        Printer.printBalance(userData.balance);
+    }
+
+    private void checkBet() {
+        CoinflipLogger.info("User checked bet amount = " + userData.betAmount);
+        Printer.printBetAmount(userData.betAmount);
+    }
+
+    private void checkHistory() {
+        CoinflipLogger.info("User checked stats: \nUser win count: " + userData.winCount +
+                "\nUser lose count: " + userData.loseCount +
+                "\nUser total winnings: " + userData.totalWinnings +
+                "\nUser total losings: " + userData.totalLosings);
+        Printer.printStats(userData.winCount, userData.loseCount, userData.totalWinnings, userData.totalLosings);
     }
 }

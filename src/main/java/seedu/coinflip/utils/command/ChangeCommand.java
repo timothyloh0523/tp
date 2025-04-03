@@ -10,6 +10,8 @@ import seedu.coinflip.utils.userdata.UserData;
  * Handles the command to change the bet amount.
  */
 public class ChangeCommand extends Command {
+
+    private static final Integer NUMBER_OF_WORDS = 2;
     private final String[] words;
     private final Storage storage;
     private final UserData userData;
@@ -25,34 +27,53 @@ public class ChangeCommand extends Command {
         CoinflipLogger.info("Executing change command");
         this.change();
         storage.saveData(userData);
+        CoinflipLogger.info("Finished executing change command");
     }
 
     //@@author OliverQiL
     public void change() throws CoinflipException {
 
-        if (words.length != 2) {
-            CoinflipLogger.warning("Invalid bet command format");
-            throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
-        }
+        checkNumberOfWords(this.words);
+        checkNumerical(this.words[1]);
 
-        if (!words[1].matches("[0-9]+")) {
-            CoinflipLogger.warning("Invalid bet amount: non-numerical");
-            throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
-        }
+        Integer betAmount = Integer.parseInt(this.words[1]);
 
-        userData.betAmount = Integer.parseInt(words[1]);
+        checkNonNegative(betAmount);
+        checkWithinBalance(betAmount, userData.balance);
 
-        if (userData.betAmount < 0) {
-            CoinflipLogger.warning("Invalid bet amount: negative");
-            throw new CoinflipException(CoinflipException.BET_AMOUNT_INVALID_FORMAT);
-        }
-
-        if (userData.betAmount > userData.balance) {
-            CoinflipLogger.warning("Bet amount exceeded balance");
-            Printer.printNotEnoughCoins();
-            return;
-        }
-
+        userData.betAmount = betAmount;
         Printer.printBetAmount(userData.betAmount);
+    }
+
+    //@@author OliverQiL
+    private static void checkNumberOfWords(String[] words) throws CoinflipException {
+        if (words.length != NUMBER_OF_WORDS) {
+            CoinflipLogger.warning("Invalid command format");
+            throw new CoinflipException(CoinflipException.CHANGE_INVALID_FORMAT);
+        }
+    }
+
+    //@@author OliverQiL
+    private static void checkNumerical(String input) throws CoinflipException {
+        if (!input.matches("[0-9]+")) {
+            CoinflipLogger.warning("Invalid bet amount: non-numerical");
+            throw new CoinflipException(CoinflipException.CHANGE_BET_AMOUNT_INVALID);
+        }
+    }
+
+    //@@author OliverQiL
+    private static void checkNonNegative(Integer betAmount) throws CoinflipException {
+        if (betAmount < 0) {
+            CoinflipLogger.warning("Invalid bet amount: negative");
+            throw new CoinflipException(CoinflipException.CHANGE_BET_AMOUNT_INVALID);
+        }
+    }
+
+    //@@author OliverQiL
+    private static void checkWithinBalance(Integer betAmount, Integer balance) throws CoinflipException {
+        if (betAmount > balance) {
+            CoinflipLogger.warning("Invalid bet amount: bet amount exceeds balance");
+            throw new CoinflipException(CoinflipException.CHANGE_BET_AMOUNT_EXCEEDS_BALANCE);
+        }
     }
 }

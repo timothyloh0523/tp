@@ -1,6 +1,5 @@
 package seedu.coinflip;
 
-import java.util.Scanner;
 import java.io.IOException;
 
 import seedu.coinflip.utils.command.Command;
@@ -91,21 +90,19 @@ public class Coinflip {
     //@@author HTY2003
 
     /**
-     * Runs main Coinflip program, which waits for next line of user input
+     * Runs main Coinflip program, which waits for a line of user input
      * before outputting an appropriate response
      *
      * @param args Arguments included with command to start Coinflip
      */
     public void run(String[] args) {
-        CoinflipLogger.info("Starting Coinflip application main program loop");
-
-        Scanner in = new Scanner(System.in);
+        CoinflipLogger.info("Starting main program loop...");
         Printer.printWelcome();
 
         try {
             userData = storage.loadSave();
         } catch (CoinflipFileException e) {
-            CoinflipLogger.warning("File setup / loading issue: " + e.message);
+            CoinflipLogger.warning("Error reading/creating save file: " + e.message);
             Printer.printException(e);
         }
 
@@ -115,21 +112,20 @@ public class Coinflip {
         boolean isExit = false;
 
         while (!isExit) {
-            String input = in.nextLine();
+            parser.receiveUserInput();
             Printer.printUnderscoreLine();
-            CoinflipLogger.info("Received user input: " + input);
 
             try {
-                Command command = parser.parseUserInput(input);
+                Command command = parser.parseUserInput();
                 command.execute();
 
                 if (command instanceof ExitCommand) {
-                    CoinflipLogger.info("Exit command received. Terminating application");
+                    CoinflipLogger.info("Exiting main program loop...");
                     isExit = true;
                 }
 
             } catch (CoinflipException e) {
-                CoinflipLogger.warning("Command execution error: " + e.message);
+                CoinflipLogger.warning("Error executing command: " + e.message);
                 Printer.printException(e);
             }
 
