@@ -74,20 +74,20 @@ public class FlipCommand extends Command {
         userData.balance += userData.betAmount;
         increaseWinCount();
         increaseTotalWinnings(userData.betAmount);
-        CoinflipLogger.info("User won "
-                + userData.betAmount
-                + " coins. New balance: "
-                + userData.balance);
+        CoinflipLogger.info("User won " +
+                userData.betAmount +
+                " coins. New balance: " +
+                userData.balance);
     }
 
     private void updateUserLost() {
         userData.balance -= userData.betAmount;
         increaseLoseCount();
         increaseTotalLosses(userData.betAmount);
-        CoinflipLogger.info("User lost "
-                + userData.betAmount
-                + " coins. New balance: "
-                + userData.balance);
+        CoinflipLogger.info("User lost " +
+                userData.betAmount +
+                " coins. New balance: " +
+                userData.balance);
     }
 
     private static String generateFlip() {
@@ -115,10 +115,10 @@ public class FlipCommand extends Command {
 
     private static void checkWithinBalance(Integer betAmount, Integer balance) throws CoinflipException {
         if (betAmount > balance) {
-            CoinflipLogger.warning("Bet amount exceeds balance: bet = "
-                    + betAmount
-                    + ", balance = "
-                    + balance);
+            CoinflipLogger.warning("Bet amount exceeds balance: bet = " +
+                    betAmount +
+                    ", balance = " +
+                    balance);
             throw new CoinflipException(CoinflipException.FLIP_BET_AMOUNT_EXCEEDS_BALANCE);
         }
     }
