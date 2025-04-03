@@ -134,7 +134,6 @@ sequenceDiagram
   note right of Parser: Parse "help"
   Parser ->> HelpCommand: new HelpCommand()
   activate HelpCommand
-  HelpCommand -->> Parser: command
   deactivate HelpCommand
   Parser -->> User: command
   deactivate Parser
@@ -170,3 +169,88 @@ sequenceDiagram
   Parser -->> User: command
   deactivate Parser
 ```
+
+Playing coinflip
+``` mermaid
+sequenceDiagram
+actor User as User
+participant Parser as Parser
+participant FlipCommand as FlipCommand
+participant Storage as Storage
+participant Printer as Printer
+
+User ->> Parser: input command "flip heads"
+activate Parser
+
+Parser ->> FlipCommand: new FlipCommand("heads", userData, storage)
+activate FlipCommand
+
+alt outcome is true
+    FlipCommand ->> FlipCommand: userData.balance += userData.betAmount
+    FlipCommand ->> FlipCommand: increaseWinCount()
+    FlipCommand ->> FlipCommand: increaseTotalWinnings(userData.betAmount)
+    FlipCommand ->> CoinflipLogger: info("User won ...")
+else outcome is false
+    FlipCommand ->> FlipCommand: userData.balance -= userData.betAmount
+    FlipCommand ->> FlipCommand: increaseLoseCount()
+    FlipCommand ->> FlipCommand: increaseTotalLosses(userData.betAmount)
+    FlipCommand ->> CoinflipLogger: info("User lost ...")
+end
+
+FlipCommand ->> Storage: saveData(userData)
+activate Storage
+Storage -->> FlipCommand: data saved
+deactivate Storage
+
+FlipCommand ->> Printer: printFlipResult(...)
+deactivate FlipCommand
+
+Parser -->> User: command executed
+deactivate Parser
+```
+
+Changing betting amount
+``` mermaid
+sequenceDiagram
+actor User as User
+participant Parser as Parser
+participant ChangeCommand as ChangeCommand
+participant Printer as Printer
+
+User ->> Parser: input command "change NEW_BET_AMOUNT"
+activate Parser
+
+Parser ->> ChangeCommand: new ChangeCommand(words, userData)
+activate ChangeCommand
+
+ChangeCommand ->> ChangeCommand: userData.betAmount = NEW_BET_AMOUNT
+
+ChangeCommand ->> Printer: printBetAmount(NEW_BET_AMOUNT)
+deactivate ChangeCommand
+
+Parser -->> User: command executed
+deactivate Parser
+```
+
+Terminating programme
+``` mermaid
+sequenceDiagram
+actor User as User
+participant Parser as Parser
+participant ExitCommand as ExitCommand
+participant Printer as Printer
+
+User ->> Parser: input command "exit"
+activate Parser
+
+Parser ->> ExitCommand: new ExitCommand()
+activate ExitCommand
+
+ExitCommand ->> Printer: printExitMessage()
+deactivate ExitCommand
+
+Parser -->> User: command executed
+deactivate Parser
+```
+
+
