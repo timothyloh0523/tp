@@ -15,12 +15,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Storage {
-    private static final String saveFilePath = "./data/coinflip.csv";
-    private static final String saveFileFolderPath = "./data";
+    private static String saveFilePath = "./data/coinflip.csv";
+    private static String saveFileFolderPath = "./data";
 
     //@@author HTY2003
     public Storage() {
     }
+
+    /**
+     * Sets the path for the save file. Only used for testing.
+     */
+    public void setSaveFilePath(String filePath) {
+        this.saveFilePath = filePath;
+    }
+
 
     //@@author CRL006
 
@@ -56,7 +64,7 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private boolean checkSaveFileExists() {
+    public boolean checkSaveFileExists() {
         File saveFile = new File(saveFilePath);
         return saveFile.exists();
     }
@@ -71,7 +79,7 @@ public class Storage {
      * @throws CoinflipFileException if the save file cannot be created
      */
 
-    private void createSave() throws CoinflipFileException {
+    public void createSave() throws CoinflipFileException {
         try {
             this.createSaveFileDirectory();
             this.createSaveFile();
@@ -90,14 +98,14 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private void createSaveFile() throws IOException {
+    public void createSaveFile() throws IOException {
         Path fullFilePath = Paths.get(saveFilePath);
         Files.createFile(fullFilePath);
         assert Files.exists(fullFilePath) : "File at saveFilePath should exist";
     }
 
     //@@author CRL006
-    private String readData() throws CoinflipFileException {
+    public String readData() throws CoinflipFileException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(saveFilePath));
 
@@ -124,7 +132,7 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private void checkData(String[] values) throws CoinflipFileException {
+    public void checkData(String[] values) throws CoinflipFileException {
         if (values.length != 5) {
             CoinflipLogger.warning("Corrupted save file: incorrect column count");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
