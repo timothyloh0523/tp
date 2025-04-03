@@ -1,22 +1,21 @@
 package seedu.coinflip.utils.storage;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import static org.mockito.Mockito.*; //to use Mockito for mocking
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.any;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.exceptions.CoinflipFileException;
-import seedu.coinflip.utils.logger.CoinflipLogger;
 import seedu.coinflip.utils.userdata.UserData;
 
 class StorageTest {
