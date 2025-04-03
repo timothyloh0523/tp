@@ -13,10 +13,7 @@ public class Printer {
 
     //@@author wongyihao0506
     public static void printWelcome() {
-        System.out.println("Welcome to \n" +
-                " __   __          ___         __ \n" +
-                "/  ` /  \\ | |\\ | |__  |    | |__)\n" +
-                "\\__, \\__/ | | \\| |    |___ | |   ");
+        System.out.println("Welcome to Coinflip!");
     }
 
     public static void printBye() {
