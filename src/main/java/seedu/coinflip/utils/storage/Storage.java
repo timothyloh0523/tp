@@ -133,12 +133,12 @@ public class Storage {
 
     //@@author HTY2003
     public void checkData(String[] values) throws CoinflipFileException {
-        if (values.length != 5) {
+        if (values.length != 6) {
             CoinflipLogger.warning("Corrupted save file: incorrect column count");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             if (!values[i].matches("[0-9]+")) {
                 CoinflipLogger.warning("Corrupted save file: data is non-numerical");
                 throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
@@ -155,11 +155,12 @@ public class Storage {
     private UserData getUserData(String[] values) throws NumberFormatException {
         UserData userData = new UserData();
 
-        userData.balance = Integer.parseInt(values[0]);
-        userData.winCount = Integer.parseInt(values[1]);
-        userData.loseCount = Integer.parseInt(values[2]);
-        userData.totalWinnings = Integer.parseInt(values[3]);
-        userData.totalLosings = Integer.parseInt(values[4]);
+        userData.betAmount = Integer.parseInt(values[0]);
+        userData.balance = Integer.parseInt(values[1]);
+        userData.winCount = Integer.parseInt(values[2]);
+        userData.loseCount = Integer.parseInt(values[3]);
+        userData.totalWinnings = Integer.parseInt(values[4]);
+        userData.totalLosings = Integer.parseInt(values[5]);
 
         return userData;
     }
@@ -183,8 +184,9 @@ public class Storage {
 
     //@@author CRL006
     private void writeData(FileWriter writer, UserData userData) throws IOException {
-        writer.write("Balance, Wins, Losses, Amount Won, Amount Lost\n");
-        writer.write(userData.balance + "," +
+        writer.write("Bet Amount, Balance, Wins, Losses, Amount Won, Amount Lost\n");
+        writer.write(userData.betAmount + "," +
+                userData.balance + "," +
                 userData.winCount + "," +
                 userData.loseCount + "," +
                 userData.totalWinnings + "," +
