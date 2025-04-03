@@ -76,8 +76,8 @@ public class CheckCommand extends Command {
     private void checkHistory() {
         CoinflipLogger.info("User checked stats: \nUser win count: " + userData.winCount +
                 "\nUser lose count: " + userData.loseCount +
-                "\nUser total winnings: " + userData.totalWinnings +
-                "\nUser total losings: " + userData.totalLosings);
-        Printer.printStats(userData.winCount, userData.loseCount, userData.totalWinnings, userData.totalLosings);
+                "\nUser total won: " + userData.totalWon +
+                "\nUser total lost: " + userData.totalLost);
+        Printer.printStats(userData.winCount, userData.loseCount, userData.totalWon, userData.totalLost);
     }
 }

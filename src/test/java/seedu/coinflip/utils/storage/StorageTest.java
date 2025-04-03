@@ -28,17 +28,22 @@ class StorageTest {
     void saveDataAndLoadSave_validData_success() throws CoinflipFileException {
         Storage storage = new Storage();
         UserData tempUserData = new UserData();
+
+        tempUserData.betAmount = 20;
         tempUserData.balance = 500;
-        tempUserData.totalLosings = 0;
-        tempUserData.totalWinnings = 0;
+        tempUserData.totalWon = 0;
+        tempUserData.totalLost = 0;
         tempUserData.winCount = 0;
         tempUserData.loseCount = 0;
+
         storage.setSaveFilePath("./src/test/testResources/storageTestFiles/validTestFile.csv");
         storage.saveData(tempUserData);
         UserData loadedData = storage.loadSave();
+
+        assertEquals(tempUserData.betAmount, loadedData.betAmount);
         assertEquals(tempUserData.balance, loadedData.balance);
-        assertEquals(tempUserData.totalLosings, loadedData.totalLosings);
-        assertEquals(tempUserData.totalWinnings, loadedData.totalWinnings);
+        assertEquals(tempUserData.totalWon, loadedData.totalWon);
+        assertEquals(tempUserData.totalLost, loadedData.totalLost);
         assertEquals(tempUserData.winCount, loadedData.winCount);
         assertEquals(tempUserData.loseCount, loadedData.loseCount);
     }

@@ -159,8 +159,8 @@ public class Storage {
         userData.balance = Integer.parseInt(values[1]);
         userData.winCount = Integer.parseInt(values[2]);
         userData.loseCount = Integer.parseInt(values[3]);
-        userData.totalWinnings = Integer.parseInt(values[4]);
-        userData.totalLosings = Integer.parseInt(values[5]);
+        userData.totalWon = Integer.parseInt(values[4]);
+        userData.totalLost = Integer.parseInt(values[5]);
 
         return userData;
     }
@@ -184,12 +184,12 @@ public class Storage {
 
     //@@author CRL006
     private void writeData(FileWriter writer, UserData userData) throws IOException {
-        writer.write("Bet Amount, Balance, Wins, Losses, Amount Won, Amount Lost\n");
+        writer.write("Bet Amount, Balance, Wins, Losses, Total Won, Total Lost\n");
         writer.write(userData.betAmount + "," +
                 userData.balance + "," +
                 userData.winCount + "," +
                 userData.loseCount + "," +
-                userData.totalWinnings + "," +
-                userData.totalLosings + "\n");
+                userData.totalWon + "," +
+                userData.totalLost + "\n");
     }
 }

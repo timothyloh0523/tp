@@ -37,8 +37,8 @@ Children who are not of age to gamble
 
 ### Value proposition
 
-The app will allow children to simulate a gambling environment without using actual money 
-like some games on the App Store. This will be done by allowing them to bet in-game currency 
+The app will allow children to simulate a gambling environment without using actual money
+like some games on the App Store. This will be done by allowing them to bet in-game currency
 on a coin flip, and educate them about the dangers of gambling.
 
 ## User Stories
@@ -56,8 +56,8 @@ on a coin flip, and educate them about the dangers of gambling.
 ## Non-Functional Requirements
 
 * Should work on any _mainstream_ OS with Java 17 installed.
-* A user with decent typing speed for normal text should be able to complete most tasks faster through typing out 
-commands, compared to using the mouse to navigate a GUI application.
+* A user with decent typing speed for normal text should be able to complete most tasks faster through typing out
+  commands, compared to using the mouse to navigate a GUI application.
 
 ## Glossary
 
@@ -69,7 +69,6 @@ Viewing available commands
 
 * Format: `help`
 * Features: Shows available functions
-
 
 <br>
 
@@ -99,7 +98,7 @@ Changing betting amount
 * Format: `change NEW_BET_AMOUNT`
 * Feature: Gets new betting amount from user to be used in next bet.
 * Example of usage:
-`change 10`
+  `change 10`
 
 <br>
 
@@ -108,12 +107,13 @@ Playing coinflip
 * Format: `flip HEADS_OR_TAILS`
 * Feature: Flips a coin and either gains or loses the bet amount
 * Example of usage:
-`flip heads`
-`flip tails`
+  `flip heads`
+  `flip tails`
 
 <br>
 
 Terminating programme
+
 * Format: `exit`
 * Features: Exits the programme
 
@@ -142,6 +142,7 @@ sequenceDiagram
 ```
 
 Viewing balance
+
 ``` mermaid
 sequenceDiagram
   actor User as User
@@ -171,6 +172,7 @@ sequenceDiagram
 ```
 
 Playing coinflip
+
 ``` mermaid
 sequenceDiagram
 actor User as User
@@ -188,12 +190,12 @@ activate FlipCommand
 alt outcome is true
     FlipCommand ->> FlipCommand: userData.balance += userData.betAmount
     FlipCommand ->> FlipCommand: increaseWinCount()
-    FlipCommand ->> FlipCommand: increaseTotalWinnings(userData.betAmount)
+    FlipCommand ->> FlipCommand: increaseTotalWon(userData.betAmount)
     FlipCommand ->> CoinflipLogger: info("User won ...")
 else outcome is false
     FlipCommand ->> FlipCommand: userData.balance -= userData.betAmount
     FlipCommand ->> FlipCommand: increaseLoseCount()
-    FlipCommand ->> FlipCommand: increaseTotalLosses(userData.betAmount)
+    FlipCommand ->> FlipCommand: increaseTotalLost(userData.betAmount)
     FlipCommand ->> CoinflipLogger: info("User lost ...")
 end
 
@@ -210,6 +212,7 @@ deactivate Parser
 ```
 
 Changing betting amount
+
 ``` mermaid
 sequenceDiagram
 actor User as User
@@ -233,6 +236,7 @@ deactivate Parser
 ```
 
 Terminating programme
+
 ``` mermaid
 sequenceDiagram
 actor User as User

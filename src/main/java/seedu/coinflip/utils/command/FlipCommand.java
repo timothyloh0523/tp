@@ -39,7 +39,7 @@ public class FlipCommand extends Command {
      * This method validates the input, checks if the user has sufficient balance to place a bet,
      * and then performs a coin flip to determine the result. If the user wins, their balance is
      * increased by the bet amount; otherwise, it is decreased. The method also updates the user's
-     * win/loss counts and total winnings/losses.
+     * win/loss counts and total won/lost.
      * </p>
      *
      * @throws CoinflipException If the input command format is invalid or the flip choice is not "heads" or "tails".
@@ -73,7 +73,7 @@ public class FlipCommand extends Command {
     private void updateUserWon() {
         userData.balance += userData.betAmount;
         increaseWinCount();
-        increaseTotalWinnings(userData.betAmount);
+        increaseTotalWon(userData.betAmount);
         CoinflipLogger.info("User won " +
                 userData.betAmount +
                 " coins. New balance: " +
@@ -83,7 +83,7 @@ public class FlipCommand extends Command {
     private void updateUserLost() {
         userData.balance -= userData.betAmount;
         increaseLoseCount();
-        increaseTotalLosses(userData.betAmount);
+        increaseTotalLost(userData.betAmount);
         CoinflipLogger.info("User lost " +
                 userData.betAmount +
                 " coins. New balance: " +
@@ -132,11 +132,11 @@ public class FlipCommand extends Command {
         userData.loseCount += 1;
     }
 
-    private void increaseTotalWinnings(int winnings) {
-        userData.totalWinnings += winnings;
+    private void increaseTotalWon(int earnings) {
+        userData.totalWon += earnings;
     }
 
-    private void increaseTotalLosses(int losses) {
-        userData.totalLosings += losses;
+    private void increaseTotalLost(int losses) {
+        userData.totalLost += losses;
     }
 }
