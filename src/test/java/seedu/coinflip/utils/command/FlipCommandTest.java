@@ -17,7 +17,7 @@ public class FlipCommandTest {
         try {
             command.flip();
             assertEquals(20, userData.betAmount);
-            assertEquals(20, userData.totalWinnings + userData.totalLosings);
+            assertEquals(20, userData.totalWon + userData.totalLost);
             assertEquals(1, userData.winCount + userData.loseCount);
             assertTrue(userData.balance == 480 || userData.balance == 520);
         } catch (CoinflipException e) {

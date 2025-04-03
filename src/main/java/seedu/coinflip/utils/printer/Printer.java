@@ -37,15 +37,15 @@ public class Printer {
     }
 
     //@@author CRL006
-    public static void printStats(int wins, int losses, int totalWinnings, int totalLosings) {
+    public static void printStats(int wins, int losses, int totalWon, int totalLost) {
         if (wins == 0 && losses == 0) {
             System.out.println("You have not flipped a coin before! " +
                     "Type in 'flip heads' or 'flip tails' to play!");
         } else {
             System.out.println("Wins: " + wins +
                     "\nLosses: " + losses +
-                    "\nTotal winnings: " + totalWinnings +
-                    "\nTotal losings: " + totalLosings);
+                    "\nTotal Won: " + totalWon +
+                    "\nTotal Lost: " + totalLost);
         }
     }
 

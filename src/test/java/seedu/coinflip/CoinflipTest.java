@@ -23,8 +23,8 @@ class CoinflipTest {
         assertEquals(20, program.getBetAmount());
         assertEquals(0, program.getWinCount());
         assertEquals(0, program.getLoseCount());
-        assertEquals(0, program.getTotalWinnings());
-        assertEquals(0, program.getTotalLosings());
+        assertEquals(0, program.getTotalWon());
+        assertEquals(0, program.getTotalLost());
     }
 
     //@@author CRL006

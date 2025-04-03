@@ -70,21 +70,21 @@ public class Coinflip {
     }
 
     /**
-     * Returns the cumulative total of all winnings the user has
+     * Returns the cumulative total of all coins the user has won
      *
-     * @return user's total winnings in coins
+     * @return user's total earnings in coins
      */
-    public int getTotalWinnings() {
-        return userData.totalWinnings;
+    public int getTotalWon() {
+        return userData.totalWon;
     }
 
     /**
-     * Returns the cumulative total of all losses the user has
+     * Returns the cumulative total of all coins the user has lost
      *
      * @return user's total losses in coins
      */
-    public int getTotalLosings() {
-        return userData.totalLosings;
+    public int getTotalLost() {
+        return userData.totalLost;
     }
 
     //@@author HTY2003
