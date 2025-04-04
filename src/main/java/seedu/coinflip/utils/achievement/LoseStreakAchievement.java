@@ -18,9 +18,8 @@ public class LoseStreakAchievement extends Achievement {
         if (userData.highestLoseStreak >= currentLoseStreak) {
             return;
         }
-        
+
         switch (currentLoseStreak) {
-        case 1:
         case 5:
         case 10:
         case 20:

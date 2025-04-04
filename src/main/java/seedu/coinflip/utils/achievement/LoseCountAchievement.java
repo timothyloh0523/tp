@@ -16,7 +16,6 @@ public class LoseCountAchievement extends Achievement {
         int loseCount = userData.loseCount + 1;
 
         switch (loseCount) {
-        case 1:
         case 5:
         case 10:
         case 20:
@@ -25,10 +24,8 @@ public class LoseCountAchievement extends Achievement {
             setToBePrinted(true);
             setPrintMessage("Uh-oh! I mean, congratulations, " +
                     "you have lost a total of " +
-                    (loseCount) +
-                    " coin " +
-                    ((loseCount == 1) ? "flip" : "flips") +
-                    " so far! Just one more!");
+                    loseCount +
+                    " coin flips so far! Just one more!");
             break;
         default:
             break;

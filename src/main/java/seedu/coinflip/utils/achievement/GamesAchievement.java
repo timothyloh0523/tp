@@ -12,7 +12,6 @@ public class GamesAchievement extends Achievement {
         int gameCount = userData.winCount + userData.loseCount + 1;
 
         switch (gameCount) {
-        case 1:
         case 5:
         case 10:
         case 20:
@@ -21,9 +20,7 @@ public class GamesAchievement extends Achievement {
             setToBePrinted(true);
             setPrintMessage("Congratulations, you have made a total of " +
                     gameCount +
-                    " coin " +
-                    ((gameCount == 1) ? "flip" : "flips") +
-                    " so far! Keep it up!");
+                    " coin flips so far! Keep it up!");
             break;
         default:
             break;

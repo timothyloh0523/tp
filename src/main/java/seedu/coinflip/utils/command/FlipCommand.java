@@ -77,6 +77,11 @@ public class FlipCommand extends Command {
 
     private void updateUserWon() {
         userData.balance += userData.betAmount;
+
+        if (userData.balance < 0 || userData.balance > 999999999) {
+            userData.balance = 999999999;
+        }
+
         increaseWinCount();
         increaseTotalWon(userData.betAmount);
         increaseCurrentWinStreak();
@@ -141,18 +146,30 @@ public class FlipCommand extends Command {
     //@@author CRL006
     private void increaseWinCount() {
         userData.winCount += 1;
+        if (userData.winCount < 0 || userData.winCount > 999999999) {
+            userData.winCount = 999999999;
+        }
     }
 
     private void increaseLoseCount() {
         userData.loseCount += 1;
+        if (userData.loseCount < 0 || userData.loseCount > 999999999) {
+            userData.loseCount = 999999999;
+        }
     }
 
     private void increaseCurrentWinStreak() {
         userData.currentWinStreak += 1;
+        if (userData.currentWinStreak < 0 || userData.currentWinStreak > 999999999) {
+            userData.currentWinStreak = 999999999;
+        }
     }
 
     private void increaseCurrentLoseStreak() {
         userData.currentLoseStreak += 1;
+        if (userData.currentLoseStreak < 0 || userData.currentLoseStreak > 999999999) {
+            userData.currentLoseStreak = 999999999;
+        }
     }
 
     private void updateHighestWinStreak() {
@@ -173,9 +190,15 @@ public class FlipCommand extends Command {
 
     private void increaseTotalWon(int earnings) {
         userData.totalWon += earnings;
+        if (userData.totalWon < 0 || userData.totalWon > 999999999) {
+            userData.totalWon = 999999999;
+        }
     }
 
     private void increaseTotalLost(int losses) {
         userData.totalLost += losses;
+        if (userData.totalLost < 0 || userData.totalLost > 999999999) {
+            userData.totalLost = 999999999;
+        }
     }
 }
