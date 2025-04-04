@@ -12,12 +12,13 @@ public class LoseStreakAchievement extends Achievement {
         if (outcome) {
             return;
         }
-        
+
         int currentLoseStreak = userData.currentLoseStreak + 1;
 
-        if (userData.highestLoseStreak >= currentLoseStreak)
+        if (userData.highestLoseStreak >= currentLoseStreak) {
             return;
-
+        }
+        
         switch (currentLoseStreak) {
         case 1:
         case 5:

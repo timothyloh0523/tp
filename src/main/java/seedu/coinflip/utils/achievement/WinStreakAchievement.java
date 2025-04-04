@@ -12,12 +12,13 @@ public class WinStreakAchievement extends Achievement {
         if (!outcome) {
             return;
         }
-        
+
         int currentWinStreak = userData.currentWinStreak + 1;
 
-        if (userData.highestWinStreak >= currentWinStreak)
+        if (userData.highestWinStreak >= currentWinStreak) {
             return;
-
+        }
+        
         switch (currentWinStreak) {
         case 1:
         case 5:
