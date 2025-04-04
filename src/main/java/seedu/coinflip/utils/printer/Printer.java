@@ -68,6 +68,136 @@ public class Printer {
         }
     }
 
+    public static void printUnlockFiveWinStreakAchievement() {
+        System.out.println("Coinflip Beginner unlocked! " +
+                "\nCongratulations! You achieved a 5-win streak!" +
+                "\nKeep it up!!");
+    }
+
+    public static void printUnlockTenWinStreakAchievement() {
+        System.out.println("Coinflip Apprentice unlocked! " +
+                "\nCongratulations! You achieved a 10-win streak!" +
+                "\nKeep it up!!");
+    }
+
+    public static void printUnlockTwentyWinStreakAchievement() {
+        System.out.println("Coinflip Expert unlocked! " +
+                "\nCongratulations! You achieved a 20-win streak!" +
+                "\nKeep it up!!");
+    }
+
+    public static void printUnlockFiftyWinStreakAchievement() {
+        System.out.println("Coinflip Master unlocked! " +
+                "\nCongratulations! You achieved a 50-win streak!" +
+                "\nKeep it up!!");
+    }
+
+    public static void printUnlockHundredWinStreakAchievement() {
+        System.out.println("Coinflip Legend unlocked! " +
+                "\nCongratulations! You achieved a 100-win streak!" +
+                "\nKeep it up!!");
+    }
+
+    public static void printUnlockFiveFiveWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 5-win streak achievement 5 times!");
+    }
+
+    public static void printUnlockTenFiveWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 5-win streak achievement 10 times!");
+    }
+
+    public static void printUnlockTwentyFiveWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 5-win streak achievement 20 times!");
+    }
+
+    public static void printUnlockFiftyFiveWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 5-win streak achievement 50 times!");
+    }
+
+    public static void printUnlockHundredFiveWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 5-win streak achievement 100 times!");
+    }
+
+    public static void printUnlockFiveTenWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 10-win streak achievement 5 times!");
+    }
+
+    public static void printUnlockTenTenWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 10-win streak achievement 10 times!");
+    }
+
+    public static void printUnlockTwentyTenWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 10-win streak achievement 20 times!");
+    }
+
+    public static void printUnlockFiftyTenWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 10-win streak achievement 50 times!");
+    }
+
+    public static void printUnlockHundredTenWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 10-win streak achievement 100 times!");
+    }
+
+    public static void printUnlockFiveTwentyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 20-win streak achievement 5 times!");
+    }
+
+    public static void printUnlockTenTwentyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 20-win streak achievement 10 times!");
+    }
+
+    public static void printUnlockTwentyTwentyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 20-win streak achievement 20 times!");
+    }
+
+    public static void printUnlockFiftyTwentyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 20-win streak achievement 50 times!");
+    }
+
+    public static void printUnlockHundredTwentyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 20-win streak achievement 100 times!");
+    }
+
+    public static void printUnlockFiveFiftyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 50-win streak achievement 5 times!");
+    }
+
+    public static void printUnlockTenFiftyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 50-win streak achievement 10 times!");
+    }
+
+    public static void printUnlockTwentyFiftyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 50-win streak achievement 20 times!");
+    }
+
+    public static void printUnlockFiftyFiftyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 50-win streak achievement 50 times!");
+    }
+
+    public static void printUnlockHundredFiftyWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 50-win streak achievement 100 times!");
+    }
+
+    public static void printUnlockFiveHundredWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 100-win streak achievement 5 times!");
+    }
+
+    public static void printUnlockTenHundredWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 100-win streak achievement 10 times!");
+    }
+
+    public static void printUnlockTwentyHundredWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 100-win streak achievement 20 times!");
+    }
+
+    public static void printUnlockFiftyHundredWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 100-win streak achievement 50 times!");
+    }
+
+    public static void printUnlockHundredHundredWinStreakAchievement() {
+        System.out.println("Congratulations! You have unlocked the 100-win streak achievement 100 times!");
+    }
+
     public static void printBetAmount(int betAmount) {
         System.out.println("Your current bet amount is: " + betAmount);
     }
