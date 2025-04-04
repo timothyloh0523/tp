@@ -2,9 +2,6 @@ package seedu.coinflip.utils.achievement;
 
 import java.util.ArrayList;
 import seedu.coinflip.utils.userdata.UserData;
-import java.util.List;
-import seedu.coinflip.utils.achievement.Achievement;
-import seedu.coinflip.utils.printer.Printer;
 
 public class MaxWinStreakAchievement {
     public static ArrayList<Achievement> achievements;

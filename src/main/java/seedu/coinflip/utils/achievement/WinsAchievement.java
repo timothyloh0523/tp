@@ -1,6 +1,5 @@
 package seedu.coinflip.utils.achievement;
 
-import seedu.coinflip.utils.printer.Printer;
 import seedu.coinflip.utils.userdata.UserData;
 
 import java.util.ArrayList;
