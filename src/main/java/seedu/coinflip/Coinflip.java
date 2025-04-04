@@ -2,8 +2,7 @@ package seedu.coinflip;
 
 import java.io.IOException;
 
-import seedu.coinflip.utils.achievement.MaxWinStreakAchievement;
-import seedu.coinflip.utils.achievement.WinsAchievement;
+import seedu.coinflip.utils.achievement.AchievementList;
 import seedu.coinflip.utils.command.Command;
 import seedu.coinflip.utils.command.ExitCommand;
 import seedu.coinflip.utils.exceptions.CoinflipException;
@@ -16,9 +15,8 @@ import seedu.coinflip.utils.userdata.UserData;
 
 public class Coinflip {
     private final Storage storage;
+    private final AchievementList achievementList;
     private UserData userData;
-    private MaxWinStreakAchievement maxWinStreakAchievement;
-    private WinsAchievement WinsAchievement;
 
     //@@author HTY2003
 
@@ -31,10 +29,9 @@ public class Coinflip {
             throw new IOException("Failed to initialize logger");
         }
 
-        storage = new Storage();
-        userData = new UserData();
-        maxWinStreakAchievement = new MaxWinStreakAchievement();
-        WinsAchievement = new WinsAchievement();
+        this.storage = new Storage();
+        this.achievementList = new AchievementList();
+        this.userData = new UserData();
 
         CoinflipLogger.info("Coinflip application started");
     }
@@ -114,7 +111,7 @@ public class Coinflip {
 
         Printer.printUnderscoreLine();
 
-        Parser parser = new Parser(userData, storage);
+        Parser parser = new Parser(userData, achievementList, storage);
         boolean isExit = false;
 
         while (!isExit) {

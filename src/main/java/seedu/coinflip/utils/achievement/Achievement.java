@@ -1,18 +1,27 @@
 package seedu.coinflip.utils.achievement;
 
-public class Achievement {
-    public Boolean isUnlocked;
-    public int timesCompleted;
-    public String descriptor;
-    Achievement(String descriptor) {
-        this.isUnlocked = false;
-        this.timesCompleted = 0;
-        this.descriptor = descriptor;
+import seedu.coinflip.utils.userdata.UserData;
+
+//@@author CRL006
+public abstract class Achievement {
+    private Boolean toBePrinted = false;
+    private String printMessage = "";
+
+    public abstract void update(UserData userData, Boolean outcome);
+
+    public Boolean getToBePrinted() {
+        return this.toBePrinted;
     }
-    public void unlock() {
-        isUnlocked = true;
+
+    public void setToBePrinted(Boolean toBePrinted) {
+        this.toBePrinted = toBePrinted;
     }
-    public void incrementTimesCompleted() {
-        timesCompleted++;
+
+    public String getPrintMessage() {
+        return this.printMessage;
+    }
+
+    public void setPrintMessage(String printMessage) {
+        this.printMessage = printMessage;
     }
 }

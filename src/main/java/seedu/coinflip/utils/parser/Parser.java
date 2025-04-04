@@ -1,5 +1,6 @@
 package seedu.coinflip.utils.parser;
 
+import seedu.coinflip.utils.achievement.AchievementList;
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.command.Command;
 import seedu.coinflip.utils.command.ChangeCommand;
@@ -20,12 +21,14 @@ import java.util.Scanner;
 public class Parser {
     private final Storage storage;
     private UserData userData;
+    private AchievementList achievementList;
     private Scanner scanner;
     private String input;
 
     //@@author timothyloh0523
-    public Parser(UserData userData, Storage storage) {
+    public Parser(UserData userData, AchievementList achievementList, Storage storage) {
         this.userData = userData;
+        this.achievementList = achievementList;
         this.storage = storage;
         this.scanner = new Scanner(System.in);
         CoinflipLogger.info("Parser initialized");
@@ -55,7 +58,7 @@ public class Parser {
             return new ChangeCommand(words, userData, storage);
         case "flip":
             CoinflipLogger.fine("Created FlipCommand object");
-            return new FlipCommand(words, userData, storage);
+            return new FlipCommand(words, userData, achievementList, storage);
         case "help":
             CoinflipLogger.fine("Created HelpCommand object");
             return new HelpCommand(words);

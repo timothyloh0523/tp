@@ -1,6 +1,7 @@
 package seedu.coinflip.utils.command;
 
 import org.junit.jupiter.api.Test;
+import seedu.coinflip.utils.achievement.AchievementList;
 import seedu.coinflip.utils.userdata.UserData;
 import seedu.coinflip.utils.exceptions.CoinflipException;
 
@@ -13,7 +14,8 @@ public class FlipCommandTest {
     public void singleFlipTest() {
         String[] commandWords = {"flip", "heads"};
         UserData userData = new UserData();
-        FlipCommand command = new FlipCommand(commandWords, userData, null);
+        AchievementList achievementList = new AchievementList();
+        FlipCommand command = new FlipCommand(commandWords, userData, achievementList, null);
         try {
             command.flip();
             assertEquals(20, userData.betAmount);
@@ -30,7 +32,8 @@ public class FlipCommandTest {
     public void multipleFlipsTest() {
         String[] commandWords = {"flip", "heads"};
         UserData userData = new UserData();
-        FlipCommand command = new FlipCommand(commandWords, userData, null);
+        AchievementList achievementList = new AchievementList();
+        FlipCommand command = new FlipCommand(commandWords, userData, achievementList, null);
         try {
             for (int i = 0; i < 10; i++) {
                 command.flip();
