@@ -1,8 +1,8 @@
 package seedu.coinflip.utils.printer;
 
 import seedu.coinflip.utils.achievement.AchievementList;
-import seedu.coinflip.utils.animations.LoadingAnimation;
-import seedu.coinflip.utils.animations.ScanningWordAnimation;
+import seedu.coinflip.utils.animation.LoadingAnimation;
+import seedu.coinflip.utils.animation.ScanningWordAnimation;
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.userdata.UserData;
 
@@ -77,9 +77,9 @@ public class Printer {
 
     public static void printUnlockedAchievements(AchievementList achievementList) {
         String unlockedAchievementsString = achievementList.getPrintString();
-        if (unlockedAchievementsString.isEmpty())
+        if (unlockedAchievementsString.isEmpty()) {
             return;
-
+        }
         printUnderscoreLine();
         System.out.print(unlockedAchievementsString);
     }

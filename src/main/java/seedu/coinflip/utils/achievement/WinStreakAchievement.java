@@ -9,9 +9,10 @@ public class WinStreakAchievement extends Achievement {
     }
 
     public void update(UserData userData, Boolean outcome) {
-        if (!outcome)
+        if (!outcome) {
             return;
-
+        }
+        
         int currentWinStreak = userData.currentWinStreak + 1;
 
         if (userData.highestWinStreak >= currentWinStreak)

@@ -1,4 +1,4 @@
-package seedu.coinflip.utils.animations;
+package seedu.coinflip.utils.animation;
 
 import seedu.coinflip.utils.exceptions.CoinflipException;
 

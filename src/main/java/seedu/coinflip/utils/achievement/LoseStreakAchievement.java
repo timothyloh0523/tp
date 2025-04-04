@@ -9,9 +9,10 @@ public class LoseStreakAchievement extends Achievement {
     }
 
     public void update(UserData userData, Boolean outcome) {
-        if (outcome)
+        if (outcome) {
             return;
-
+        }
+        
         int currentLoseStreak = userData.currentLoseStreak + 1;
 
         if (userData.highestLoseStreak >= currentLoseStreak)

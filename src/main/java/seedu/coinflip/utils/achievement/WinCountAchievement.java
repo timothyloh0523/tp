@@ -9,9 +9,10 @@ public class WinCountAchievement extends Achievement {
     }
 
     public void update(UserData userData, Boolean outcome) {
-        if (!outcome)
+        if (!outcome) {
             return;
-
+        }
+        
         int winCount = userData.winCount + 1;
 
         switch (winCount) {

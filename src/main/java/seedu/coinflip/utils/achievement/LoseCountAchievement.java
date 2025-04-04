@@ -9,9 +9,10 @@ public class LoseCountAchievement extends Achievement {
     }
 
     public void update(UserData userData, Boolean outcome) {
-        if (outcome)
+        if (outcome) {
             return;
-
+        }
+        
         int loseCount = userData.loseCount + 1;
 
         switch (loseCount) {
