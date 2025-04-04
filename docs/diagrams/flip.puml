@@ -1,0 +1,37 @@
+@startuml
+actor User as User
+participant Parser as ":Parser"
+participant FlipCommand as ":FlipCommand"
+participant Storage as ":Storage"
+participant Printer as ":Printer"
+participant CoinflipLogger as ":CoinflipLogger"
+
+User -> Parser: input command "flip heads"
+activate Parser
+
+Parser -> FlipCommand: new FlipCommand("heads", userData, storage)
+activate FlipCommand
+
+alt outcome is true
+FlipCommand -> FlipCommand: userData.balance += userData.betAmount
+FlipCommand -> FlipCommand: increaseWinCount()
+FlipCommand -> FlipCommand: increaseTotalWon(userData.betAmount)
+FlipCommand -> CoinflipLogger: info("User won ...")
+else outcome is false
+FlipCommand -> FlipCommand: userData.balance -= userData.betAmount
+FlipCommand -> FlipCommand: increaseLoseCount()
+FlipCommand -> FlipCommand: increaseTotalLost(userData.betAmount)
+FlipCommand -> CoinflipLogger: info("User lost ...")
+end
+
+FlipCommand -> Storage: saveData(userData)
+activate Storage
+Storage -->> FlipCommand: data saved
+deactivate Storage
+
+FlipCommand -> Printer: printFlipResult(...)
+deactivate FlipCommand
+
+Parser -->> User: command executed
+deactivate Parser
+@enduml

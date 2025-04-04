@@ -21,3 +21,4 @@ data/coinflip.csv
 data/coinflip.log
 src/main/java/seedu/coinflip/data/coinflip.csv
 src/test/testResources/storageTestFiles/validTestFile.csv
+/data/coinflip.log.lck
