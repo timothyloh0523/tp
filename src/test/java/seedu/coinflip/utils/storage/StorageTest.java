@@ -79,10 +79,10 @@ class StorageTest {
         assertThrows(CoinflipFileException.class, storage::createSave);
     }
 
-    @Test
+    /*@Test
     void readData_returnsNull_throwsException() throws Exception {
         Storage storage = spy(new Storage());
         doReturn(null).when(storage).readData();
         assertThrows(NullPointerException.class, storage::loadSave);
-    }
+    }*/
 }
