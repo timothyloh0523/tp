@@ -57,6 +57,8 @@ public class LoadingAnimation extends Animation {
         case 5:
             System.out.print("\r[ X ] ");
             break;
+        default:
+            break;
         }
         System.out.print(message);
     }
