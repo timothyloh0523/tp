@@ -11,6 +11,7 @@ public class Printer {
         System.out.println(new String(new char[NUM_OF_UNDERSCORES]).replace("\0", "_"));
     }
 
+    //@@author HTY2003
     public static void printWelcome() {
         System.out.println("Welcome to Coinflip!");
     }
@@ -37,15 +38,15 @@ public class Printer {
     }
 
     //@@author CRL006
-    public static void printStats(int wins, int losses, int totalWinnings, int totalLosings) {
+    public static void printStats(int wins, int losses, int totalWon, int totalLost) {
         if (wins == 0 && losses == 0) {
-            System.out.println("You have not played a coinflip before! " +
+            System.out.println("You have not flipped a coin before! " +
                     "Type in 'flip heads' or 'flip tails' to play!");
         } else {
             System.out.println("Wins: " + wins +
                     "\nLosses: " + losses +
-                    "\nTotal winnings: " + totalWinnings +
-                    "\nTotal losings: " + totalLosings);
+                    "\nTotal Won: " + totalWon +
+                    "\nTotal Lost: " + totalLost);
         }
     }
 
@@ -53,14 +54,35 @@ public class Printer {
         System.out.println("Your current bet amount is: " + betAmount);
     }
 
-    public static void printNotEnoughCoins() {
-        System.out.println("You are betting more coins than you currently have! Please change your bet amount.");
+    //@@author wongyihao0506
+    private static void sleepForAnimation() throws CoinflipException {
+        try {
+            Thread.sleep(350);
+        } catch (InterruptedException e) {
+            throw new CoinflipException(CoinflipException.ANIMATION_ERROR);
+        }
     }
 
     //@@author wongyihao0506
-    public static void printFlipOutcome(String coinFlip, Boolean outcome, int betAmount) {
+    private static void printLoadingAnimation() throws CoinflipException {
+        System.out.print('-');
+        sleepForAnimation();
+        System.out.print("\b\\");
+        sleepForAnimation();
+        System.out.print("\b|");
+        sleepForAnimation();
+        System.out.print("\b/");
+        sleepForAnimation();
+        System.out.print("\b-");
+        sleepForAnimation();
+        System.out.print("\b");
+    }
+
+    //@@author wongyihao0506
+    public static void printFlipOutcome(String actualFlip, Boolean outcome, int betAmount) throws CoinflipException {
+        printLoadingAnimation();
         String outcomeMessage = outcome ? "You won " : "You lost ";
-        System.out.println(coinFlip + "! " + outcomeMessage + betAmount + " coins.");
+        System.out.println(actualFlip + "! " + outcomeMessage + betAmount + " coins.");
     }
 
     public static void printNewSaveFileNote() {

@@ -15,12 +15,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Storage {
-    private static final String saveFilePath = "./data/coinflip.csv";
-    private static final String saveFileFolderPath = "./data";
+    private static String saveFilePath = "./data/coinflip.csv";
+    private static String saveFileFolderPath = "./data";
 
     //@@author HTY2003
     public Storage() {
     }
+
+    /**
+     * Sets the path for the save file. Only used for testing.
+     */
+    public void setSaveFilePath(String filePath) {
+        this.saveFilePath = filePath;
+    }
+
 
     //@@author CRL006
 
@@ -56,7 +64,7 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private boolean checkSaveFileExists() {
+    public boolean checkSaveFileExists() {
         File saveFile = new File(saveFilePath);
         return saveFile.exists();
     }
@@ -71,7 +79,7 @@ public class Storage {
      * @throws CoinflipFileException if the save file cannot be created
      */
 
-    private void createSave() throws CoinflipFileException {
+    public void createSave() throws CoinflipFileException {
         try {
             this.createSaveFileDirectory();
             this.createSaveFile();
@@ -90,14 +98,14 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private void createSaveFile() throws IOException {
+    public void createSaveFile() throws IOException {
         Path fullFilePath = Paths.get(saveFilePath);
         Files.createFile(fullFilePath);
         assert Files.exists(fullFilePath) : "File at saveFilePath should exist";
     }
 
     //@@author CRL006
-    private String readData() throws CoinflipFileException {
+    public String readData() throws CoinflipFileException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(saveFilePath));
 
@@ -124,13 +132,13 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private void checkData(String[] values) throws CoinflipFileException {
-        if (values.length != 5) {
+    public void checkData(String[] values) throws CoinflipFileException {
+        if (values.length != 6) {
             CoinflipLogger.warning("Corrupted save file: incorrect column count");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             if (!values[i].matches("[0-9]+")) {
                 CoinflipLogger.warning("Corrupted save file: data is non-numerical");
                 throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
@@ -147,11 +155,12 @@ public class Storage {
     private UserData getUserData(String[] values) throws NumberFormatException {
         UserData userData = new UserData();
 
-        userData.balance = Integer.parseInt(values[0]);
-        userData.winCount = Integer.parseInt(values[1]);
-        userData.loseCount = Integer.parseInt(values[2]);
-        userData.totalWinnings = Integer.parseInt(values[3]);
-        userData.totalLosings = Integer.parseInt(values[4]);
+        userData.betAmount = Integer.parseInt(values[0]);
+        userData.balance = Integer.parseInt(values[1]);
+        userData.winCount = Integer.parseInt(values[2]);
+        userData.loseCount = Integer.parseInt(values[3]);
+        userData.totalWon = Integer.parseInt(values[4]);
+        userData.totalLost = Integer.parseInt(values[5]);
 
         return userData;
     }
@@ -175,11 +184,12 @@ public class Storage {
 
     //@@author CRL006
     private void writeData(FileWriter writer, UserData userData) throws IOException {
-        writer.write("Balance, Wins, Losses, Amount Won, Amount Lost\n");
-        writer.write(userData.balance + "," +
+        writer.write("Bet Amount, Balance, Wins, Losses, Total Won, Total Lost\n");
+        writer.write(userData.betAmount + "," +
+                userData.balance + "," +
                 userData.winCount + "," +
                 userData.loseCount + "," +
-                userData.totalWinnings + "," +
-                userData.totalLosings + "\n");
+                userData.totalWon + "," +
+                userData.totalLost + "\n");
     }
 }

@@ -12,6 +12,7 @@ import java.util.Random;
  * Handles the command to flip a coin, given a certain bet amount.
  */
 public class FlipCommand extends Command {
+    private static final Integer NUMBER_OF_WORDS = 2;
     private final String[] words;
     private final Storage storage;
     private final UserData userData;
@@ -20,7 +21,6 @@ public class FlipCommand extends Command {
         this.words = words;
         this.userData = userData;
         this.storage = storage;
-        CoinflipLogger.fine("FlipCommand created");
     }
 
     @Override
@@ -28,6 +28,7 @@ public class FlipCommand extends Command {
         CoinflipLogger.info("Executing flip command");
         this.flip();
         storage.saveData(userData);
+        CoinflipLogger.info("Finished executing flip command");
     }
 
     //@@author wongyihao0506
@@ -38,7 +39,7 @@ public class FlipCommand extends Command {
      * This method validates the input, checks if the user has sufficient balance to place a bet,
      * and then performs a coin flip to determine the result. If the user wins, their balance is
      * increased by the bet amount; otherwise, it is decreased. The method also updates the user's
-     * win/loss counts and total winnings/losses.
+     * win/loss counts and total won/lost.
      * </p>
      *
      * @throws CoinflipException If the input command format is invalid or the flip choice is not "heads" or "tails".
@@ -46,49 +47,81 @@ public class FlipCommand extends Command {
     public void flip() throws CoinflipException {
         CoinflipLogger.info("User attempting to flip a coin");
 
-        if (words.length != 2) {
-            CoinflipLogger.warning("Invalid flip command format");
-            throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
-        }
+        checkNumberOfWords(words);
+        checkValidOutcomeWord(words[1]);
+        checkWithinBalance(userData.betAmount, userData.balance);
 
-        if (!words[1].equals("heads") && !words[1].equals("tails")) {
-            CoinflipLogger.warning("Invalid flip choice: " + words[1]);
-            throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
-        }
+        String actualFlip = generateFlip();
+        Boolean outcome = getOutcome(actualFlip, words[1]);
+        processOutcome(outcome);
 
-        if (userData.betAmount > userData.balance) {
-            CoinflipLogger.warning("Bet amount exceeds balance: bet = "
-                    + userData.betAmount
-                    + ", balance = "
-                    + userData.balance);
-            Printer.printNotEnoughCoins();
-            return;
-        }
 
-        Random random = new Random();
-        String coinFlip = random.nextBoolean() ? "Heads" : "Tails";
-        Boolean outcome = coinFlip.equalsIgnoreCase(words[1]);
-
-        if (outcome) {
-            userData.balance += userData.betAmount;
-            increaseWinCount();
-            increaseTotalWinnings(userData.betAmount);
-            CoinflipLogger.info("User won "
-                    + userData.betAmount
-                    + " coins. New balance: "
-                    + userData.balance);
-        } else {
-            userData.balance -= userData.betAmount;
-            increaseLoseCount();
-            increaseTotalLosses(userData.betAmount);
-            CoinflipLogger.info("User lost " + userData.betAmount + " coins. New balance: " + userData.balance);
-        }
-
+        Printer.printFlipOutcome(actualFlip, outcome, userData.betAmount);
         Printer.printBetAmount(userData.betAmount);
-        Printer.printFlipOutcome(coinFlip, outcome, userData.betAmount);
         Printer.printBalance(userData.balance);
 
         assert userData.balance >= 0 : "balance should be more than or equal to 0";
+    }
+
+    private void processOutcome(Boolean outcome) {
+        if (outcome) {
+            updateUserWon();
+        } else {
+            updateUserLost();
+        }
+    }
+
+    private void updateUserWon() {
+        userData.balance += userData.betAmount;
+        increaseWinCount();
+        increaseTotalWon(userData.betAmount);
+        CoinflipLogger.info("User won " +
+                userData.betAmount +
+                " coins. New balance: " +
+                userData.balance);
+    }
+
+    private void updateUserLost() {
+        userData.balance -= userData.betAmount;
+        increaseLoseCount();
+        increaseTotalLost(userData.betAmount);
+        CoinflipLogger.info("User lost " +
+                userData.betAmount +
+                " coins. New balance: " +
+                userData.balance);
+    }
+
+    private static String generateFlip() {
+        Random random = new Random();
+        return random.nextBoolean() ? "Heads" : "Tails";
+    }
+
+    private static Boolean getOutcome(String actualFlip, String desiredFlip) {
+        return actualFlip.equalsIgnoreCase(desiredFlip);
+    }
+
+    private static void checkNumberOfWords(String[] words) throws CoinflipException {
+        if (words.length != NUMBER_OF_WORDS) {
+            CoinflipLogger.warning("Invalid flip command format");
+            throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
+        }
+    }
+
+    private static void checkValidOutcomeWord(String input) throws CoinflipException {
+        if (!input.equals("heads") && !input.equals("tails")) {
+            CoinflipLogger.warning("Invalid flip choice: " + input);
+            throw new CoinflipException(CoinflipException.FLIP_INVALID_FORMAT);
+        }
+    }
+
+    private static void checkWithinBalance(Integer betAmount, Integer balance) throws CoinflipException {
+        if (betAmount > balance) {
+            CoinflipLogger.warning("Bet amount exceeds balance: bet = " +
+                    betAmount +
+                    ", balance = " +
+                    balance);
+            throw new CoinflipException(CoinflipException.FLIP_BET_AMOUNT_EXCEEDS_BALANCE);
+        }
     }
 
     //@@author CRL006
@@ -96,18 +129,15 @@ public class FlipCommand extends Command {
         userData.winCount += 1;
     }
 
-    //@@author CRL006
     private void increaseLoseCount() {
         userData.loseCount += 1;
     }
 
-    //@@author CRL006
-    private void increaseTotalWinnings(int winnings) {
-        userData.totalWinnings += winnings;
+    private void increaseTotalWon(int earnings) {
+        userData.totalWon += earnings;
     }
 
-    //@@author CRL006
-    private void increaseTotalLosses(int losses) {
-        userData.totalLosings += losses;
+    private void increaseTotalLost(int losses) {
+        userData.totalLost += losses;
     }
 }
