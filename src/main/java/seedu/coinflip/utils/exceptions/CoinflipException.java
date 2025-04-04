@@ -16,6 +16,9 @@ public class CoinflipException extends Exception {
             "more than you currently have! " +
             "Please choose another bet amount.";
 
+    public static final String CHANGE_BET_AMOUNT_TOO_LARGE = "Your desired bet amount is too large! " +
+            "Please choose a smaller bet amount.";
+
     public static final String CHECK_INVALID_FORMAT = "Invalid command format! " +
             "Please follow this format: check <bet>/<balance>/<history>";
 

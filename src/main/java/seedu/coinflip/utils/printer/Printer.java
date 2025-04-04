@@ -1,14 +1,17 @@
 package seedu.coinflip.utils.printer;
 
+import seedu.coinflip.utils.animations.LoadingAnimation;
+import seedu.coinflip.utils.animations.ScanningWordAnimation;
 import seedu.coinflip.utils.exceptions.CoinflipException;
+import seedu.coinflip.utils.userdata.UserData;
 
 public class Printer {
-    private static final int NUM_OF_UNDERSCORES = 50;
+    private static final int NUMBER_OF_UNDERSCORES = 50;
     private static final String USER_GUIDE_URL = "https://ay2425s2-cs2113-f13-1.github.io/tp/UserGuide.html";
 
     //@@author HTY2003
     public static void printUnderscoreLine() {
-        System.out.println(new String(new char[NUM_OF_UNDERSCORES]).replace("\0", "_"));
+        System.out.println(new String(new char[NUMBER_OF_UNDERSCORES]).replace("\0", "_"));
     }
 
     //@@author HTY2003
@@ -16,20 +19,21 @@ public class Printer {
         System.out.println("Welcome to Coinflip!");
     }
 
+    //@@author HTY2003
     public static void printBye() {
         System.out.println("Thank you for using Coinflip. Goodbye!");
     }
 
-    public static void printInvalidCommand() {
-        System.out.println("Invalid command!");
-    }
-
+    //@@author HTY2003
     public static void printException(CoinflipException e) {
         System.out.println(e.message);
     }
 
-    public static void printLoggerFail() {
-        System.out.println("Coinflip could not start due errors initializing its Java logger: ");
+    //@@author timothyloh0523
+    public static void printFlipSummary(UserData userData) throws CoinflipException {
+        Printer.printBetAmount(userData.betAmount);
+        Printer.printBalance(userData.balance);
+        Printer.printStreaks(userData.winStreak, userData.loseStreak);
     }
 
     //@@author timothyloh0523
@@ -68,43 +72,27 @@ public class Printer {
         }
     }
 
+    //@@author CRL006
+    public static void printNewSaveFileNote() {
+        System.out.println("Note: No save file found. A new one will be created for you.");
+    }
+
+    //@@author wongyihao0506
     public static void printBetAmount(int betAmount) {
         System.out.println("Your current bet amount is: " + betAmount);
     }
 
     //@@author wongyihao0506
-    private static void sleepForAnimation() throws CoinflipException {
-        try {
-            Thread.sleep(350);
-        } catch (InterruptedException e) {
-            throw new CoinflipException(CoinflipException.ANIMATION_ERROR);
-        }
-    }
-
-    //@@author wongyihao0506
-    private static void printLoadingAnimation() throws CoinflipException {
-        System.out.print('-');
-        sleepForAnimation();
-        System.out.print("\b\\");
-        sleepForAnimation();
-        System.out.print("\b|");
-        sleepForAnimation();
-        System.out.print("\b/");
-        sleepForAnimation();
-        System.out.print("\b-");
-        sleepForAnimation();
-        System.out.print("\b");
-    }
-
-    //@@author wongyihao0506
     public static void printFlipOutcome(String actualFlip, Boolean outcome, int betAmount) throws CoinflipException {
-        printLoadingAnimation();
-        String outcomeMessage = outcome ? "You won " : "You lost ";
-        System.out.println(actualFlip + "! " + outcomeMessage + betAmount + " coins.");
+        LoadingAnimation.animate("Flipping coin...");
+        String outcomeString = outcome ? "You won " : "You lost ";
+        String outcomeMessage = actualFlip + "! " + outcomeString + betAmount + " coins.";
+        ScanningWordAnimation.animate(outcomeMessage);
     }
 
-    public static void printNewSaveFileNote() {
-        System.out.println("Note: No save file found. A new one will be created for you.");
+    //@@author OliverQiL
+    public static void printLoggerFail() {
+        System.out.println("Coinflip could not start due errors initializing its Java logger: ");
     }
 
     //@@author OliverQiL

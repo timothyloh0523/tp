@@ -16,12 +16,14 @@ public class ChangeCommand extends Command {
     private final Storage storage;
     private final UserData userData;
 
+    //@@author timothyloh0523
     public ChangeCommand(String[] words, UserData userData, Storage storage) {
         this.words = words;
         this.userData = userData;
         this.storage = storage;
     }
 
+    //@@author timothyloh0523
     @Override
     public void execute() throws CoinflipException {
         CoinflipLogger.info("Executing change command");
@@ -35,6 +37,7 @@ public class ChangeCommand extends Command {
 
         checkNumberOfWords(this.words);
         checkNumerical(this.words[1]);
+        checkCanBeInteger(this.words[1]);
 
         Integer betAmount = Integer.parseInt(this.words[1]);
 
@@ -58,6 +61,14 @@ public class ChangeCommand extends Command {
         if (!input.matches("[0-9]+")) {
             CoinflipLogger.warning("Invalid bet amount: non-numerical");
             throw new CoinflipException(CoinflipException.CHANGE_BET_AMOUNT_INVALID);
+        }
+    }
+
+    //@@author HTY2003
+    private static void checkCanBeInteger(String input) throws CoinflipException {
+        if (input.length() > 9) {
+            CoinflipLogger.warning("Invalid bet amount: number too long");
+            throw new CoinflipException(CoinflipException.CHANGE_BET_AMOUNT_TOO_LARGE);
         }
     }
 

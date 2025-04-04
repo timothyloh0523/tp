@@ -55,11 +55,8 @@ public class FlipCommand extends Command {
         Boolean outcome = getOutcome(actualFlip, words[1]);
         processOutcome(outcome);
 
-
         Printer.printFlipOutcome(actualFlip, outcome, userData.betAmount);
-        Printer.printBetAmount(userData.betAmount);
-        Printer.printBalance(userData.balance);
-        Printer.printStreaks(userData.winStreak, userData.loseStreak);
+        Printer.printFlipSummary(userData);
 
         assert userData.balance >= 0 : "balance should be more than or equal to 0";
     }
@@ -142,13 +139,21 @@ public class FlipCommand extends Command {
         userData.loseCount += 1;
     }
 
-    private void increaseWinStreak() { userData.winStreak += 1; }
+    private void increaseWinStreak() {
+        userData.winStreak += 1;
+    }
 
-    private void increaseLoseStreak() { userData.loseStreak += 1; }
+    private void increaseLoseStreak() {
+        userData.loseStreak += 1;
+    }
 
-    private void resetWinStreak() { userData.winStreak = 0; }
+    private void resetWinStreak() {
+        userData.winStreak = 0;
+    }
 
-    private void resetLoseStreak() { userData.loseStreak = 0; }
+    private void resetLoseStreak() {
+        userData.loseStreak = 0;
+    }
 
     private void increaseTotalWon(int earnings) {
         userData.totalWon += earnings;
