@@ -4,17 +4,24 @@ package seedu.coinflip.utils.exceptions;
 
 public class CoinflipException extends Exception {
     public static final String ANIMATION_ERROR = "Sorry! My animation timer has stopped working. " +
-            "Let's proceed to the outcome.";
+            "Let's proceed.";
 
-    public static final String CHANGE_INVALID_FORMAT = "Invalid command format! " +
-            "Please follow this format: change <number representing new bet amount>";
+    public static final String CHANGE_INVALID_FORMAT = "Invalid command format!\n " +
+            "Please follow this format: change <number representing new bet amount>\n" +
+            "<number representing new bet amount> should be a positive integer\n" +
+            "typed in numerals (e.g. 50, not fifty) which does not exceed your current coin balance.";
 
-    public static final String CHANGE_BET_AMOUNT_INVALID = "Please provide a positive number " +
-            "as your bet amount!";
+    public static final String CHANGE_BET_AMOUNT_INVALID = "Invalid bet amount!\n" +
+            "Please provide a positive integer " +
+            "typed in numerals (e.g. 50, not fifty) " +
+            "which does not exceed your current coin balance.";
 
     public static final String CHANGE_BET_AMOUNT_EXCEEDS_BALANCE = "Your desired bet amount is " +
             "more than you currently have! " +
             "Please choose another bet amount.";
+
+    public static final String CHANGE_BET_AMOUNT_TOO_LARGE = "Your desired bet amount is too large! " +
+            "Please choose a smaller bet amount.";
 
     public static final String CHECK_INVALID_FORMAT = "Invalid command format! " +
             "Please follow this format: check <bet>/<balance>/<history>";

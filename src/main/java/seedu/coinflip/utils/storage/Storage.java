@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 public class Storage {
     private static String saveFilePath = "./data/coinflip.csv";
     private static String saveFileFolderPath = "./data";
+    private static final int NUMBER_OF_FIELDS = 10;
 
     //@@author HTY2003
     public Storage() {
@@ -131,27 +132,70 @@ public class Storage {
         return data.split(",");
     }
 
-    //@@author HTY2003
+    //@@author timothyloh0523
     public void checkData(String[] values) throws CoinflipFileException {
-        if (values.length != 10) {
+        checkNumberOfFields(values);
+
+        for (int i = 0; i < NUMBER_OF_FIELDS; i++) {
+            checkNumerical(values[i]);
+            checkCanBeInteger(values[i]);
+            int value = Integer.parseInt(values[i]);
+            checkNonNegative(value);
+        }
+
+        int currentWinStreak = Integer.parseInt(values[6]);
+        int currentLoseStreak = Integer.parseInt(values[7]);
+        int highestWinStreak = Integer.parseInt(values[8]);
+        int highestLoseStreak = Integer.parseInt(values[9]);
+
+        checkCurrentWinLoseStreaksValid(currentWinStreak, currentLoseStreak);
+        checkHighestStreakValid(currentWinStreak, highestWinStreak);
+        checkHighestStreakValid(currentLoseStreak, highestLoseStreak);
+    }
+
+    //@@author HTY2003
+    private static void checkNumberOfFields(String[] values) throws CoinflipFileException {
+        if (values.length != NUMBER_OF_FIELDS) {
             CoinflipLogger.warning("Corrupted save file: incorrect column count");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
         }
+    }
 
-        for (int i = 0; i < 10; i++) {
-            if (!values[i].matches("[0-9]+")) {
-                CoinflipLogger.warning("Corrupted save file: data is non-numerical");
-                throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
-            }
-
-            if (Integer.parseInt(values[i]) < 0) {
-                CoinflipLogger.warning("Corrupted save file: data contains negative numbers");
-                throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
-            }
-        }
-
-        if (Integer.parseInt(values[6]) != 0 && Integer.parseInt(values[7]) != 0) {
+    //@@author timothyloh0523
+    private static void checkCurrentWinLoseStreaksValid(int winStreak, int loseStreak) throws CoinflipFileException {
+        if (winStreak != 0 && loseStreak != 0) {
             CoinflipLogger.warning("Corrupted save file: nonzero win and loss streak count");
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
+        }
+    }
+
+    private static void checkHighestStreakValid(int currentStreak, int highestStreak) throws CoinflipFileException {
+        if (currentStreak > highestStreak) {
+            CoinflipLogger.warning("Corrupted save file: current streak larger than highest streak");
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
+        }
+    }
+
+    //@@author HTY2003
+    private static void checkNumerical(String input) throws CoinflipFileException {
+        if (!input.matches("[0-9]+")) {
+            CoinflipLogger.warning("Corrupted save file: non-numerical");
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
+        }
+    }
+
+    //@@author HTY2003
+    private static void checkCanBeInteger(String input) throws CoinflipFileException {
+        if (input.length() > 9) {
+            CoinflipLogger.warning("Corrupted save file: number too long");
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
+        }
+    }
+
+    //@@author HTY2003
+    private static void checkNonNegative(Integer value) throws CoinflipFileException {
+        if (value < 0) {
+            CoinflipLogger.warning("Corrupted save file: negative numbers");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
         }
     }
@@ -166,15 +210,10 @@ public class Storage {
         userData.loseCount = Integer.parseInt(values[3]);
         userData.totalWon = Integer.parseInt(values[4]);
         userData.totalLost = Integer.parseInt(values[5]);
-        userData.winStreak = Integer.parseInt(values[6]);
-        userData.loseStreak = Integer.parseInt(values[7]);
+        userData.currentWinStreak = Integer.parseInt(values[6]);
+        userData.currentLoseStreak = Integer.parseInt(values[7]);
         userData.highestWinStreak = Integer.parseInt(values[8]);
         userData.highestLoseStreak = Integer.parseInt(values[9]);
-        userData.fiveWinStreak = Integer.parseInt(values[10]);
-        userData.tenWinStreak = Integer.parseInt(values[11]);
-        userData.twentyWinStreak = Integer.parseInt(values[12]);
-        userData.fiftyWinStreak = Integer.parseInt(values[13]);
-        userData.hundredWinStreak = Integer.parseInt(values[14]);
 
         return userData;
     }
@@ -199,22 +238,16 @@ public class Storage {
     //@@author CRL006
     private void writeData(FileWriter writer, UserData userData) throws IOException {
         writer.write("Bet Amount, Balance, Wins, Losses, Total Won, Total Lost, " +
-                "Win Streak, Loss Streak, Highest Win Streak, Highest Loss Streak," +
-                "Five Win Streak Count, Ten Win Streak Count, Fifty Win Streak Count + Hundred Win Streak Count\n");
+                "Current Win Streak, Current Loss Streak, Highest Win Streak, Highest Loss Streak\n");
         writer.write(userData.betAmount + "," +
                 userData.balance + "," +
                 userData.winCount + "," +
                 userData.loseCount + "," +
                 userData.totalWon + "," +
                 userData.totalLost + "," +
-                userData.winStreak + "," +
-                userData.loseStreak + "," +
+                userData.currentWinStreak + "," +
+                userData.currentLoseStreak + "," +
                 userData.highestWinStreak + "," +
-                userData.highestLoseStreak + "," +
-                userData.fiveWinStreak + "," +
-                userData.tenWinStreak + "," +
-                userData.twentyWinStreak + "," +
-                userData.fiftyWinStreak + "," +
-                userData.hundredWinStreak + "\n");
+                userData.highestLoseStreak + "\n");
     }
 }
