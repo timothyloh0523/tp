@@ -21,7 +21,9 @@ public class GamesAchievement extends Achievement {
             setToBePrinted(true);
             setPrintMessage("Congratulations, you have made a total of " +
                     gameCount +
-                    " coin flips so far! Keep it up!");
+                    " coin " +
+                    ((gameCount == 1) ? "flip" : "flips") +
+                    " so far! Keep it up!");
             break;
         default:
             break;

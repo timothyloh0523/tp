@@ -12,7 +12,7 @@ public class WinCountAchievement extends Achievement {
         if (!outcome) {
             return;
         }
-        
+
         int winCount = userData.winCount + 1;
 
         switch (winCount) {
@@ -25,7 +25,9 @@ public class WinCountAchievement extends Achievement {
             setToBePrinted(true);
             setPrintMessage("Congratulations, you have won a total " +
                     winCount +
-                    " coin flips so far! Keep it up!");
+                    " coin " +
+                    ((winCount == 1) ? "flip" : "flips") +
+                    " so far! Keep it up!");
             break;
         default:
             break;
