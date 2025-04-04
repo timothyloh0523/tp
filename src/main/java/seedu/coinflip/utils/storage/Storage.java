@@ -133,12 +133,12 @@ public class Storage {
 
     //@@author HTY2003
     public void checkData(String[] values) throws CoinflipFileException {
-        if (values.length != 6) {
+        if (values.length != 10) {
             CoinflipLogger.warning("Corrupted save file: incorrect column count");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
         }
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 10; i++) {
             if (!values[i].matches("[0-9]+")) {
                 CoinflipLogger.warning("Corrupted save file: data is non-numerical");
                 throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
@@ -148,6 +148,11 @@ public class Storage {
                 CoinflipLogger.warning("Corrupted save file: data contains negative numbers");
                 throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
             }
+        }
+
+        if (Integer.parseInt(values[6]) != 0 && Integer.parseInt(values[7]) != 0) {
+            CoinflipLogger.warning("Corrupted save file: nonzero win and loss streak count");
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
         }
     }
 
@@ -161,6 +166,10 @@ public class Storage {
         userData.loseCount = Integer.parseInt(values[3]);
         userData.totalWon = Integer.parseInt(values[4]);
         userData.totalLost = Integer.parseInt(values[5]);
+        userData.winStreak = Integer.parseInt(values[6]);
+        userData.loseStreak = Integer.parseInt(values[7]);
+        userData.highestWinStreak = Integer.parseInt(values[8]);
+        userData.highestLoseStreak = Integer.parseInt(values[9]);
 
         return userData;
     }
@@ -184,12 +193,17 @@ public class Storage {
 
     //@@author CRL006
     private void writeData(FileWriter writer, UserData userData) throws IOException {
-        writer.write("Bet Amount, Balance, Wins, Losses, Total Won, Total Lost\n");
+        writer.write("Bet Amount, Balance, Wins, Losses, Total Won, Total Lost, " +
+                "Win Streak, Loss Streak, Highest Win Streak, Highest Loss Streak\n");
         writer.write(userData.betAmount + "," +
                 userData.balance + "," +
                 userData.winCount + "," +
                 userData.loseCount + "," +
                 userData.totalWon + "," +
-                userData.totalLost + "\n");
+                userData.totalLost + "," +
+                userData.winStreak + "," +
+                userData.loseStreak + "," +
+                userData.highestWinStreak + "," +
+                userData.highestLoseStreak + "\n");
     }
 }

@@ -59,6 +59,7 @@ public class FlipCommand extends Command {
         Printer.printFlipOutcome(actualFlip, outcome, userData.betAmount);
         Printer.printBetAmount(userData.betAmount);
         Printer.printBalance(userData.balance);
+        Printer.printStreaks(userData.winStreak, userData.loseStreak);
 
         assert userData.balance >= 0 : "balance should be more than or equal to 0";
     }
@@ -75,20 +76,28 @@ public class FlipCommand extends Command {
         userData.balance += userData.betAmount;
         increaseWinCount();
         increaseTotalWon(userData.betAmount);
+        increaseWinStreak();
+        resetLoseStreak();
         CoinflipLogger.info("User won " +
                 userData.betAmount +
                 " coins. New balance: " +
-                userData.balance);
+                userData.balance +
+                " coins. Current win streak:" +
+                userData.winStreak + ".");
     }
 
     private void updateUserLost() {
         userData.balance -= userData.betAmount;
         increaseLoseCount();
         increaseTotalLost(userData.betAmount);
+        increaseLoseStreak();
+        resetWinStreak();
         CoinflipLogger.info("User lost " +
                 userData.betAmount +
                 " coins. New balance: " +
-                userData.balance);
+                userData.balance +
+                " coins. Current loss streak:" +
+                userData.winStreak + ".");
     }
 
     private static String generateFlip() {
@@ -132,6 +141,14 @@ public class FlipCommand extends Command {
     private void increaseLoseCount() {
         userData.loseCount += 1;
     }
+
+    private void increaseWinStreak() { userData.winStreak += 1; }
+
+    private void increaseLoseStreak() { userData.loseStreak += 1; }
+
+    private void resetWinStreak() { userData.winStreak = 0; }
+
+    private void resetLoseStreak() { userData.loseStreak = 0; }
 
     private void increaseTotalWon(int earnings) {
         userData.totalWon += earnings;
