@@ -112,149 +112,29 @@ Playing coinflip
 
 <br>
 
-Terminating programme
+Terminating program
 
 * Format: `exit`
-* Features: Exits the programme
+* Features: Exits the program
 
 ## Sequence Diagrams
 
 Viewing available commands (help function)
 
-```mermaid
-sequenceDiagram
-  actor User
-  participant Parser as Parser
-  participant HelpCommand as HelpCommand
-  participant Printer as Printer
+![](./diagrams/help.svg)
 
-  User ->> Parser: input command "help"
-  activate Parser
+Viewing balance (check balance command)
 
-  note right of Parser: Parse "help"
-  Parser ->> HelpCommand: new HelpCommand()
-  activate HelpCommand
-  deactivate HelpCommand
-  Parser -->> User: command
-  deactivate Parser
+![](./diagrams/checkbalance.svg)
 
-  HelpCommand ->> Printer: printHelpMessage()
-```
+Playing coinflip (flip command)
 
-Viewing balance
+![](./diagrams/flip.svg)
 
-``` mermaid
-sequenceDiagram
-  actor User as User
-  participant Parser as :Parser
-  participant CheckCommand as :CheckCommand
-  participant Printer as :Printer
+Changing betting amount (change command)
 
-  User ->> Parser: input command "check {COMMAND}"
-  activate Parser
-  
-  Parser ->> CheckCommand: new CheckCommand(COMMAND)
-  activate CheckCommand
- 
-  alt COMMAND == "balance"
-    CheckCommand ->> Printer: printBalance(...)
-  else COMMAND == "bet"
-    CheckCommand ->> Printer: printBetAmount(...)
-  else COMMAND = "history"
-    CheckCommand ->> Printer: printStats(...)
-  end
-  
-  CheckCommand -->> Parser: command
-  deactivate CheckCommand
-  
-  Parser -->> User: command
-  deactivate Parser
-```
+![](./diagrams/change.svg)
 
-Playing coinflip
+Terminating program (exit command)
 
-``` mermaid
-sequenceDiagram
-actor User as User
-participant Parser as Parser
-participant FlipCommand as FlipCommand
-participant Storage as Storage
-participant Printer as Printer
-
-User ->> Parser: input command "flip heads"
-activate Parser
-
-Parser ->> FlipCommand: new FlipCommand("heads", userData, storage)
-activate FlipCommand
-
-alt outcome is true
-    FlipCommand ->> FlipCommand: userData.balance += userData.betAmount
-    FlipCommand ->> FlipCommand: increaseWinCount()
-    FlipCommand ->> FlipCommand: increaseTotalWon(userData.betAmount)
-    FlipCommand ->> CoinflipLogger: info("User won ...")
-else outcome is false
-    FlipCommand ->> FlipCommand: userData.balance -= userData.betAmount
-    FlipCommand ->> FlipCommand: increaseLoseCount()
-    FlipCommand ->> FlipCommand: increaseTotalLost(userData.betAmount)
-    FlipCommand ->> CoinflipLogger: info("User lost ...")
-end
-
-FlipCommand ->> Storage: saveData(userData)
-activate Storage
-Storage -->> FlipCommand: data saved
-deactivate Storage
-
-FlipCommand ->> Printer: printFlipResult(...)
-deactivate FlipCommand
-
-Parser -->> User: command executed
-deactivate Parser
-```
-
-Changing betting amount
-
-``` mermaid
-sequenceDiagram
-actor User as User
-participant Parser as Parser
-participant ChangeCommand as ChangeCommand
-participant Printer as Printer
-
-User ->> Parser: input command "change NEW_BET_AMOUNT"
-activate Parser
-
-Parser ->> ChangeCommand: new ChangeCommand(words, userData)
-activate ChangeCommand
-
-ChangeCommand ->> ChangeCommand: userData.betAmount = NEW_BET_AMOUNT
-
-ChangeCommand ->> Printer: printBetAmount(NEW_BET_AMOUNT)
-deactivate ChangeCommand
-
-Parser -->> User: command executed
-deactivate Parser
-```
-
-Terminating programme
-
-``` mermaid
-sequenceDiagram
-actor User as User
-participant Parser as Parser
-participant ExitCommand as ExitCommand
-participant Printer as Printer
-
-User ->> Parser: input command "exit"
-activate Parser
-
-Parser ->> ExitCommand: new ExitCommand()
-activate ExitCommand
-
-ExitCommand ->> Printer: printExitMessage()
-deactivate ExitCommand
-
-Parser -->> User: command executed
-deactivate Parser
-```
-
-
+![](./diagrams/exit.svg)

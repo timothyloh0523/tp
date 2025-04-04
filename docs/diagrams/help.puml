@@ -1,0 +1,18 @@
+@startuml
+actor User
+participant Parser as ":Parser"
+participant HelpCommand as ":HelpCommand"
+participant Printer as ":Printer"
+
+User -> Parser: input command "help"
+activate Parser
+
+note right of Parser: Parse "help"
+Parser -> HelpCommand: new HelpCommand()
+activate HelpCommand
+deactivate HelpCommand
+Parser -->> User: command
+deactivate Parser
+
+HelpCommand -> Printer: printHelpMessage()
+@enduml
