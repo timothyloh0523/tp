@@ -131,27 +131,58 @@ public class Storage {
         return data.split(",");
     }
 
-    //@@author HTY2003
+    //@@author timothyloh0523
     public void checkData(String[] values) throws CoinflipFileException {
+        checkNumberOfFields(values);
+
+        for (int i = 0; i < 10; i++) {
+            checkNumerical(values[i]);
+            checkCanBeInteger(values[i]);
+            int value = Integer.parseInt(values[i]);
+            checkNonNegative(value);
+        }
+
+        int winStreak = Integer.parseInt(values[6]);
+        int loseStreak = Integer.parseInt(values[7]);
+        checkOneFieldZero(winStreak, loseStreak);
+    }
+
+    //@@author HTY2003
+    private static void checkNumberOfFields(String[] values) throws CoinflipFileException {
         if (values.length != 10) {
             CoinflipLogger.warning("Corrupted save file: incorrect column count");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
         }
+    }
 
-        for (int i = 0; i < 10; i++) {
-            if (!values[i].matches("[0-9]+")) {
-                CoinflipLogger.warning("Corrupted save file: data is non-numerical");
-                throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
-            }
-
-            if (Integer.parseInt(values[i]) < 0) {
-                CoinflipLogger.warning("Corrupted save file: data contains negative numbers");
-                throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
-            }
-        }
-
-        if (Integer.parseInt(values[6]) != 0 && Integer.parseInt(values[7]) != 0) {
+    //@@author timothyloh0523
+    private static void checkOneFieldZero(int winStreak, int loseStreak) throws CoinflipFileException {
+        if (winStreak != 0 && loseStreak != 0) {
             CoinflipLogger.warning("Corrupted save file: nonzero win and loss streak count");
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
+        }
+    }
+
+    //@@author HTY2003
+    private static void checkNumerical(String input) throws CoinflipFileException {
+        if (!input.matches("[0-9]+")) {
+            CoinflipLogger.warning("Corrupted save file: non-numerical");
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
+        }
+    }
+
+    //@@author HTY2003
+    private static void checkCanBeInteger(String input) throws CoinflipFileException {
+        if (input.length() > 9) {
+            CoinflipLogger.warning("Corrupted save file: number too long");
+            throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
+        }
+    }
+
+    //@@author HTY2003
+    private static void checkNonNegative(Integer value) throws CoinflipFileException {
+        if (value < 0) {
+            CoinflipLogger.warning("Corrupted save file: negative numbers");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
         }
     }
