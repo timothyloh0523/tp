@@ -44,15 +44,19 @@ on a coin flip, and educate them about the dangers of gambling.
 
 ## User Stories
 
-| Version | As a ...   | I want to ...                                       | So that I can ...                                            |
-|---------|------------|-----------------------------------------------------|--------------------------------------------------------------|
-| v1.0    | new player | start the game with a fixed amount of virtual money | experience the consequences of gambling                      |
-| v1.0    | new player | view all the commands I can use                     | use the programme as intended                                |
-| v1.0    | new player | view my current virtual money balance               | know how much I can bet on my next coinflip                  |
-| v1.0    | new player | choose different betting amounts                    | see how risky bets affect my virtual balance                 |
-| v1.0    | new player | randomly win or lose money when gambling            | experience the unpredictability of gambling                  |
-| v1.0    | user       | continue my coin balance from my previous session   | the wins or losses from my previous bets are permanent to me |
-| v2.0    | user       | view my previous coinflip results                   | see the long-term effect of my playing                       |
+| Version | As a ...   | I want to ...                                       | So that I can ...                                                       |
+|---------|------------|-----------------------------------------------------|-------------------------------------------------------------------------|
+| v1.0    | new player | start the game with a fixed amount of virtual money | experience the consequences of gambling                                 |
+| v1.0    | new player | view all the commands I can use                     | use the programme as intended                                           |
+| v1.0    | new player | view my current virtual money balance               | know how much I can bet on my next coinflip                             |
+| v1.0    | new player | choose different betting amounts                    | see how risky bets affect my virtual balance                            |
+| v1.0    | new player | randomly win or lose money when gambling            | experience the unpredictability of gambling                             |
+| v1.0    | user       | continue my coin balance from my previous session   | the wins or losses from my previous bets are permanent to me            |
+| v2.0    | user       | view my previous coinflip results                   | see the long-term effect of my playing                                  |
+| v2.0    | user       | save my data between sessions                       | continue experiencing the effects of my actions over a long time period |
+| v2.0    | user       | have a loading animation when I flip coins          | see the parallels to real-world gambling                                |
+| v2.1    | user       | unlock achievements upon achieving certain actions  | feel rewarded for using the program                                     |
+| v2.1    | user       | view my achievements                                | reflect on my experience playing the same                               |
 
 ## Non-Functional Requirements
 
@@ -62,61 +66,59 @@ on a coin flip, and educate them about the dangers of gambling.
 
 ## Glossary
 
-* *glossary item* - Definition
+* *balance* - Number of coins possessed by the user
+* *win* - When a user successfully predicts the outcome of a coin flip
+* *lose* - When a user does not successfully predicts the outcome of a coin flip
+* *win streak* - Number of consecutive successful coin flips performed by the user
+* *lose streak* - Number of consecutive unsuccessful coin flips performed by the user
 
-## Instructions for manual testing
+## Instructions for Manual Testing
 
 Viewing available commands
 
 * Format: `help`
 * Features: Shows available functions
 
-<br>
-
 Viewing balance
 
 * Format: `check balance`
 * Feature: Shows balance available to be used for betting
 
-<br>
-
-Viewing previous flips
+Viewing statistics of previous flips
 
 * Format: `check history`
-* Feature: Shows results of all previous coinflips
-
-<br>
+* Feature: Shows statistics for all previous coinflips
 
 Viewing bet amount
 
 * Format: `check bet`
 * Feature: Shows bet amount that will be used if a bet were to be made.
 
-<br>
-
 Changing betting amount
 
-* Format: `change NEW_BET_AMOUNT`
+* Format: `change <number representing new bet amount>`
 * Feature: Gets new betting amount from user to be used in next bet.
 * Example of usage:
   `change 10`
 
-<br>
-
 Playing coinflip
 
-* Format: `flip HEADS_OR_TAILS`
+* Format: `flip <heads>/<tails>`
 * Feature: Flips a coin and either gains or loses the bet amount
 * Example of usage:
   `flip heads`
   `flip tails`
 
-<br>
-
 Terminating program
 
 * Format: `exit`
 * Features: Exits the program
+
+## Class Diagrams
+
+Here is the class diagram for Coinflip:
+
+## Object Diagrams
 
 ## Sequence Diagrams
 
