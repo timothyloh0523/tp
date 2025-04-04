@@ -37,16 +37,34 @@ public class Printer {
         System.out.println("Your remaining balance is: " + balance);
     }
 
+    //@@author timothyloh0523
+    public static void printStreaks(int winStreak, int loseStreak) throws CoinflipException {
+        if (winStreak == 0 && loseStreak == 0) {
+            System.out.println("You have no active win or loss streaks!");
+        } else if (winStreak > 0) {
+            System.out.println("Your current win streak is " + winStreak + "!");
+        } else if (loseStreak > 0) {
+            System.out.println("Your current loss streak is " + loseStreak + "!");
+        } else {
+            throw new CoinflipException(CoinflipException.STREAK_LOADING_ERROR);
+        }
+    }
+
     //@@author CRL006
     public static void printStats(int wins, int losses, int totalWon, int totalLost) {
         if (wins == 0 && losses == 0) {
             System.out.println("You have not flipped a coin before! " +
                     "Type in 'flip heads' or 'flip tails' to play!");
         } else {
-            System.out.println("Wins: " + wins +
+            float winPercentage = 100 * (float) wins / (float) (wins + losses);
+            System.out.println("Win Percentage: ");
+            System.out.printf("%.2f", winPercentage);
+            System.out.print("%" +
+                    "\nWins: " + wins +
                     "\nLosses: " + losses +
                     "\nTotal Won: " + totalWon +
-                    "\nTotal Lost: " + totalLost);
+                    "\nTotal Lost: " + totalLost +
+                    "\nWin Percentage: ");
         }
     }
 

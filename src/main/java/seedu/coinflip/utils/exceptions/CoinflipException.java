@@ -35,6 +35,8 @@ public class CoinflipException extends Exception {
     public static final String INVALID_COMMAND = "You have entered an unrecognised command! " +
             "Please type \"help\" for a list of possible commands.";
 
+    public static final String STREAK_LOADING_ERROR = "Streak data not available.";
+
     public static String message = "";
 
     public CoinflipException() {
