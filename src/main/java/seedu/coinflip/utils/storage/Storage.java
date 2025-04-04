@@ -201,6 +201,11 @@ public class Storage {
         userData.loseStreak = Integer.parseInt(values[7]);
         userData.highestWinStreak = Integer.parseInt(values[8]);
         userData.highestLoseStreak = Integer.parseInt(values[9]);
+        userData.fiveWinStreak = Integer.parseInt(values[10]);
+        userData.tenWinStreak = Integer.parseInt(values[11]);
+        userData.twentyWinStreak = Integer.parseInt(values[12]);
+        userData.fiftyWinStreak = Integer.parseInt(values[13]);
+        userData.hundredWinStreak = Integer.parseInt(values[14]);
 
         return userData;
     }
@@ -225,7 +230,8 @@ public class Storage {
     //@@author CRL006
     private void writeData(FileWriter writer, UserData userData) throws IOException {
         writer.write("Bet Amount, Balance, Wins, Losses, Total Won, Total Lost, " +
-                "Win Streak, Loss Streak, Highest Win Streak, Highest Loss Streak\n");
+                "Win Streak, Loss Streak, Highest Win Streak, Highest Loss Streak," +
+                "Five Win Streak Count, Ten Win Streak Count, Fifty Win Streak Count + Hundred Win Streak Count\n");
         writer.write(userData.betAmount + "," +
                 userData.balance + "," +
                 userData.winCount + "," +
@@ -235,6 +241,11 @@ public class Storage {
                 userData.winStreak + "," +
                 userData.loseStreak + "," +
                 userData.highestWinStreak + "," +
-                userData.highestLoseStreak + "\n");
+                userData.highestLoseStreak + "," +
+                userData.fiveWinStreak + "," +
+                userData.tenWinStreak + "," +
+                userData.twentyWinStreak + "," +
+                userData.fiftyWinStreak + "," +
+                userData.hundredWinStreak + "\n");
     }
 }

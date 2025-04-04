@@ -14,6 +14,12 @@ public class UserData {
     public int highestWinStreak = 0;
     public int highestLoseStreak = 0;
 
+    public int fiveWinStreak = 0;
+    public int tenWinStreak = 0;
+    public int twentyWinStreak = 0;
+    public int fiftyWinStreak = 0;
+    public int hundredWinStreak = 0;
+
 
     public UserData() {
 

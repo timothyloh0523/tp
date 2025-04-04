@@ -39,8 +39,12 @@ public class Parser {
 
     // @@author HTY2003
     public Command parseUserInput() throws CoinflipException {
-        String[] words = this.input.split("\\s+");
+        String[] words = this.input.split(" ");
         CoinflipLogger.fine("Split input into " + words.length + "words");
+
+        if (words.length == 0) {
+            throw new CoinflipException(CoinflipException.INVALID_COMMAND);
+        }
 
         switch (words[0]) {
         case "check":

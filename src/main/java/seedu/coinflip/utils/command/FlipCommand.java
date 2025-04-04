@@ -1,5 +1,7 @@
 package seedu.coinflip.utils.command;
 
+import seedu.coinflip.utils.achievement.MaxWinStreakAchievement;
+import seedu.coinflip.utils.achievement.WinsAchievement;
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.logger.CoinflipLogger;
 import seedu.coinflip.utils.printer.Printer;
@@ -53,23 +55,32 @@ public class FlipCommand extends Command {
 
         String actualFlip = generateFlip();
         Boolean outcome = getOutcome(actualFlip, words[1]);
-        processOutcome(outcome);
+        String achievement = processOutcome(outcome);
+
+        userData.fiveWinStreak = WinsAchievement.achievements.get(0).timesCompleted;
+        userData.tenWinStreak = WinsAchievement.achievements.get(1).timesCompleted;
+        userData.twentyWinStreak = WinsAchievement.achievements.get(2).timesCompleted;
+        userData.fiftyWinStreak = WinsAchievement.achievements.get(3).timesCompleted;
+        userData.hundredWinStreak = WinsAchievement.achievements.get(4).timesCompleted;
 
         Printer.printFlipOutcome(actualFlip, outcome, userData.betAmount);
         Printer.printFlipSummary(userData);
 
+        checkPrint(achievement);
+
         assert userData.balance >= 0 : "balance should be more than or equal to 0";
     }
 
-    private void processOutcome(Boolean outcome) {
+    private String processOutcome(Boolean outcome) {
         if (outcome) {
-            updateUserWon();
+            return updateUserWon();
         } else {
             updateUserLost();
+            return "NA";
         }
     }
 
-    private void updateUserWon() {
+    private String updateUserWon() {
         userData.balance += userData.betAmount;
         increaseWinCount();
         increaseTotalWon(userData.betAmount);
@@ -81,6 +92,7 @@ public class FlipCommand extends Command {
                 userData.balance +
                 " coins. Current win streak:" +
                 userData.winStreak + ".");
+        return MaxWinStreakAchievement.execute(userData.winStreak, userData);
     }
 
     private void updateUserLost() {
@@ -95,6 +107,133 @@ public class FlipCommand extends Command {
                 userData.balance +
                 " coins. Current loss streak:" +
                 userData.winStreak + ".");
+    }
+
+    private void checkPrint(String achievement) {
+        switch (achievement) {
+        case "5":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiveWinStreakAchievement();
+            break;
+        case "10":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTenWinStreakAchievement();
+            break;
+        case "20":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTwentyWinStreakAchievement();
+            break;
+        case "50":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiftyWinStreakAchievement();
+            break;
+        case "100":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockHundredWinStreakAchievement();
+            break;
+        case "5 5":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiveFiveWinStreakAchievement();
+            break;
+        case "10 5":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTenFiveWinStreakAchievement();
+            break;
+        case "20 5":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTwentyFiveWinStreakAchievement();
+            break;
+        case "50 5":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiftyFiveWinStreakAchievement();
+            break;
+        case "100 5":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockHundredFiveWinStreakAchievement();
+            break;
+        case "5 10":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiveTenWinStreakAchievement();
+            break;
+        case "10 10":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTenTenWinStreakAchievement();
+            break;
+        case "20 10":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTwentyTenWinStreakAchievement();
+            break;
+        case "50 10":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiftyTenWinStreakAchievement();
+            break;
+        case "100 10":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockHundredTenWinStreakAchievement();
+            break;
+        case "5 20":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiveTwentyWinStreakAchievement();
+            break;
+        case "10 20":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTenTwentyWinStreakAchievement();
+            break;
+        case "20 20":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTwentyTwentyWinStreakAchievement();
+            break;
+        case "50 20":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiftyTwentyWinStreakAchievement();
+            break;
+        case "100 20":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockHundredTwentyWinStreakAchievement();
+            break;
+        case "5 50":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiveFiftyWinStreakAchievement();
+            break;
+        case "10 50":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTenFiftyWinStreakAchievement();
+            break;
+        case "20 50":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTwentyFiftyWinStreakAchievement();
+            break;
+        case "50 50":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiftyFiftyWinStreakAchievement();
+            break;
+        case "100 50":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockHundredFiftyWinStreakAchievement();
+            break;
+        case "5 100":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiveHundredWinStreakAchievement();
+            break;
+        case "10 100":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTenHundredWinStreakAchievement();
+            break;
+        case "20 100":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockTwentyHundredWinStreakAchievement();
+            break;
+        case "50 100":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockFiftyHundredWinStreakAchievement();
+            break;
+        case "100 100":
+            Printer.printUnderscoreLine();
+            Printer.printUnlockHundredHundredWinStreakAchievement();
+            break;
+        default:
+            break;
+        }
     }
 
     private static String generateFlip() {
