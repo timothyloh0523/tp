@@ -1,20 +1,41 @@
 @startuml
 actor User as User
-participant Parser as ":Parser"
 participant ChangeCommand as ":ChangeCommand"
 participant Printer as ":Printer"
 
-User -> Parser: input command "change NEW_BET_AMOUNT"
-activate Parser
-
-Parser -> ChangeCommand: new ChangeCommand(words, userData)
+User -> ChangeCommand: execute()
 activate ChangeCommand
 
-ChangeCommand -> ChangeCommand: userData.betAmount = NEW_BET_AMOUNT
 
-ChangeCommand -> Printer: printBetAmount(NEW_BET_AMOUNT)
+ChangeCommand -> ChangeCommand: change()
+activate ChangeCommand
+ChangeCommand -> ChangeCommand: checkNumberOfWords(words)
+activate ChangeCommand
+ChangeCommand --> ChangeCommand
+deactivate ChangeCommand
+ChangeCommand -> ChangeCommand: checkNumerical(words[1])
+activate ChangeCommand
+ChangeCommand --> ChangeCommand
+deactivate ChangeCommand
+ChangeCommand -> ChangeCommand: checkCanBeInteger(words[1])
+activate ChangeCommand
+ChangeCommand --> ChangeCommand
+deactivate ChangeCommand
+ChangeCommand -> ChangeCommand: checkNonNegative(betAmount)
+activate ChangeCommand
+ChangeCommand --> ChangeCommand
+deactivate ChangeCommand
+ChangeCommand -> ChangeCommand: checkWithinBalance(betAmount, userData.balance)
+activate ChangeCommand
+ChangeCommand --> ChangeCommand
 deactivate ChangeCommand
 
-Parser -->> User: command executed
-deactivate Parser
+ChangeCommand -> Printer: printBetAmount()
+activate Printer
+Printer --> ChangeCommand
+deactivate Printer
+ChangeCommand --> ChangeCommand
+deactivate ChangeCommand
+ChangeCommand --> User
+deactivate ChangeCommand
 @enduml

@@ -121,23 +121,109 @@ Here is the class diagram for Coinflip:
 ## Object Diagrams
 
 ## Sequence Diagrams
+>Note: In the following sequence diagrams, the constructors and most of the other classes have been left out 
+> intentionally to reduce cluttering and place more emphasis on the respective command classes that are being executed, 
+> along with their main functionalities.
 
-Viewing available commands (help function)
+**Viewing available commands (help function)**
+<br>
+Below are the steps that the `HelpCommand` class takes when the user types in "help" 
+to view all available commands. <br>
+Step 1: The user enters "help" into the command line. <br>
+Step 2: The `Parser` class parses the input and creates an instance of `HelpCommand`. <br>
+Step 3: The `execute()` method of the `HelpCommand` class is called. <br>
+Step 4: The `execute()` method calls the `checkNumberOfWords(words)` method to ensure that exactly 1 word was entered.
+Exceptions will be thrown if the input is found to have more than 1 word. <br>
+Step 5: The `execute()` method will then call the `printHelp()` method from the `Printer` class to print the different
+available commands. <br>
+Step 6: The control is returned to the user, who is free to enter the next command. <br>
+
 
 ![](./diagrams/help.svg)
 
-Viewing balance (check balance command)
+**Viewing balance, bet or history (check command)**
+<br>
+Below are the steps that the `CheckCommand` class takes when the user types in "check ___" (where the ___ can be 
+"balance", "bet" or "history") to view their balance, bet amount or history. <br>
+Step 1: The user enters "check ___" into the command line. <br>
+Step 2: The `Parser` class parses the input and creates an instance of `CheckCommand`. <br>
+Step 3: The `execute()` method of the `CheckCommand` class is called. <br>
+Step 4: The `execute()` method calls the `checkNumberOfWords(words)` method to ensure that exactly 2 words were entered.
+Exceptions will be thrown if the input is found to have more than or less than 2 words. <br>
+Step 5: The `execute()` method will then call the `check(words[1])` function to check the second word of the input 
+to determine which command to execute. If the second word of the input is not "balance", "bet", or "history", 
+an exception will be thrown.<br>
+Step 6: The commands that were chosen to execute will then print their respective messages. <br>
+Step 7: The control is returned to the user, who is free to enter the next command. <br>
 
-![](./diagrams/checkbalance.svg)
 
-Playing coinflip (flip command)
+![](./diagrams/check.svg)
+
+**Playing coinflip (flip command)**
+<br>
+Below are the steps that the `FlipCommand` class takes when the user types in "flip heads" or "flip tails" 
+to play a coin flip. <br>
+Step 1: The user enters "flip heads" or "flip tails" into the command line. <br>
+Step 2: The `Parser` class parses the input and creates an instance of `FlipCommand`. <br>
+Step 3: The `execute()` method of the `FlipCommand` class is called. <br>
+Step 4: The `execute()` method calls the `flip()` method. <br>
+Step 5: The `flip()` method calls a number of functions to check the validity of the user input and ensures the user 
+has sufficient balance to place the bet. Exceptions will be thrown if the input is found to be invalid or the user
+is found to have insufficient balance. <br>
+Step 6: The generateFlip() method is called to generate a random outcome of the coin flip. *The call to randomly
+generate a flip has been intentionally left out from the sequence diagram to emphasise the ChangeCommand class.*<br> 
+Step 7: The `getOutcome(actualFlip, words[1])` method will then check if the user has won or lost the coin flip. <br>
+Step 8: The `update(userData, outcome)` method of the `AchievementList` class is called to update the user's
+achievements. *This function has been intentionally left out of the sequence diagram to place emphasis on the
+ChangeCommand class.*<br>
+Step 9: The `processOutcome()` method will be called, which will call other functions to update the user's data. 
+*These functions have been intentionally left out of the sequence diagram so that it will be less cluttered*<br>
+Step 10: The `printFlipOutcome(actualFlip, outcome, userData.betAmount)`, `printFlipSummary(userData)` and 
+`printUnlockedAchievements(achievementList)` methods from the `Printer` class will be called to print the outcomes
+of the flip and achievements obtained (if any) *The printFlipOutcome calls other functions to show an animation of
+a coin flipping, but they have been left out of the sequence diagram to place emphasis on the ChangeCommand class.*<br>
+Step 11: The data will be saved to the save file using the `Storage` class. *This step has been left out from the
+sequence diagram to place emphasis on the ChangeCommand class.* <br>
+Step 12: The control is returned to the user, who is free to enter the next command. <br>
+
 
 ![](./diagrams/flip.svg)
 
-Changing betting amount (change command)
+**Changing betting amount (change command)**
+<br>
+Below are the steps that the `ChangeCommand` class takes when the user types in 
+"change BET_AMOUNT" (where BET_AMOUNT is the new amount the user would like to bet) to change the betting amount. <br>
+Step 1: The user enters "change BET_AMOUNT" into the command line. <br>
+Step 2: The `Parser` class parses the input and creates an instance of `ChangeCommand`. <br>
+Step 3: The `execute()` method of the `ChangeCommand` class is called. <br>
+Step 4: The `execute()` method calls the `change()` method. <br>
+Step 5: The `change()` method calls a number of functions to check the validity of the user input and 
+exceptions will be thrown if the input is found to be invalid. <br>
+Such functions include: `checkNumberOfWords(words)`, `checkNumerical(words[1])`, `checkCanBeInteger(words[1])`, 
+`checkNonNegative(betAmount)`, and `checkWithinBalance(betAmount, userData.balance)`. <br>
+For the `checkNonNegative(betAmount)` and `checkWithinBalance(betAmount, userData.balance`, `words[1]` is converted 
+from a string to an integer and stored in the `betAmount` variable. <br>
+Step 11: Once the BET_AMOUNT has been confirmed to be valid, the `change()` method will set the `betAmount` variable
+in userData to be the BET_AMOUNT specified by the user.<br>
+Step 12: The `change()` method will then call the `printBetAmount()` method from the `Printer` class 
+to print the message confirming the change in bet amount. <br>
+Step 13: The data will be saved to the save file using the `Storage` class. *This step has been left out from the
+sequence diagram to place emphasis on the ChangeCommand class.* <br>
+Step 14: The control is returned to the user, who is free to enter the next command. <br>
+
 
 ![](./diagrams/change.svg)
 
-Terminating program (exit command)
+**Terminating program (exit command)**
+<br>
+Below are the steps that the `ExitCommand` class takes when the user types in "exit" to terminate the program. <br>
+Step 1: The user enters "exit", or "exit ___"  (where the ___ can be input like other words) into the command line. <br>
+Step 2: The `Parser` class parses the input and creates an instance of `ExitCommand`. <br>
+Step 3: The `execute()` method of the `ExitCommand` class is called. <br>
+Step 4: The `execute()` method calls the `checkNumberOfWords(words)` function to check if the number of words is 1. 
+If the user entered "exit ___", or any other input with more than 1 word, an exception will be thrown. <br>
+Step 5: The `execute()` method will call the printBye() method from the `Printer` to print the exit message. <br>
+Step 6: The `isExit` boolean will then be set to true and the programme will be terminated. <br>
+
 
 ![](./diagrams/exit.svg)

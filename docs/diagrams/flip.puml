@@ -1,37 +1,54 @@
 @startuml
 actor User as User
-participant Parser as ":Parser"
 participant FlipCommand as ":FlipCommand"
-participant Storage as ":Storage"
 participant Printer as ":Printer"
-participant CoinflipLogger as ":CoinflipLogger"
 
-User -> Parser: input command "flip heads"
-activate Parser
-
-Parser -> FlipCommand: new FlipCommand("heads", userData, storage)
+User -> FlipCommand: execute()
 activate FlipCommand
 
-alt outcome is true
-FlipCommand -> FlipCommand: userData.balance += userData.betAmount
-FlipCommand -> FlipCommand: increaseWinCount()
-FlipCommand -> FlipCommand: increaseTotalWon(userData.betAmount)
-FlipCommand -> CoinflipLogger: info("User won ...")
-else outcome is false
-FlipCommand -> FlipCommand: userData.balance -= userData.betAmount
-FlipCommand -> FlipCommand: increaseLoseCount()
-FlipCommand -> FlipCommand: increaseTotalLost(userData.betAmount)
-FlipCommand -> CoinflipLogger: info("User lost ...")
-end
 
-FlipCommand -> Storage: saveData(userData)
-activate Storage
-Storage -->> FlipCommand: data saved
-deactivate Storage
-
-FlipCommand -> Printer: printFlipResult(...)
+FlipCommand -> FlipCommand: flip()
+activate FlipCommand
+FlipCommand -> FlipCommand: checkNumberOfWords(words)
+activate FlipCommand
+FlipCommand --> FlipCommand
+deactivate FlipCommand
+FlipCommand -> FlipCommand: checkValidOutcomeWord(words[1])
+activate FlipCommand
+FlipCommand --> FlipCommand
+deactivate FlipCommand
+FlipCommand -> FlipCommand: checkWithinBalance(userData.betAmount, userData.balance)
+activate FlipCommand
+FlipCommand --> FlipCommand
+deactivate FlipCommand
+FlipCommand -> FlipCommand: generateFlip()
+activate FlipCommand
+FlipCommand --> FlipCommand
+deactivate FlipCommand
+FlipCommand -> FlipCommand: getOutcome(actualFlip, words[1])
+activate FlipCommand
+FlipCommand --> FlipCommand
+deactivate FlipCommand
+FlipCommand -> FlipCommand: processOutcome(outcome)
+activate FlipCommand
+FlipCommand --> FlipCommand
 deactivate FlipCommand
 
-Parser -->> User: command executed
-deactivate Parser
+
+FlipCommand -> Printer: printFlipOutcome(actualFlip, outcome, userData.betAmount)
+activate Printer
+Printer --> FlipCommand
+deactivate Printer
+FlipCommand -> Printer: printFlipSummary(userData)
+activate Printer
+Printer --> FlipCommand
+deactivate Printer
+FlipCommand -> Printer: printUnlockedAchievements(achievementList)
+activate Printer
+Printer --> FlipCommand
+deactivate Printer
+FlipCommand --> FlipCommand
+deactivate FlipCommand
+FlipCommand --> User
+deactivate FlipCommand
 @enduml

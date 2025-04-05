@@ -1,18 +1,21 @@
 @startuml
-actor User
-participant Parser as ":Parser"
+actor User as User
 participant HelpCommand as ":HelpCommand"
 participant Printer as ":Printer"
 
-User -> Parser: input command "help"
-activate Parser
-
-note right of Parser: Parse "help"
-Parser -> HelpCommand: new HelpCommand()
+User -> HelpCommand: execute()
 activate HelpCommand
-deactivate HelpCommand
-Parser -->> User: command
-deactivate Parser
 
-HelpCommand -> Printer: printHelpMessage()
+
+HelpCommand -> HelpCommand: checkNumberOfWords(words)
+activate HelpCommand
+HelpCommand --> HelpCommand
+deactivate HelpCommand
+
+HelpCommand -> Printer: printHelp()
+activate Printer
+Printer --> HelpCommand
+deactivate Printer
+HelpCommand --> User
+deactivate HelpCommand
 @enduml

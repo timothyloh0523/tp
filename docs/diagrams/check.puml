@@ -1,0 +1,53 @@
+@startuml
+actor User as User
+participant CheckCommand as ":CheckCommand"
+participant Printer as ":Printer"
+
+User -> CheckCommand: execute()
+activate CheckCommand
+
+
+CheckCommand -> CheckCommand: check()
+activate CheckCommand
+CheckCommand -> CheckCommand: checkNumberOfWords(words)
+activate CheckCommand
+CheckCommand --> CheckCommand
+deactivate CheckCommand
+CheckCommand -> CheckCommand: check(words[1])
+activate CheckCommand
+alt words[1] == "balance"
+    CheckCommand -> CheckCommand: checkBalance()
+    activate CheckCommand
+    CheckCommand -> Printer: printBalance()
+    activate Printer
+    Printer --> CheckCommand
+    deactivate Printer
+    CheckCommand --> CheckCommand
+    deactivate CheckCommand
+else words[1] == "bet"
+    CheckCommand -> CheckCommand: checkBet()
+    activate CheckCommand
+    CheckCommand -> Printer: printBetAmount()
+    activate Printer
+    Printer --> CheckCommand
+    deactivate Printer
+    CheckCommand --> CheckCommand
+    deactivate CheckCommand
+else words[1] == "history"
+    CheckCommand -> CheckCommand: checkHistory()
+    activate CheckCommand
+    CheckCommand -> Printer: printStats()
+    activate Printer
+    Printer --> CheckCommand
+    deactivate Printer
+    CheckCommand --> CheckCommand
+    deactivate CheckCommand
+end
+CheckCommand --> CheckCommand
+deactivate CheckCommand
+
+CheckCommand --> CheckCommand
+deactivate CheckCommand
+CheckCommand --> User
+deactivate CheckCommand
+@enduml
