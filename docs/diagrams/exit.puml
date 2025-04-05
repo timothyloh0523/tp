@@ -1,18 +1,21 @@
 @startuml
 actor User as User
-participant Parser as ":Parser"
 participant ExitCommand as ":ExitCommand"
 participant Printer as ":Printer"
 
-User -> Parser: input command "exit"
-activate Parser
-
-Parser -> ExitCommand: new ExitCommand()
+User -> ExitCommand: execute()
 activate ExitCommand
 
-ExitCommand -> Printer: printExitMessage()
+
+ExitCommand -> ExitCommand: checkNumberOfWords(words)
+activate ExitCommand
+ExitCommand --> ExitCommand
 deactivate ExitCommand
 
-Parser -->> User: command executed
-deactivate Parser
+ExitCommand -> Printer: printBye()
+activate Printer
+Printer --> ExitCommand
+deactivate Printer
+ExitCommand --> User
+deactivate ExitCommand
 @enduml
