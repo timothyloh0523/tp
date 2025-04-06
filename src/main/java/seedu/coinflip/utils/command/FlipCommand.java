@@ -10,7 +10,9 @@ import seedu.coinflip.utils.userdata.UserData;
 import java.util.Random;
 
 /**
- * Handles the command to flip a coin, given a certain bet amount.
+ * Helper class for flip command:
+ * flipping a random coin, updating user data based on user command and the outcome,
+ * updating achievements and saving user data.
  */
 public class FlipCommand extends Command {
     private static final Integer NUMBER_OF_WORDS = 2;
@@ -19,6 +21,14 @@ public class FlipCommand extends Command {
     private final UserData userData;
     private final AchievementList achievementList;
 
+    /**
+     * Constructs FlipCommand object.
+     *
+     * @param words           List of words in user command
+     * @param userData        UserData object to modify and access
+     * @param achievementList AchievementList object to modify and access
+     * @param storage         Storage helper to be used
+     */
     public FlipCommand(String[] words, UserData userData, AchievementList achievementList, Storage storage) {
         this.words = words;
         this.userData = userData;
@@ -26,6 +36,13 @@ public class FlipCommand extends Command {
         this.storage = storage;
     }
 
+    /**
+     * Executes flip command logic:
+     * flipping coin, updating user data based on user command and the outcome,
+     * updating achievements and saving user data.
+     *
+     * @throws CoinflipException if command is invalid
+     */
     @Override
     public void execute() throws CoinflipException {
         CoinflipLogger.info("Executing flip command");
@@ -42,10 +59,9 @@ public class FlipCommand extends Command {
      * This method validates the input, checks if the user has sufficient balance to place a bet,
      * and then performs a coin flip to determine the result. If the user wins, their balance is
      * increased by the bet amount; otherwise, it is decreased. The method also updates the user's
-     * win/loss counts and total won/lost.
-     * </p>
+     * win/loss counts and total won/lost, and updates if any new achievements have been unlocked.
      *
-     * @throws CoinflipException If the input command format is invalid or the flip choice is not "heads" or "tails".
+     * @throws CoinflipException If the input command format is invalid
      */
     public void flip() throws CoinflipException {
         CoinflipLogger.info("User attempting to flip a coin");

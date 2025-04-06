@@ -14,17 +14,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Helper class which provides high-level abstractions for file saving and loading operations.
+ */
+
 public class Storage {
     private static String saveFilePath = "./data/coinflip.csv";
     private static String saveFileFolderPath = "./data";
     private static final int NUMBER_OF_FIELDS = 10;
 
     //@@author HTY2003
+
+    /**
+     * Constructs Storage object with the default values.
+     */
     public Storage() {
     }
 
     /**
      * Sets the path for the save file. Only used for testing.
+     *
+     * @param filePath new save file path
      */
     public void setSaveFilePath(String filePath) {
         this.saveFilePath = filePath;
@@ -65,7 +75,7 @@ public class Storage {
     }
 
     //@@author HTY2003
-    public boolean checkSaveFileExists() {
+    private boolean checkSaveFileExists() {
         File saveFile = new File(saveFilePath);
         return saveFile.exists();
     }
@@ -73,7 +83,7 @@ public class Storage {
     //@@author CRL006
 
     /**
-     * Creates a save file in the designated directory.
+     * Creates both save file directory and save file, if not created already.
      * Ensures that the parent directory exists before attempting to create the file.
      * If the file creation fails, a custom {@code CoinflipFileException} is thrown.
      *
@@ -91,6 +101,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates directory for save file.
+     *
+     * @throws IOException if the save file cannot be created
+     */
     //@@author HTY2003
     private void createSaveFileDirectory() throws IOException {
         Path fullFolderPath = Paths.get(saveFileFolderPath);
@@ -98,6 +113,11 @@ public class Storage {
         assert Files.exists(fullFolderPath) : "Directory at saveFileFolderPath should exist";
     }
 
+    /**
+     * Creates save file.
+     *
+     * @throws IOException if the save file cannot be created
+     */
     //@@author HTY2003
     public void createSaveFile() throws IOException {
         Path fullFilePath = Paths.get(saveFilePath);
@@ -105,6 +125,12 @@ public class Storage {
         assert Files.exists(fullFilePath) : "File at saveFilePath should exist";
     }
 
+    /**
+     * Returns 2nd line of save file, which contains comma-delimited user data.
+     *
+     * @return 2nd line of save file
+     * @throws CoinflipFileException
+     */
     //@@author CRL006
     public String readData() throws CoinflipFileException {
         try {
@@ -133,7 +159,7 @@ public class Storage {
     }
 
     //@@author timothyloh0523
-    public void checkData(String[] values) throws CoinflipFileException {
+    private void checkData(String[] values) throws CoinflipFileException {
         checkNumberOfFields(values);
 
         for (int i = 0; i < NUMBER_OF_FIELDS; i++) {
@@ -155,6 +181,13 @@ public class Storage {
     }
 
     //@@author HTY2003
+
+    /**
+     * Check whether save file data contains the correct number of values/fields.
+     *
+     * @param values List of data fields from save file
+     * @throws CoinflipFileException if number of fields is incorrect
+     */
     public static void checkNumberOfFields(String[] values) throws CoinflipFileException {
         if (values.length != NUMBER_OF_FIELDS) {
             CoinflipLogger.warning("Corrupted save file: incorrect column count");
@@ -163,6 +196,14 @@ public class Storage {
     }
 
     //@@author timothyloh0523
+
+    /**
+     * Checks whether current win and lose streak values are valid.
+     *
+     * @param winStreak  Win streak to check
+     * @param loseStreak Lose streak to check
+     * @throws CoinflipFileException if win streak and lose streak are both non-zero
+     */
     public static void checkCurrentWinLoseStreaksValid(int winStreak, int loseStreak) throws CoinflipFileException {
         if (winStreak != 0 && loseStreak != 0) {
             CoinflipLogger.warning("Corrupted save file: nonzero win and loss streak count");
@@ -170,6 +211,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks whether current and highest streak values are valid.
+     *
+     * @param currentStreak Current win/lose streak to check
+     * @param highestStreak Highest win/lose streak to check
+     * @throws CoinflipFileException if currentStreak > highestStreak
+     */
     public static void checkHighestStreakValid(int currentStreak, int highestStreak) throws CoinflipFileException {
         if (currentStreak > highestStreak) {
             CoinflipLogger.warning("Corrupted save file: current streak larger than highest streak");
@@ -178,6 +226,13 @@ public class Storage {
     }
 
     //@@author HTY2003
+
+    /**
+     * Checks whether given string can be represented as a number.
+     *
+     * @param input String to be checked
+     * @throws CoinflipFileException if given string does not only contain numbers
+     */
     public static void checkNumerical(String input) throws CoinflipFileException {
         if (!input.matches("[0-9]+")) {
             CoinflipLogger.warning("Corrupted save file: non-numerical");
@@ -186,6 +241,13 @@ public class Storage {
     }
 
     //@@author HTY2003
+
+    /**
+     * Checks whether given string can be stored as an integer (9 digits or lower in length).
+     *
+     * @param input String to be checked
+     * @throws CoinflipFileException if given string is too long
+     */
     public static void checkCanBeInteger(String input) throws CoinflipFileException {
         if (input.length() > 9) {
             CoinflipLogger.warning("Corrupted save file: number too long");
@@ -194,6 +256,13 @@ public class Storage {
     }
 
     //@@author HTY2003
+
+    /**
+     * Checks whether given value is non-negative (0 or higher).
+     *
+     * @param value Value to be checked
+     * @throws CoinflipFileException if given integer input is negative
+     */
     public static void checkNonNegative(Integer value) throws CoinflipFileException {
         if (value < 0) {
             CoinflipLogger.warning("Corrupted save file: negative numbers");
@@ -220,6 +289,14 @@ public class Storage {
     }
 
     //@@author CRL006
+
+    /**
+     * Saves given UserData object to save file.
+     *
+     * @param userData UserData object to be saved
+     * @throws CoinflipFileException if file cannot be written to
+     */
+
     public void saveData(UserData userData) throws CoinflipFileException {
         CoinflipLogger.info("Attempting to save user data");
         try {

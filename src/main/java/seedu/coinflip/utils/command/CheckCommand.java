@@ -6,7 +6,8 @@ import seedu.coinflip.utils.printer.Printer;
 import seedu.coinflip.utils.userdata.UserData;
 
 /**
- * Handles the command to check either the bet or balance amount,
+ * Helper class for check command logic:
+ * checking bet amount, balance or flip history,
  * depending on user input.
  */
 public class CheckCommand extends Command {
@@ -14,6 +15,12 @@ public class CheckCommand extends Command {
     private final String[] words;
     private final UserData userData;
 
+    /**
+     * Constructs CheckCommand object.
+     *
+     * @param words    List of words in user command
+     * @param userData UserData object to access
+     */
     public CheckCommand(String[] words, UserData userData) {
         this.words = words;
         this.userData = userData;
@@ -26,7 +33,7 @@ public class CheckCommand extends Command {
      * depending on the second word in the user's response.
      * Prints balance, bet or flip history accordingly
      *
-     * @throws CoinflipException if the user gives an invalid command
+     * @throws CoinflipException if command is invalid
      */
     @Override
     public void execute() throws CoinflipException {

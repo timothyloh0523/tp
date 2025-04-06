@@ -6,6 +6,9 @@ import seedu.coinflip.utils.animation.ScanningWordAnimation;
 import seedu.coinflip.utils.exceptions.CoinflipException;
 import seedu.coinflip.utils.userdata.UserData;
 
+/**
+ * Helper class which provides high-level abstractions for printing operations.
+ */
 public class Printer {
     private static final int NUMBER_OF_UNDERSCORES = 50;
     private static final String USER_GUIDE_URL = "https://ay2425s2-cs2113-f13-1.github.io/tp/UserGuide.html";

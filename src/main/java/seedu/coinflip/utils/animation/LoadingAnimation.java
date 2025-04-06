@@ -2,13 +2,24 @@ package seedu.coinflip.utils.animation;
 
 import seedu.coinflip.utils.exceptions.CoinflipException;
 
+/**
+ * Helper class for loading animations, which displays an animated
+ * loaded box on the left of a given message. Used by Printer.
+ */
 public class LoadingAnimation extends Animation {
     private static final int SLEEP_DURATION_MS = 300;
     private static final int NUMBER_OF_SPACES = 50;
     private static final int NUMBER_OF_LOADING_STAGES = 6;
 
     //@@author HTY2003
-    public static void animate(String message) throws CoinflipException {
+
+    /**
+     * Prints message with loading bar animation on its left.
+     *
+     * @param message Message to be shown next to loading bar
+     * @throws CoinflipException if program sleep is interrupted
+     */
+    public void animate(String message) throws CoinflipException {
 
         for (int i = 0; i < NUMBER_OF_LOADING_STAGES - 1; i++) {
             printLoadingStage(i, message);

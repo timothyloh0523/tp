@@ -5,19 +5,31 @@ import seedu.coinflip.utils.logger.CoinflipLogger;
 import seedu.coinflip.utils.printer.Printer;
 
 /**
- * Handles the command to exit the program.
+ * Helper class for exit command logic:
+ * printing goodbye message.
  */
 public class ExitCommand extends Command {
 
     private static final Integer NUMBER_OF_WORDS = 1;
     private final String[] words;
 
+    /**
+     * Constructs ExitCommand object.
+     *
+     * @param words List of words in user command
+     */
     public ExitCommand(String[] words) {
         this.words = words;
     }
 
     @Override
     // @@author HTY2003
+    /**
+     * Executes exit command logic: printing a goodbye message.
+     * The actual exit of the program is handled in Coinflip class.
+     *
+     * @throws CoinflipException if command is invalid
+     */
     public void execute() throws CoinflipException {
         CoinflipLogger.info("Executing exit command");
 
