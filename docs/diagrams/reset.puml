@@ -1,0 +1,40 @@
+@startuml
+actor User as User
+hide footbox
+participant ResetCommand as ":ResetCommand"
+participant Printer as ":Printer"
+participant Storage as ":Storage"
+participant CoinflipException as ":CoinflipException"
+
+User -> ResetCommand: execute()
+activate ResetCommand
+
+
+ResetCommand -> ResetCommand: checkNumberOfWords(words)
+activate ResetCommand
+opt words.length != 1
+create CoinflipException
+ResetCommand -> CoinflipException : CoinflipException(CoinflipException.Reset_INVALID_FORMAT)
+activate CoinflipException
+CoinflipException --> User
+deactivate CoinflipException
+end
+deactivate ResetCommand
+ResetCommand -> ResetCommand: resetUserData(userData)
+activate ResetCommand
+ResetCommand --> ResetCommand
+deactivate ResetCommand
+
+ResetCommand -> Printer: printResetSuccessful()
+activate Printer
+Printer --> ResetCommand
+deactivate Printer
+
+ResetCommand -> Storage: saveData(userData)
+activate Storage
+Storage --> ResetCommand
+deactivate Storage
+
+ResetCommand --> User
+deactivate ResetCommand
+@enduml
