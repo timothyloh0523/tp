@@ -125,6 +125,7 @@ public class Printer {
                 \nchange <new bet amount> - Changes your bet amount.\
                 \nflip <heads/tails> - Bet on a coin flip being heads or tails.\
                 \nexit - Exits the application.\
+                \nreset - Starts a new game.\
                 \nhelp - Shows this help message.\
                 \n\nFor more information, please visit our User Guide: \n"""
                 + USER_GUIDE_URL);
