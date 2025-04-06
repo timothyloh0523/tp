@@ -155,7 +155,7 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private static void checkNumberOfFields(String[] values) throws CoinflipFileException {
+    public static void checkNumberOfFields(String[] values) throws CoinflipFileException {
         if (values.length != NUMBER_OF_FIELDS) {
             CoinflipLogger.warning("Corrupted save file: incorrect column count");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
@@ -163,14 +163,14 @@ public class Storage {
     }
 
     //@@author timothyloh0523
-    private static void checkCurrentWinLoseStreaksValid(int winStreak, int loseStreak) throws CoinflipFileException {
+    public static void checkCurrentWinLoseStreaksValid(int winStreak, int loseStreak) throws CoinflipFileException {
         if (winStreak != 0 && loseStreak != 0) {
             CoinflipLogger.warning("Corrupted save file: nonzero win and loss streak count");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
         }
     }
 
-    private static void checkHighestStreakValid(int currentStreak, int highestStreak) throws CoinflipFileException {
+    public static void checkHighestStreakValid(int currentStreak, int highestStreak) throws CoinflipFileException {
         if (currentStreak > highestStreak) {
             CoinflipLogger.warning("Corrupted save file: current streak larger than highest streak");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
@@ -178,7 +178,7 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private static void checkNumerical(String input) throws CoinflipFileException {
+    public static void checkNumerical(String input) throws CoinflipFileException {
         if (!input.matches("[0-9]+")) {
             CoinflipLogger.warning("Corrupted save file: non-numerical");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
@@ -186,7 +186,7 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private static void checkCanBeInteger(String input) throws CoinflipFileException {
+    public static void checkCanBeInteger(String input) throws CoinflipFileException {
         if (input.length() > 9) {
             CoinflipLogger.warning("Corrupted save file: number too long");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);
@@ -194,7 +194,7 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private static void checkNonNegative(Integer value) throws CoinflipFileException {
+    public static void checkNonNegative(Integer value) throws CoinflipFileException {
         if (value < 0) {
             CoinflipLogger.warning("Corrupted save file: negative numbers");
             throw new CoinflipFileException(CoinflipFileException.SAVE_FILE_CORRUPTED);

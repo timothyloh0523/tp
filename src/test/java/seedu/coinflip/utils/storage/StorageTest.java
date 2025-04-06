@@ -24,7 +24,7 @@ import seedu.coinflip.utils.userdata.UserData;
 
 class StorageTest {
 
-    /*@Test
+    @Test
     void saveDataAndLoadSave_validData_success() throws CoinflipFileException {
         Storage storage = new Storage();
         UserData tempUserData = new UserData();
@@ -46,7 +46,7 @@ class StorageTest {
         assertEquals(tempUserData.totalLost, loadedData.totalLost);
         assertEquals(tempUserData.winCount, loadedData.winCount);
         assertEquals(tempUserData.loseCount, loadedData.loseCount);
-    }*/
+    }
 
     @Test
     void loadSave_missingFile_createsNewFile() throws Exception {
@@ -79,10 +79,71 @@ class StorageTest {
         assertThrows(CoinflipFileException.class, storage::createSave);
     }
 
-    /*@Test
+    @Test
     void readData_returnsNull_throwsException() throws Exception {
         Storage storage = spy(new Storage());
         doReturn(null).when(storage).readData();
         assertThrows(NullPointerException.class, storage::loadSave);
-    }*/
+    }
+
+    @Test
+    void checkNumberOfFields_incorrectNumberOfFields_throwsException() {
+        String[] incorrectValues = new String[5];
+        assertThrows(CoinflipFileException.class, () -> Storage.checkNumberOfFields(incorrectValues));
+    }
+
+    @Test
+    void checkNumberOfFields_correctNumberOfFields_doesNotThrow() throws CoinflipFileException {
+        String[] correctValues = new String[10];
+        Storage.checkNumberOfFields(correctValues);
+    }
+
+    @Test
+    void checkCurrentWinLoseStreaksValid_nonZeroWinAndLoseStreak_throwsException() {
+        assertThrows(CoinflipFileException.class, () -> Storage.checkCurrentWinLoseStreaksValid(1, 1));
+    }
+
+    @Test
+    void checkCurrentWinLoseStreaksValid_zeroWinOrLoseStreak_doesNotThrow() throws CoinflipFileException {
+        Storage.checkCurrentWinLoseStreaksValid(0, 1);
+        Storage.checkCurrentWinLoseStreaksValid(1, 0);
+    }
+
+    @Test
+    void checkHighestStreakValid_currentStreakGreaterThanHighest_throwsException() {
+        assertThrows(CoinflipFileException.class, () -> Storage.checkHighestStreakValid(5, 3));
+    }
+
+    @Test
+    void checkHighestStreakValid_currentStreakLessThanOrEqualToHighest_doesNotThrow() throws CoinflipFileException {
+        Storage.checkHighestStreakValid(3, 5);
+        Storage.checkHighestStreakValid(5, 5);
+    }
+
+    @Test
+    void checkNumerical_nonNumericalInput_throwsException() {
+        Storage storage = new Storage();
+        assertThrows(CoinflipFileException.class, () -> storage.checkNumerical("one23"));
+        assertThrows(CoinflipFileException.class, () -> storage.checkNumerical("12three"));
+        assertThrows(CoinflipFileException.class, () -> storage.checkNumerical("fifty"));
+    }
+
+    @Test
+    void checkCanBeInteger_numberTooLong_throwsException() {
+        Storage storage = new Storage();
+        assertThrows(CoinflipFileException.class, () -> storage.checkCanBeInteger("1234567890"));
+    }
+
+    @Test
+    void checkNonNegative_validValue_doesNotThrow() throws CoinflipFileException {
+        Storage storage = new Storage();
+        storage.checkNonNegative(0);
+        storage.checkNonNegative(10);
+    }
+
+    @Test
+    void checkNonNegative_negativeValue_throwsException() {
+        Storage storage = new Storage();
+        assertThrows(CoinflipFileException.class, () -> storage.checkNonNegative(-1));
+    }
 }
