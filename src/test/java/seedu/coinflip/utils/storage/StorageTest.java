@@ -131,15 +131,15 @@ class StorageTest {
     @Test
     void checkNumerical_nonNumericalInput_throwsException() {
         Storage storage = new Storage();
-        assertThrows(CoinflipFileException.class, () -> storage.checkNumerical("one23"));
-        assertThrows(CoinflipFileException.class, () -> storage.checkNumerical("12three"));
-        assertThrows(CoinflipFileException.class, () -> storage.checkNumerical("fifty"));
+        assertThrows(CoinflipFileException.class, () -> Storage.checkNumerical("one23"));
+        assertThrows(CoinflipFileException.class, () -> Storage.checkNumerical("12three"));
+        assertThrows(CoinflipFileException.class, () -> Storage.checkNumerical("fifty"));
     }
 
     @Test
     void checkCanBeInteger_numberTooLong_throwsException() {
         Storage storage = new Storage();
-        assertThrows(CoinflipFileException.class, () -> storage.checkCanBeInteger("1234567890"));
+        assertThrows(CoinflipFileException.class, () -> Storage.checkCanBeInteger("1234567890"));
     }
 
     @Test
@@ -152,6 +152,6 @@ class StorageTest {
     @Test
     void checkNonNegative_negativeValue_throwsException() {
         Storage storage = new Storage();
-        assertThrows(CoinflipFileException.class, () -> storage.checkNonNegative(-1));
+        assertThrows(CoinflipFileException.class, () -> Storage.checkNonNegative(-1));
     }
 }

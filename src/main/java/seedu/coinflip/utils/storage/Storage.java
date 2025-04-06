@@ -75,7 +75,7 @@ public class Storage {
     }
 
     //@@author HTY2003
-    private boolean checkSaveFileExists() {
+    public boolean checkSaveFileExists() {
         File saveFile = new File(saveFilePath);
         return saveFile.exists();
     }
