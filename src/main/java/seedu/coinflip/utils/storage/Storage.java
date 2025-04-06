@@ -137,6 +137,7 @@ public class Storage {
         checkNumberOfFields(values);
 
         for (int i = 0; i < NUMBER_OF_FIELDS; i++) {
+            values[i] = values[i].trim();
             checkNumerical(values[i]);
             checkCanBeInteger(values[i]);
             int value = Integer.parseInt(values[i]);
