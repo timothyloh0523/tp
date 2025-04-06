@@ -196,6 +196,8 @@ The following sequence diagram shows how the `ChangeCommand` class is executed w
 in "change BET_AMOUNT" to change the betting amount. <br>
 ![](./diagrams/change.svg)
 
+### Reset command
+
 **Starting a new game (reset command)**
 <br>
 Below are the steps taken when the user types in "reset" to reset the game, focusing on the `ResetCommand` class. <br>
