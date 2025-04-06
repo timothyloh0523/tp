@@ -10,22 +10,22 @@ public class Printer {
     private static final int NUMBER_OF_UNDERSCORES = 50;
     private static final String USER_GUIDE_URL = "https://ay2425s2-cs2113-f13-1.github.io/tp/UserGuide.html";
 
-    //@@author HTY2003
+    //@@author OliverQiL
     public static void printUnderscoreLine() {
         System.out.println(new String(new char[NUMBER_OF_UNDERSCORES]).replace("\0", "_"));
     }
 
-    //@@author HTY2003
+    //@@author OliverQiL
     public static void printWelcome() {
         System.out.println("Welcome to Coinflip!");
     }
 
-    //@@author HTY2003
+    //@@author OliverQiL
     public static void printBye() {
         System.out.println("Thank you for using Coinflip. Goodbye!");
     }
 
-    //@@author HTY2003
+    //@@author OliverQiL
     public static void printException(CoinflipException e) {
         System.out.println(e.message);
     }

@@ -18,7 +18,7 @@ public class Coinflip {
     private final AchievementList achievementList;
     private UserData userData;
 
-    //@@author HTY2003
+    //@@author wongyihao0506
 
     /**
      * Constructs Coinflip object
