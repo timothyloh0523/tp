@@ -1,3 +1,5 @@
+//@@author timothyloh0523
+
 package seedu.coinflip.utils.command;
 
 import seedu.coinflip.utils.exceptions.CoinflipException;
@@ -26,7 +28,6 @@ public class CheckCommand extends Command {
         this.userData = userData;
     }
 
-    //@@author timothyloh0523
 
     /**
      * Checks the user's existing balance or bet amount
@@ -52,7 +53,6 @@ public class CheckCommand extends Command {
         }
     }
 
-    //@@CRL006
     private void check(String word) throws CoinflipException {
         switch (word) {
         case "balance":
