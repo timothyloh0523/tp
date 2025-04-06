@@ -1,5 +1,9 @@
 package seedu.coinflip.utils.userdata;
 
+/**
+ * Helper class which stores all user data for Coinflip,
+ * specifically data which is saved in a save file.
+ */
 public class UserData {
     public int balance = 500;
     public int betAmount = 20;
@@ -14,6 +18,9 @@ public class UserData {
     public int highestWinStreak = 0;
     public int highestLoseStreak = 0;
 
+    /**
+     * Constructs a UserData object with the default values.
+     */
     public UserData() {
 
     }

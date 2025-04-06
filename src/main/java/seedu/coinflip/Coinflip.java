@@ -13,15 +13,18 @@ import seedu.coinflip.utils.printer.Printer;
 import seedu.coinflip.utils.storage.Storage;
 import seedu.coinflip.utils.userdata.UserData;
 
+/**
+ * Class which contains the main Coinflip program loop and its high-level functionalities.
+ */
 public class Coinflip {
     private final Storage storage;
     private final AchievementList achievementList;
     private UserData userData;
 
-    //@@author HTY2003
+    //@@author wongyihao0506
 
     /**
-     * Constructs Coinflip object
+     * Constructs Coinflip object.
      */
     Coinflip() throws SecurityException, IOException {
         // Initialize the logger
@@ -37,7 +40,7 @@ public class Coinflip {
     }
 
     /**
-     * Returns user's coin balance
+     * Returns user's coin balance.
      *
      * @return user's balance in coins
      */
@@ -46,7 +49,7 @@ public class Coinflip {
     }
 
     /**
-     * Returns the amount of coins a user bets on each coinflip
+     * Returns the amount of coins a user bets on each coinflip.
      *
      * @return user's betting amount in coins
      */
@@ -55,7 +58,7 @@ public class Coinflip {
     }
 
     /**
-     * Returns the total number of times a user has won
+     * Returns the total number of times a user has won.
      *
      * @return user's win count
      */
@@ -64,7 +67,7 @@ public class Coinflip {
     }
 
     /**
-     * Returns the total number of times a user has lost
+     * Returns the total number of times a user has lost.
      *
      * @return user's lose count
      */
@@ -73,7 +76,7 @@ public class Coinflip {
     }
 
     /**
-     * Returns the cumulative total of all coins the user has won
+     * Returns the cumulative total of all coins the user has won.
      *
      * @return user's total earnings in coins
      */
@@ -82,7 +85,7 @@ public class Coinflip {
     }
 
     /**
-     * Returns the cumulative total of all coins the user has lost
+     * Returns the cumulative total of all coins the user has lost.
      *
      * @return user's total losses in coins
      */
@@ -94,7 +97,7 @@ public class Coinflip {
 
     /**
      * Runs main Coinflip program, which waits for a line of user input
-     * before outputting an appropriate response
+     * before outputting an appropriate response.
      *
      * @param args Arguments included with command to start Coinflip
      */

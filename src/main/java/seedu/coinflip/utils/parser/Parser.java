@@ -16,8 +16,8 @@ import seedu.coinflip.utils.userdata.UserData;
 import java.util.Scanner;
 
 /**
- * Handles the receiving and parsing of user inputs to determine
- * the appropriate command for the program to execute.
+ * Helper class which provides high-level abstraction for receiving and parsing
+ * user inputs into relevant command objects for the program to execute.
  */
 public class Parser {
     private final Storage storage;
@@ -27,6 +27,15 @@ public class Parser {
     private String input;
 
     //@@author timothyloh0523
+
+    /**
+     * Constructs Parser object.
+     *
+     * @param userData        User data to be passed to Command object (if needed)
+     * @param achievementList Achievement list to be passed to Command object (if needed)
+     * @param storage         Storage handler to be passed to Command object (if needed)
+     */
+
     public Parser(UserData userData, AchievementList achievementList, Storage storage) {
         this.userData = userData;
         this.achievementList = achievementList;
@@ -36,12 +45,25 @@ public class Parser {
     }
 
     //@@author HTY2003
+
+    /**
+     * Updates class to receive next line of input.
+     * If no input is given, the program will stall on this function.
+     */
     public void receiveUserInput() {
         this.input = scanner.nextLine();
         CoinflipLogger.info("Received user input: " + this.input);
     }
 
     // @@author HTY2003
+
+    /**
+     * Parses user input, then constructs and returns relevant Command
+     * object if the first word is a valid command.
+     *
+     * @return Relevant Command object for user input
+     * @throws CoinflipException if input is an invalid command
+     */
     public Command parseUserInput() throws CoinflipException {
         String[] words = this.input.trim().split(" ");
         CoinflipLogger.fine("Split input into " + words.length + "words");

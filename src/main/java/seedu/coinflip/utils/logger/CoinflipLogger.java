@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- * Centralizes logging functionality for the Coinflip application.
- * Provides methods for logging at different levels and handles the setup
- * of the logger.
+ * Helper class for high-level logging functionality.
+ * Provides methods for logging at different levels
+ * and handles setup of the logger.
  */
 public class CoinflipLogger {
     private static final String LOG_FILE_PATH = "./data/coinflip.log";

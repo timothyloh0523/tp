@@ -109,7 +109,7 @@ Example of usage:
 
 This feature _does not_ have a command. It is automatically triggered when you reach certain milestones in the game.
 
-Play the coinflip game and uncover them along the way!! 
+Play the coinflip game and uncover them along the way!!
 
 ### Terminating program: `exit`
 
@@ -163,8 +163,8 @@ and your save data will be transferred.
 **A**: Yes, the user data is stored in a .csv file in the `data` folder.
 However, if our program detects that the save file is corrupted or in an incorrect format,
 it will ignore the save file and start a new game. This is not a bug.
-Additionally, while the user can edit the save file, they are not recommended to do so. 
-This is because changing the values in the save file, for example the balance, would 
+Additionally, while the user can edit the save file, they are not recommended to do so.
+This is because changing the values in the save file, for example the balance, would
 defeat the purpose of the game, which is to simulate gambling and allow the user to
 experience its consequences.
 
@@ -187,6 +187,8 @@ Coinflip and look at the save file. There are also additional restrictions:
 * All values must be non-negative integers typed out numerically (e.g. `50`, not `fifty`)
 * All values must be lower than 10 digits in length
 * Either the `Current Win Streak` or `Current Lose Streak` value must be 0.
+* `Highest Win Streak` must be equal to or greater than `Current Win Streak`.
+* `Highest Lose Streak` must be equal to or greater than `Current Lose Streak`.
 
 If these conditions are not met, the program will attempt to detect the file corruption, but it is not guaranteed
 to do so, and this is expected behaviour.

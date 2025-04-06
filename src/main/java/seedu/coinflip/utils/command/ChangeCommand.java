@@ -7,7 +7,8 @@ import seedu.coinflip.utils.storage.Storage;
 import seedu.coinflip.utils.userdata.UserData;
 
 /**
- * Handles the command to change the bet amount.
+ * Helper class for change command logic:
+ * changing bet amount and saving user data.
  */
 public class ChangeCommand extends Command {
 
@@ -17,6 +18,14 @@ public class ChangeCommand extends Command {
     private final UserData userData;
 
     //@@author timothyloh0523
+
+    /**
+     * Constructs ChangeCommand object.
+     *
+     * @param words    List of words in user command
+     * @param userData UserData object to modify and access
+     * @param storage  Storage helper to be used
+     */
     public ChangeCommand(String[] words, UserData userData, Storage storage) {
         this.words = words;
         this.userData = userData;
@@ -24,6 +33,12 @@ public class ChangeCommand extends Command {
     }
 
     //@@author timothyloh0523
+
+    /**
+     * Executes change command logic: changing bet amount and then saving user data.
+     *
+     * @throws CoinflipException if command format or bet amount is invalid
+     */
     @Override
     public void execute() throws CoinflipException {
         CoinflipLogger.info("Executing change command");
@@ -33,6 +48,12 @@ public class ChangeCommand extends Command {
     }
 
     //@@author OliverQiL
+
+    /**
+     * Changes bet amount based on user input.
+     *
+     * @throws CoinflipException if command format or bet amount is invalid
+     */
     public void change() throws CoinflipException {
 
         checkNumberOfWords(this.words);

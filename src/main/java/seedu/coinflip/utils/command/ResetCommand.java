@@ -6,7 +6,13 @@ import seedu.coinflip.utils.printer.Printer;
 import seedu.coinflip.utils.storage.Storage;
 import seedu.coinflip.utils.userdata.UserData;
 
+
 //@@author wongyihao0506
+
+/**
+ * Helper class for reset command logic:
+ * resetting user data to default values and saving it.
+ */
 public class ResetCommand extends Command {
 
     private static final Integer NUMBER_OF_WORDS = 1;
@@ -14,12 +20,24 @@ public class ResetCommand extends Command {
     private final Storage storage;
     private final UserData userData;
 
+    /**
+     * Constructs ResetCommand object.
+     *
+     * @param words    List of words in user command
+     * @param userData UserData object to modify
+     * @param storage  Storage helper to be used
+     */
     public ResetCommand(String[] words, UserData userData, Storage storage) {
         this.words = words;
         this.userData = userData;
         this.storage = storage;
     }
 
+    /**
+     * Executes reset command logic: resetting user data to default values and saving it.
+     *
+     * @throws CoinflipException if command is invalid
+     */
     @Override
     public void execute() throws CoinflipException {
         CoinflipLogger.info("Executing reset command");
