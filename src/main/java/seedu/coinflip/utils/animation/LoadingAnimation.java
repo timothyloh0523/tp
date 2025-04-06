@@ -19,7 +19,7 @@ public class LoadingAnimation extends Animation {
      * @param message Message to be shown next to loading bar
      * @throws CoinflipException if program sleep is interrupted
      */
-    public void animate(String message) throws CoinflipException {
+    public static void animate(String message) throws CoinflipException {
 
         for (int i = 0; i < NUMBER_OF_LOADING_STAGES - 1; i++) {
             printLoadingStage(i, message);
