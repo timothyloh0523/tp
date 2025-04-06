@@ -35,6 +35,10 @@ class StorageTest {
         tempUserData.totalLost = 0;
         tempUserData.winCount = 0;
         tempUserData.loseCount = 0;
+        tempUserData.currentWinStreak = 0;
+        tempUserData.currentLoseStreak = 0;
+        tempUserData.highestWinStreak = 0;
+        tempUserData.highestLoseStreak = 0;
 
         storage.setSaveFilePath("./src/test/testResources/storageTestFiles/validTestFile.csv");
         storage.saveData(tempUserData);
@@ -46,6 +50,10 @@ class StorageTest {
         assertEquals(tempUserData.totalLost, loadedData.totalLost);
         assertEquals(tempUserData.winCount, loadedData.winCount);
         assertEquals(tempUserData.loseCount, loadedData.loseCount);
+        assertEquals(tempUserData.currentWinStreak, loadedData.currentWinStreak);
+        assertEquals(tempUserData.currentLoseStreak, loadedData.currentLoseStreak);
+        assertEquals(tempUserData.highestWinStreak, loadedData.highestWinStreak);
+        assertEquals(tempUserData.highestLoseStreak, loadedData.highestLoseStreak);
     }
 
     @Test

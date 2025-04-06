@@ -36,5 +36,4 @@ class CoinflipTest {
         coinflip.run(new String[]{});
         assertEquals(50, coinflip.getBetAmount());
     }
-
 }
