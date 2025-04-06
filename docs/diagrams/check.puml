@@ -1,7 +1,9 @@
 @startuml
 actor User as User
+hide footbox
 participant CheckCommand as ":CheckCommand"
 participant Printer as ":Printer"
+participant CoinflipException as ":CoinflipException"
 
 User -> CheckCommand: execute()
 activate CheckCommand
@@ -11,6 +13,13 @@ CheckCommand -> CheckCommand: check()
 activate CheckCommand
 CheckCommand -> CheckCommand: checkNumberOfWords(words)
 activate CheckCommand
+opt words.length != 2
+create CoinflipException
+CheckCommand -> CoinflipException : CoinflipException(CoinflipException.CHECK_INVALID_FORMAT)
+activate CoinflipException
+CoinflipException --> User
+deactivate CoinflipException
+end
 CheckCommand --> CheckCommand
 deactivate CheckCommand
 CheckCommand -> CheckCommand: check(words[1])
@@ -43,6 +52,12 @@ else words[1] == "history"
     CheckCommand --> CheckCommand
     deactivate CheckCommand
 end
+note right of CheckCommand
+The default of the above
+switch case also throws an
+exception but has been
+omitted to prevent cluttering
+end note
 CheckCommand --> CheckCommand
 deactivate CheckCommand
 

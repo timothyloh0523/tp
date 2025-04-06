@@ -13,9 +13,13 @@ public class GamesAchievement extends Achievement {
 
         switch (gameCount) {
         case 5:
+            //fallthrough
         case 10:
+            //fallthrough
         case 20:
+            //fallthrough
         case 50:
+            //fallthrough
         case 100:
             setToBePrinted(true);
             setPrintMessage("Congratulations, you have made a total of " +

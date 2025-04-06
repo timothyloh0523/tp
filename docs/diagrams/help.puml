@@ -1,7 +1,9 @@
 @startuml
 actor User as User
+hide footbox
 participant HelpCommand as ":HelpCommand"
 participant Printer as ":Printer"
+participant CoinflipException as ":CoinflipException"
 
 User -> HelpCommand: execute()
 activate HelpCommand
@@ -9,6 +11,13 @@ activate HelpCommand
 
 HelpCommand -> HelpCommand: checkNumberOfWords(words)
 activate HelpCommand
+opt words.length != 1
+create CoinflipException
+HelpCommand -> CoinflipException : CoinflipException(CoinflipException.HELP_INVALID_FORMAT)
+activate CoinflipException
+CoinflipException --> User
+deactivate CoinflipException
+end
 HelpCommand --> HelpCommand
 deactivate HelpCommand
 

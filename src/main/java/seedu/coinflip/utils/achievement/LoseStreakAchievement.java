@@ -21,9 +21,13 @@ public class LoseStreakAchievement extends Achievement {
 
         switch (currentLoseStreak) {
         case 5:
+            //fallthrough
         case 10:
+            //fallthrough
         case 20:
+            //fallthrough
         case 50:
+            //fallthrough
         case 100:
             setToBePrinted(true);
             setPrintMessage("Uh-oh! I mean, congratulations, you achieved a " +

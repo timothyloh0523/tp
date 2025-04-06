@@ -1,7 +1,9 @@
 @startuml
 actor User as User
+hide footbox
 participant ExitCommand as ":ExitCommand"
 participant Printer as ":Printer"
+participant CoinflipException as ":CoinflipException"
 
 User -> ExitCommand: execute()
 activate ExitCommand
@@ -9,6 +11,13 @@ activate ExitCommand
 
 ExitCommand -> ExitCommand: checkNumberOfWords(words)
 activate ExitCommand
+opt words.length != 1
+create CoinflipException
+ExitCommand -> CoinflipException : CoinflipException(CoinflipException.EXIT_INVALID_FORMAT)
+activate CoinflipException
+CoinflipException --> User
+deactivate CoinflipException
+end
 ExitCommand --> ExitCommand
 deactivate ExitCommand
 
