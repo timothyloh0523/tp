@@ -22,14 +22,15 @@ public class ExitCommand extends Command {
         this.words = words;
     }
 
-    @Override
     // @@author HTY2003
+
     /**
      * Executes exit command logic: printing a goodbye message.
      * The actual exit of the program is handled in Coinflip class.
      *
      * @throws CoinflipException if command is invalid
      */
+    @Override
     public void execute() throws CoinflipException {
         CoinflipLogger.info("Executing exit command");
 
