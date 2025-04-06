@@ -6,6 +6,7 @@ import seedu.coinflip.utils.command.Command;
 import seedu.coinflip.utils.command.ChangeCommand;
 import seedu.coinflip.utils.command.CheckCommand;
 import seedu.coinflip.utils.command.ExitCommand;
+import seedu.coinflip.utils.command.ResetCommand;
 import seedu.coinflip.utils.command.FlipCommand;
 import seedu.coinflip.utils.command.HelpCommand;
 import seedu.coinflip.utils.logger.CoinflipLogger;
@@ -61,6 +62,9 @@ public class Parser {
         case "exit":
             CoinflipLogger.fine("Created ExitCommand object");
             return new ExitCommand(words);
+        case "reset":
+            CoinflipLogger.fine("Created ResetCommand object");
+            return new ResetCommand(words, userData, storage);
         default:
             CoinflipLogger.warning("Unknown command: " + words[0]);
             throw new CoinflipException(CoinflipException.INVALID_COMMAND);

@@ -29,6 +29,9 @@ public class CoinflipException extends Exception {
     public static final String EXIT_INVALID_FORMAT = "Invalid command format! " +
             "Please follow this format: exit";
 
+    public static final String RESET_INVALID_FORMAT = "Invalid command format! " +
+            "Please follow this format: reset";
+
     public static final String HELP_INVALID_FORMAT = "Invalid command format! " +
             "Please follow this format: help";
 
