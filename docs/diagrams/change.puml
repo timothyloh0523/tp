@@ -1,7 +1,9 @@
 @startuml
 actor User as User
+hide footbox
 participant ChangeCommand as ":ChangeCommand"
 participant Printer as ":Printer"
+participant CoinflipException as ":CoinflipException"
 
 User -> ChangeCommand: execute()
 activate ChangeCommand
@@ -11,6 +13,18 @@ ChangeCommand -> ChangeCommand: change()
 activate ChangeCommand
 ChangeCommand -> ChangeCommand: checkNumberOfWords(words)
 activate ChangeCommand
+opt words.length != 2
+create CoinflipException
+ChangeCommand -> CoinflipException : CoinflipException(CoinflipException.CHANGE_INVALID_FORMAT)
+activate CoinflipException
+CoinflipException --> User
+deactivate CoinflipException
+end
+note right of CoinflipException
+The other functions' exception throws, such as in
+checkNumerical(words[1]), have been
+intentionally omitted to prevent cluttering
+end note
 ChangeCommand --> ChangeCommand
 deactivate ChangeCommand
 ChangeCommand -> ChangeCommand: checkNumerical(words[1])

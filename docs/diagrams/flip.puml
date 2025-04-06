@@ -1,7 +1,10 @@
 @startuml
 actor User as User
+hide footbox
 participant FlipCommand as ":FlipCommand"
 participant Printer as ":Printer"
+participant AchievementList as ":AchievementList"
+participant CoinflipException as ":CoinflipException"
 
 User -> FlipCommand: execute()
 activate FlipCommand
@@ -11,6 +14,18 @@ FlipCommand -> FlipCommand: flip()
 activate FlipCommand
 FlipCommand -> FlipCommand: checkNumberOfWords(words)
 activate FlipCommand
+opt words.length != 2
+create CoinflipException
+FlipCommand -> CoinflipException : CoinflipException(CoinflipException.FLIP_INVALID_FORMAT)
+activate CoinflipException
+CoinflipException --> User
+deactivate CoinflipException
+end
+note right of CoinflipException
+The other functions' exception throws (such as in
+checkValidOutcomeWord(words[1])) have been
+intentionally omitted to prevent cluttering
+end note
 FlipCommand --> FlipCommand
 deactivate FlipCommand
 FlipCommand -> FlipCommand: checkValidOutcomeWord(words[1])
@@ -29,6 +44,10 @@ FlipCommand -> FlipCommand: getOutcome(actualFlip, words[1])
 activate FlipCommand
 FlipCommand --> FlipCommand
 deactivate FlipCommand
+FlipCommand -> AchievementList: update(userData, outcome)
+activate AchievementList
+AchievementList --> FlipCommand
+deactivate AchievementList
 FlipCommand -> FlipCommand: processOutcome(outcome)
 activate FlipCommand
 FlipCommand --> FlipCommand

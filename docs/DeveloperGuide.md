@@ -118,17 +118,15 @@ Terminating program
 
 Here is the class diagram for Coinflip:
 
-## Object Diagrams
-
 ## Sequence Diagrams
->Note: In the following sequence diagrams, the constructors and most of the other classes have been left out 
-> intentionally to reduce cluttering and place more emphasis on the respective command classes that are being executed, 
-> along with their main functionalities.
+>Note: In the following sequence diagrams, some of the other classes (for examples, Parser and Logger), or the functions
+> the other classes call, have been left out intentionally to reduce cluttering and place more emphasis on the respective 
+> command classes that are being executed, along with their main functionalities.
 
 **Viewing available commands (help function)**
 <br>
-Below are the steps that the `HelpCommand` class takes when the user types in "help" 
-to view all available commands. <br>
+Below are the steps taken when the user types in "help" to view all available commands, focusing on the 
+`HelpCommand` class. <br>
 Step 1: The user enters "help" into the command line. <br>
 Step 2: The `Parser` class parses the input and creates an instance of `HelpCommand`. <br>
 Step 3: The `execute()` method of the `HelpCommand` class is called. <br>
@@ -138,13 +136,14 @@ Step 5: The `execute()` method will then call the `printHelp()` method from the 
 available commands. <br>
 Step 6: The control is returned to the user, who is free to enter the next command. <br>
 
-
+The following sequence diagram shows how the `HelpCommand` class is executed when the user types in "help" to view
+all available commands. <br>
 ![](./diagrams/help.svg)
 
 **Viewing balance, bet or history (check command)**
 <br>
-Below are the steps that the `CheckCommand` class takes when the user types in "check ___" (where the ___ can be 
-"balance", "bet" or "history") to view their balance, bet amount or history. <br>
+Below are the steps taken when the user types in "check ___" (where the ___ can be "balance", "bet" or "history") 
+to view their balance, bet amount or history, focusing on the `CheckCommand` class. <br>
 Step 1: The user enters "check ___" into the command line. <br>
 Step 2: The `Parser` class parses the input and creates an instance of `CheckCommand`. <br>
 Step 3: The `execute()` method of the `CheckCommand` class is called. <br>
@@ -156,13 +155,14 @@ an exception will be thrown.<br>
 Step 6: The commands that were chosen to execute will then print their respective messages. <br>
 Step 7: The control is returned to the user, who is free to enter the next command. <br>
 
-
+The following sequence diagram shows how the `CheckCommand` class is executed when the user types in "check ___"
+(where the ___ can be "balance", "bet" or "history") to view their balance, bet amount or history. <br>
 ![](./diagrams/check.svg)
 
 **Playing coinflip (flip command)**
 <br>
-Below are the steps that the `FlipCommand` class takes when the user types in "flip heads" or "flip tails" 
-to play a coin flip. <br>
+Below are the steps taken when the user types in "flip heads" or "flip tails" to play a coin flip, focusing on the
+`FlipCommand` class. <br>
 Step 1: The user enters "flip heads" or "flip tails" into the command line. <br>
 Step 2: The `Parser` class parses the input and creates an instance of `FlipCommand`. <br>
 Step 3: The `execute()` method of the `FlipCommand` class is called. <br>
@@ -186,13 +186,14 @@ Step 11: The data will be saved to the save file using the `Storage` class. *Thi
 sequence diagram to place emphasis on the ChangeCommand class.* <br>
 Step 12: The control is returned to the user, who is free to enter the next command. <br>
 
-
+The following sequence diagram shows how the `FlipCommand` class is executed when the user types in "flip heads"
+or "flip tails" to play a coin flip. <br>
 ![](./diagrams/flip.svg)
 
 **Changing betting amount (change command)**
 <br>
-Below are the steps that the `ChangeCommand` class takes when the user types in 
-"change BET_AMOUNT" (where BET_AMOUNT is the new amount the user would like to bet) to change the betting amount. <br>
+Below are the steps taken when the user types in "change BET_AMOUNT" (where BET_AMOUNT is the new amount the user 
+would like to bet) to change the betting amount, focusing on the `ChangeCommand` class. <br>
 Step 1: The user enters "change BET_AMOUNT" into the command line. <br>
 Step 2: The `Parser` class parses the input and creates an instance of `ChangeCommand`. <br>
 Step 3: The `execute()` method of the `ChangeCommand` class is called. <br>
@@ -211,12 +212,13 @@ Step 13: The data will be saved to the save file using the `Storage` class. *Thi
 sequence diagram to place emphasis on the ChangeCommand class.* <br>
 Step 14: The control is returned to the user, who is free to enter the next command. <br>
 
-
+The following sequence diagram shows how the `ChangeCommand` class is executed when the user types 
+in "change BET_AMOUNT" to change the betting amount. <br>
 ![](./diagrams/change.svg)
 
 **Terminating program (exit command)**
 <br>
-Below are the steps that the `ExitCommand` class takes when the user types in "exit" to terminate the program. <br>
+Below are the steps taken when the user types in "exit" to terminate the program, focusing on the `ExitCommand` class. <br>
 Step 1: The user enters "exit", or "exit ___"  (where the ___ can be input like other words) into the command line. <br>
 Step 2: The `Parser` class parses the input and creates an instance of `ExitCommand`. <br>
 Step 3: The `execute()` method of the `ExitCommand` class is called. <br>
@@ -225,5 +227,6 @@ If the user entered "exit ___", or any other input with more than 1 word, an exc
 Step 5: The `execute()` method will call the printBye() method from the `Printer` to print the exit message. <br>
 Step 6: The `isExit` boolean will then be set to true and the programme will be terminated. <br>
 
-
+The following sequence diagram shows how the `ExitCommand` class is executed when the user types in "exit" to terminate 
+the program. <br>
 ![](./diagrams/exit.svg)
