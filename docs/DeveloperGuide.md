@@ -34,7 +34,8 @@ These components share usage of some other common utility classes:
 
 ### Target user profile
 
-Children who are not of age to gamble
+Children who are not of age to gamble, specifically children from ages 12-15. Hence, we ensured that the messages 
+printed out were clear without too many technical terms so that the product would be tailored to our target audience.
 
 ### Value proposition
 
@@ -121,7 +122,8 @@ Here is the class diagram for Coinflip:
 ## Sequence Diagrams
 >Note: In the following sequence diagrams, some of the other classes (for examples, Parser and Logger), or the functions
 > the other classes call, have been left out intentionally to reduce cluttering and place more emphasis on the respective 
-> command classes that are being executed, along with their main functionalities.
+> command classes that are being executed, along with their main functionalities. The logging functions have also been 
+> left out from the steps to focus on the main functionality of each feature. <br>
 
 **Viewing available commands (help function)**
 <br>
@@ -215,6 +217,24 @@ Step 14: The control is returned to the user, who is free to enter the next comm
 The following sequence diagram shows how the `ChangeCommand` class is executed when the user types 
 in "change BET_AMOUNT" to change the betting amount. <br>
 ![](./diagrams/change.svg)
+
+**Starting a new game (reset command)**
+<br>
+Below are the steps taken when the user types in "reset" to reset the game, focusing on the `ResetCommand` class. <br>
+Step 1: The user enters "reset" into the command line. <br>
+Step 2: The `Parser` class parses the input and creates an instance of `ResetCommand`. <br>
+Step 3: The `execute()` method of the `ResetCommand` class is called. <br>
+Step 4: The `execute()` method calls the `checkNumberOfWords(words)` method to ensure that exactly 1 word was entered.
+Exceptions will be thrown if the input is found to have more than 1 word. <br>
+Step 5: The `execute()` method will then call the `resetUserData(userData)` function to reset the user's data. <br>
+Step 6: The `execute()` method will then call the `printResetSuccessful()` method from the `Printer` class to print the
+message confirming the reset of the game. <br>
+Step 7: The data will be saved to the save file using the `saveData(userData)` method from the `Storage` class. <br>
+Step 8: The control is returned to the user, who is free to enter the next command. <br>
+
+The following sequence diagram shows how the `ResetCommand` class is executed when the user types in "reset" to
+reset the game. <br>
+![](./diagrams/reset.svg)
 
 **Terminating program (exit command)**
 <br>

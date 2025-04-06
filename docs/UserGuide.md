@@ -105,6 +105,12 @@ Example of usage:
 
 `flip heads` or `flip tails`
 
+### Obtaining achievements:
+
+This feature _does not_ have a command. It is automatically triggered when you reach certain milestones in the game.
+
+Play the coinflip game and uncover them along the way!! 
+
 ### Terminating program: `exit`
 
 Exits the program
@@ -157,6 +163,10 @@ and your save data will be transferred.
 **A**: Yes, the user data is stored in a .csv file in the `data` folder.
 However, if our program detects that the save file is corrupted or in an incorrect format,
 it will ignore the save file and start a new game. This is not a bug.
+Additionally, while the user can edit the save file, they are not recommended to do so. 
+This is because changing the values in the save file, for example the balance, would 
+defeat the purpose of the game, which is to simulate gambling and allow the user to
+experience its consequences.
 
 **Q**: If I swap column labels in the save file, will the data still be loaded correctly?
 

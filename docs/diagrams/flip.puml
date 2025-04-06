@@ -38,11 +38,17 @@ FlipCommand --> FlipCommand
 deactivate FlipCommand
 FlipCommand -> FlipCommand: generateFlip()
 activate FlipCommand
-FlipCommand --> FlipCommand
+note right of FlipCommand
+The "correct" guess will be generated here
+end note
+FlipCommand --> FlipCommand : randomly generated "Heads" or "Tails"
 deactivate FlipCommand
 FlipCommand -> FlipCommand: getOutcome(actualFlip, words[1])
 activate FlipCommand
-FlipCommand --> FlipCommand
+note right of FlipCommand
+The user's input will be compared with the "correct" guess
+end note
+FlipCommand --> FlipCommand : returns boolean, true if user wins and false otherwise
 deactivate FlipCommand
 FlipCommand -> AchievementList: update(userData, outcome)
 activate AchievementList
