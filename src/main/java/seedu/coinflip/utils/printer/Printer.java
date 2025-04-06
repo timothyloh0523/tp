@@ -108,6 +108,11 @@ public class Printer {
     }
 
     //@@author OliverQiL
+    public static void printResetSuccessful() {
+        System.out.println("Your data has been reset!");
+    }
+
+    //@@author OliverQiL
     public static void printHelp() {
         System.out.println("""
                 Here are the commands you can use:\
