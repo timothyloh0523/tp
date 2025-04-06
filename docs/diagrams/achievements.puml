@@ -1,0 +1,16 @@
+@startuml viewAchievements
+
+actor User
+participant Parser
+participant ViewAchievementsCommand
+participant AchievementList
+participant Printer
+
+User -> Parser: "achievements"
+Parser -> ViewAchievementsCommand: creates
+ViewAchievementsCommand -> AchievementList: getAchievements()
+AchievementList --> ViewAchievementsCommand: achievements data
+ViewAchievementsCommand -> Printer: printAchievements(achievements)
+Printer --> User: formatted achievements display
+
+@enduml
