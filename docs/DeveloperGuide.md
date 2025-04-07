@@ -4,7 +4,11 @@
 
 Third-party Libraries Used for Test Cases:
 
-* Mockito: Mocking framework to test save file loading/storing
+* Java SE 17 - Core Java platform
+* JUnit 5 - Unit testing framework
+* Gradle - Build automation framework for continuous integration (CI) checks
+* Mockito - Mocking framework to test save file loading/storing
+* PlantUML - For generating UML diagrams
 
 ## Setting up, getting started
 
@@ -69,19 +73,19 @@ Below is the high level architecture of Coinflip:
 
 Here are the components that comprises Coinflip (with a brief description):
 
-* `Main`: Handles sequence of interactions between the other components
-* `Common`: Common utilities used by all other components
-* `Model`: Represents user's data when program is running
+* `Main`: Handles interactions between the other components
+* `Common`: Common utilities used by all other components (logger, exceptions)
+* `Model`: Represents user data in memory when program is running
 * `Storage`: Handles loading and saving of user data
 * `User Input`: Handles receiving of user input and classification into relevant command
 * `Logic`: Handles logic for each command
-* `User Output`: Handles output visible to the user
+* `User Output`: Handles creation of visible outputs for the user
 
 To provide a general sequence of interactions, here is the abstract component-level algorithm:
 
 Before starting the main program loop,
 
-* `Storage` reads the save file and loads it into `Model`
+* `Storage` reads the save file and loads the data into `Model`
 
 Then the main program loop begins:
 
@@ -89,6 +93,7 @@ Then the main program loop begins:
   command can be executed
 * `Logic` executes the logic for each command, typically involving access or modification to `Model`, as well as the
   usage of `Storage` (to save the modified `Model`) as well as `User Output`
+    * `User Input` and `Main` store references to `Storage` and `Model` precisely so that they can be passed to `Logic`
 * `User Output` handles the final printing of information or error messages to be viewed by the user.
 
 We will go into more detail on the class(es) that comprises each component in their own sections.
@@ -121,7 +126,7 @@ Consists of the following classes:
 Consists of the following classes:
 
 * `Printer`: Handles printing of output for the user
-* `Animation` and subclasses: Handles printing of animated output, used only by `Printer`
+* `Animation` (circled A for abstract) and subclasses: Handles printing of animated output, used only by `Printer`
 
 ### User Input Component
 
@@ -135,7 +140,7 @@ Consists of the following classes:
 
 Consists of the following classes:
 
-* `Command` and subclasses: Handles logic and output for each command
+* `Command` (circled A for abstract) and subclasses: Handles logic and output for each command
 
 ### Model Component
 
@@ -198,7 +203,7 @@ to view their balance, bet amount or history, focusing on the `CheckCommand` cla
    to determine which command to execute. If the second word of the input is not "balance", "bet", or "history",
    an exception will be thrown.
 6. The commands that were chosen to execute will then print their respective messages.
-   Step 7: The control is returned to the user, who is free to enter the next command.
+7. The control is returned to the user, who is free to enter the next command.
 
 The following sequence diagram shows how the `CheckCommand` class is executed when the user types in "check ___"
 (where the ___ can be "balance", "bet" or "history") to view their balance, bet amount or history.
@@ -315,7 +320,7 @@ the program:
 
 ### [Proposed] View Achievements command
 
-The proposed (not yet implemented) view achievements feature will allow users to see all achievements they've unlocked
+The proposed (not yet implemented) view achievements feature would allow users to see all achievements they've unlocked
 and those still locked.
 This feature is facilitated by creating a new `ViewAchievementsCommand` class that extends the `Command` abstract class.
 
@@ -354,10 +359,9 @@ on a coin flip, and educate them about the dangers of gambling.
 | v1.0    | user       | continue my coin balance from my previous session   | the wins or losses from my previous bets are permanent to me                              |
 | v2.0    | user       | view my previous coinflip results                   | see the long-term effect of my playing                                                    |
 | v2.0    | user       | save my data between sessions                       | continue experiencing the effects of my actions over a long time period                   |
-| v2.0    | user       | have a loading animation when I flip coins          | see the parallels to real-world gambling                                                  |
+| v2.0    | user       | have a loading animation when I flip coins          | see the parallels to real-world gambling (by having added realism)                        |
 | v2.1    | user       | be able to start a new game                         | continue playing when my coin balance is 0                                                |
 | v2.1    | user       | unlock achievements upon achieving certain actions  | feel rewarded for using the program, similar to how manipulative casinos are in real life |
-| v2.1    | user       | view my achievements                                | reflect on my experience playing the game                                                 |
 
 ## Appendix C: Non-Functional Requirements
 

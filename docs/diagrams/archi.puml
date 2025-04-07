@@ -10,15 +10,24 @@ rectangle "Logic" as Logic #E8EAF6
 rectangle "User Output" as UserOutput #FCE4EC
 
 ' Connections
-Main --> UserInput
-UserInput --> Logic
-Logic --> UserOutput
+
+Main ..> UserInput : creates
+Main ..> UserOutput : sends error messages to
+Main --> Model
+Main --> Storage
+
+UserInput ..> Logic : creates
+UserInput --> Storage
+UserInput --> Model
+
+Logic ..> UserOutput : sends responses to
 Logic --> Model
 Logic --> Storage
-Main --> Common
 
-' Data loading (dashed line)
-Storage ..> Model : loads data
+Storage ..> Model : saves from or loads data into
+Storage ..> UserOutput : sends error messages to
 
-title Coinflip Architecture
+UserOutput ..> Model
+
+title High-Level Architecture
 @enduml
