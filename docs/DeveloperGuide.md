@@ -22,22 +22,22 @@ Third-party Libraries Used:
 
 1. **Ensure you have JDK 17 installed**
     * You can download it from [Oracle](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-    * Verify your installation and Java version by running 'java -version' in your terminal
+    * Verify your installation and Java version by running `java -version` in your terminal
 
 2. **Fork and Clone the repository**
     * Fork and clone this repository to your local machine
 
 3. **Import the project as a Gradle project**
     * Launch IntelliJ IDEA
-    * Select 'Import Project'
-    * Navigate to the project directory and select the 'build.gradle' file
-    * Click 'Open as Project'
-    * In the dialog that appears, select 'Use gradle 'wrapper' task configuration' and click 'OK'
+    * Select `Import Project`
+    * Navigate to the project directory and select the `build.gradle` file
+    * Click `Open as Project`
+    * In the dialog that appears, select `Use gradle 'wrapper' task configuration` and click `OK`
     * Wait for the import to complete and for IntelliJ to index the files
 
 4. **Verify the setup**
     * Locate the `src/main/java/seedu/coinflip/Coinflip.java` file in the Project Explorer
-    * Right-click on the file and select 'Run Coinflip.main()'
+    * Right-click on the file and select `Run Coinflip.main()`
     * If the setup is correct, you should see the Coinflip application starting in the console
     * Try a few commands and run the tests to ensure they all pass
 
@@ -60,8 +60,10 @@ Third-party Libraries Used:
 
 ### Configuration
 
-The application stores its data in a CSV file in the 'data' directory, which will be automatically
+The application stores its data in a `.csv` file in the `data` directory, which will be automatically
 created if it doesn't exist already. No additional configuration is necessary for basic usage.
+
+The application also creates a debug log in a `.log` file in the same directory.
 
 ## Design
 
