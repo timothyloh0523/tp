@@ -21,7 +21,20 @@ import java.nio.file.Paths;
 public class Storage {
     private static String saveFilePath = "./data/coinflip.csv";
     private static String saveFileFolderPath = "./data";
+
     private static final int NUMBER_OF_FIELDS = 10;
+
+    private static final int BET_AMOUNT_INDEX = 0;
+    private static final int BALANCE_INDEX = 1;
+    private static final int WIN_COUNT_INDEX = 2;
+    private static final int LOSE_COUNT_INDEX = 3;
+    private static final int TOTAL_WON_INDEX = 4;
+    private static final int TOTAL_LOST_INDEX = 5;
+    private static final int CURR_WIN_STREAK_INDEX = 6;
+    private static final int CURR_LOSE_STREAK_INDEX = 7;
+    private static final int HIGHEST_WIN_STREAK_INDEX = 8;
+    private static final int HIGHEST_LOSE_STREAK_INDEX = 9;
+
 
     //@@author HTY2003
 
@@ -129,7 +142,7 @@ public class Storage {
      * Returns 2nd line of save file, which contains comma-delimited user data.
      *
      * @return 2nd line of save file
-     * @throws CoinflipFileException
+     * @throws CoinflipFileException if line count is incorrect
      */
     //@@author CRL006
     public String readData() throws CoinflipFileException {
@@ -170,10 +183,10 @@ public class Storage {
             checkNonNegative(value);
         }
 
-        int currentWinStreak = Integer.parseInt(values[6]);
-        int currentLoseStreak = Integer.parseInt(values[7]);
-        int highestWinStreak = Integer.parseInt(values[8]);
-        int highestLoseStreak = Integer.parseInt(values[9]);
+        int currentWinStreak = Integer.parseInt(values[CURR_WIN_STREAK_INDEX]);
+        int currentLoseStreak = Integer.parseInt(values[CURR_LOSE_STREAK_INDEX]);
+        int highestWinStreak = Integer.parseInt(values[HIGHEST_WIN_STREAK_INDEX]);
+        int highestLoseStreak = Integer.parseInt(values[HIGHEST_LOSE_STREAK_INDEX]);
 
         checkCurrentWinLoseStreaksValid(currentWinStreak, currentLoseStreak);
         checkHighestStreakValid(currentWinStreak, highestWinStreak);
@@ -274,16 +287,16 @@ public class Storage {
     private UserData getUserData(String[] values) throws NumberFormatException {
         UserData userData = new UserData();
 
-        userData.betAmount = Integer.parseInt(values[0]);
-        userData.balance = Integer.parseInt(values[1]);
-        userData.winCount = Integer.parseInt(values[2]);
-        userData.loseCount = Integer.parseInt(values[3]);
-        userData.totalWon = Integer.parseInt(values[4]);
-        userData.totalLost = Integer.parseInt(values[5]);
-        userData.currentWinStreak = Integer.parseInt(values[6]);
-        userData.currentLoseStreak = Integer.parseInt(values[7]);
-        userData.highestWinStreak = Integer.parseInt(values[8]);
-        userData.highestLoseStreak = Integer.parseInt(values[9]);
+        userData.betAmount = Integer.parseInt(values[BET_AMOUNT_INDEX]);
+        userData.balance = Integer.parseInt(values[BALANCE_INDEX]);
+        userData.winCount = Integer.parseInt(values[WIN_COUNT_INDEX]);
+        userData.loseCount = Integer.parseInt(values[LOSE_COUNT_INDEX]);
+        userData.totalWon = Integer.parseInt(values[TOTAL_WON_INDEX]);
+        userData.totalLost = Integer.parseInt(values[TOTAL_LOST_INDEX]);
+        userData.currentWinStreak = Integer.parseInt(values[CURR_WIN_STREAK_INDEX]);
+        userData.currentLoseStreak = Integer.parseInt(values[CURR_LOSE_STREAK_INDEX]);
+        userData.highestWinStreak = Integer.parseInt(values[HIGHEST_WIN_STREAK_INDEX]);
+        userData.highestLoseStreak = Integer.parseInt(values[HIGHEST_LOSE_STREAK_INDEX]);
 
         return userData;
     }
