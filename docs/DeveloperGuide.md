@@ -164,7 +164,6 @@ This section describes how key Coinflip features are implemented
 > Note: In the following sequence diagrams, some of the other classes (for examples, Parser and Logger), or the
 > functions the other classes call, have been left out intentionally to reduce cluttering and place more emphasis
 > on the respective command classes that are being executed, along with their main functionalities.
->
 > The logging functions have also been left out from the steps to focus on the main functionality of each feature.
 
 ### Help command
@@ -227,13 +226,12 @@ Below are the steps taken when the user types in "flip heads" or "flip tails" to
    generate a flip has been intentionally left out from the sequence diagram to emphasise the ChangeCommand class.*
 7. The `getOutcome(actualFlip, words[1])` method will then check if the user has won or lost the coin flip.
 8. The `update(userData, outcome)` method of the `AchievementList` class is called to update the user's
-   achievements. *This function has been intentionally left out of the sequence diagram to place emphasis on the
-   ChangeCommand class.*
+   achievements.
 9. The `processOutcome()` method will be called, which will call other functions to update the user's data.
    *These functions have been intentionally left out of the sequence diagram so that it will be less cluttered*
 10. The `printFlipOutcome(actualFlip, outcome, userData.betAmount)`, `printFlipSummary(userData)` and
     `printUnlockedAchievements(achievementList)` methods from the `Printer` class will be called to print the outcomes
-    of the flip and achievements obtained (if any) *The printFlipOutcome calls other functions to show an animation of
+    of the flip and achievements obtained (if any) *The printFlipOutcome calls other methods to show an animation of
     a coin flipping, but they have been left out of the sequence diagram to place emphasis on the ChangeCommand class.*
 11. The data will be saved to the save file using the `Storage` class. *This step has been left out from the
     sequence diagram to place emphasis on the ChangeCommand class.*
