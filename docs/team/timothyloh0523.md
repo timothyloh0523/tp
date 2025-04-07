@@ -8,20 +8,30 @@ currency on coin flips, whilst simultaneously tracking and giving feedback on th
 
 ### Summary of Contributions
 
-**<ins>Main Code</ins>**
-* Added code for CheckCommand to interpret 3 user commands:
-  * check bet
-  * check balance
-  * check history
-* Implemented streaks into UserData and FlipCommand
+**<ins>Main Code</ins>** 
+
+Link to code on tP dashboard: [Click here]("https://nus-cs2113-ay2425s2.github.io/tp-dashboard/#/widget/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-02-21&tabOpen=true&tabType=authorship&tabAuthor=timothyloh0523&tabRepo=AY2425S2-CS2113-F13-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false&chartGroupIndex=7&chartIndex=2")
+
+**<ins>Contributions to Main Code</ins>**
+
+* Implemented code and exceptions for `CheckCommand`, corresponding to the following user inputs:
+  * `check bet` - for user to check their bet amount
+  * `check balance` - for user to check their existing credit balance
+  * `check history` - for user to check their statistics
+* Implemented streaks into `UserData` and `FlipCommand` classes
+  * Added data validity checks for streaks in `Storage` class
 * Created abstractions for the following classes:
-  * Command
-  * 5 Subclasses of Command (ChangeCommand, CheckCommand, ExitCommand, FlipCommand, HelpCommand)
-  * Parser
+  * `Parser`
+  * `Command`
+  * 5 subclasses of `Command` (`ChangeCommand`, `CheckCommand`, `ExitCommand`, `FlipCommand`, `HelpCommand`)
 
-**<ins>Developer Guide</ins>**
-* Added UML sequence diagram for CheckCommand class
-* Assisted in changing UML sequence diagrams format from mermaid to plantUML
+**<ins>Contributions to Test Code</ins>**
+* Added all test cases for the `CheckCommand` class
 
-**<ins>Test Code</ins>**
-* Added all test cases for the CheckCommand class
+**<ins>Review/Mentoring Contributions</ins>**
+* Guided teammates on version control steps
+* Guided teammates on adding PlantUML diagrams into Developer Guide
+* Assisted in changing UML sequence diagrams format from [mermaid]("https://mermaid.js.org/") format to plantUML
+
+**<ins>Contributions to Developer Guide</ins>**
+* Added UML sequence diagram for `CheckCommand`
