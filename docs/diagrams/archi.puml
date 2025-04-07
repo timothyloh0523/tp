@@ -1,0 +1,24 @@
+@startuml
+
+' Components
+rectangle "Main" as Main #E3F2FD
+rectangle "Common" as Common #E8F5E9
+rectangle "Model" as Model #FFF3E0
+rectangle "Storage" as Storage #E0F7FA
+rectangle "User Input" as UserInput #F3E5F5
+rectangle "Logic" as Logic #E8EAF6
+rectangle "User Output" as UserOutput #FCE4EC
+
+' Connections
+Main --> UserInput
+UserInput --> Logic
+Logic --> UserOutput
+Logic --> Model
+Logic --> Storage
+Main --> Common
+
+' Data loading (dashed line)
+Storage ..> Model : loads data
+
+title Coinflip Architecture
+@enduml

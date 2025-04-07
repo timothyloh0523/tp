@@ -24,6 +24,7 @@ tracking across the entire codebase
 * Added `Setting up, getting started` section
 * Added `[Proposed] feature - View Acheivements Command`
 * Added UML for `[Proposed] feature`
+* Added Architecture Diagram UML
 
 **Review/mentoring contributions:**
 * Aided teammate in the creation of class diagrams

@@ -65,7 +65,7 @@ created if it doesn't exist already. No additional configuration is necessary fo
 
 Below is the high level architecture of Coinflip:
 
-//<insert class diagram here>
+![](./diagrams/archi.svg)
 
 Here are the components that comprises Coinflip (with a brief description):
 
