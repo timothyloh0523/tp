@@ -31,7 +31,7 @@ Link to code on tP dashboard: [Click here](https://nus-cs2113-ay2425s2.github.io
 **<ins>Review/Mentoring Contributions</ins>**
 * Guided teammates on version control steps
 * Guided teammates on adding PlantUML diagrams into Developer Guide
-* Assisted in changing UML sequence diagrams format from [mermaid]("https://mermaid.js.org/") format to plantUML
+* Assisted in changing UML sequence diagrams format from [mermaid](https://mermaid.js.org/) format to plantUML
 
 **<ins>Contributions to Developer Guide</ins>**
 * Added UML sequence diagram for `CheckCommand`
