@@ -1,0 +1,27 @@
+@startuml
+
+' Core data classes
+class UserData
+class AchievementList
+
+' Abstract base class
+abstract class Achievement
+
+' Subclasses of Achievement
+class GamesAchievement
+class LoseStreakAchievement
+class WinCountAchievement
+class WinStreakAchievement
+
+' Inheritance
+GamesAchievement --|> Achievement
+LoseStreakAchievement --|> Achievement
+WinCountAchievement --|> Achievement
+WinStreakAchievement --|> Achievement
+
+' Dependencies
+AchievementList --> Achievement
+AchievementList ..> UserData
+Achievement ..> UserData
+
+@enduml

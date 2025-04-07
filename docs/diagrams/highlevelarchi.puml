@@ -1,0 +1,12 @@
+@startuml
+
+class Main
+class Logic
+class Common
+class Model
+class Storage
+class Userinput
+class Useroutput
+
+
+@enduml

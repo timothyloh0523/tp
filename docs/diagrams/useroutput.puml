@@ -1,0 +1,30 @@
+@startuml
+
+' Core classes
+abstract class Animation
+class LoadingAnimation
+class ScanningWordAnimation
+class Printer
+
+' Imported classes (dependencies)
+class CoinflipException
+class UserData
+class AchievementList
+
+' Inheritance
+LoadingAnimation --|> Animation
+ScanningWordAnimation --|> Animation
+
+' Dependencies (uses inside methods)
+Animation ..> CoinflipException
+LoadingAnimation ..> CoinflipException
+ScanningWordAnimation ..> CoinflipException
+Printer ..> CoinflipException
+Printer ..> LoadingAnimation
+Printer ..> ScanningWordAnimation
+
+' References (used as data or passed directly)
+Printer --> UserData
+Printer --> AchievementList
+
+@enduml

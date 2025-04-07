@@ -1,0 +1,35 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+abstract class Command
+
+class ChangeCommand
+class CheckCommand
+class ExitCommand
+class FlipCommand
+class HelpCommand
+class ResetCommand
+
+class Storage
+class UserData
+class AchievementList
+
+Command <|-- ChangeCommand
+Command <|-- CheckCommand
+Command <|-- ExitCommand
+Command <|-- FlipCommand
+Command <|-- HelpCommand
+Command <|-- ResetCommand
+
+ChangeCommand --> Storage
+ChangeCommand --> UserData
+
+CheckCommand --> UserData
+
+FlipCommand --> Storage
+FlipCommand --> UserData
+FlipCommand --> AchievementList
+
+ResetCommand --> Storage
+ResetCommand --> UserData
+@enduml
