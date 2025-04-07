@@ -10,7 +10,7 @@ currency on coin flips, whilst simultaneously tracking and giving feedback on th
 
 **<ins>Main Code</ins>** 
 
-Link to code on tP dashboard: [Click here]("https://nus-cs2113-ay2425s2.github.io/tp-dashboard/#/widget/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2025-02-21&tabOpen=true&tabType=authorship&tabAuthor=timothyloh0523&tabRepo=AY2425S2-CS2113-F13-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false&chartGroupIndex=7&chartIndex=2")
+Link to code on tP dashboard: [Click here](https://nus-cs2113-ay2425s2.github.io/tp-dashboard/?search=timothyloh0523&breakdown=true)
 
 **<ins>Contributions to Main Code</ins>**
 
