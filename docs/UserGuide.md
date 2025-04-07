@@ -65,7 +65,7 @@ Example of usage:
 
 ### Viewing statistics for previous flips: `check history`
 
-Shows statistics for all previous coinflips
+Shows statistics for all previous coin flips
 
 Format: `check history`
 
@@ -200,6 +200,12 @@ correctly formatted save files, so handling user modification is out of scope.
 
 **A**: It will be capped at `999999999` if it exceeds `999999999`. The same goes for all other numerical values shown in
 the game.
+
+**Q**: Why does `"Warning: Coinflip could not save your save file! Your progress will not be saved."` appear?
+
+**A**: This is likely due to your save file being open while you run the program and is to be expected.
+It is not a bug. Please close your save file and try again. Alternatively, the warning could have appeared if you have
+changed the properties of the .csv file to read-only (but why would you... right?)
 
 ## Command Summary
 
