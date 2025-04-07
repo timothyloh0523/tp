@@ -2,7 +2,7 @@
 
 ## Acknowledgements
 
-Third-party Libraries Used for Test Cases:
+Third-party Libraries Used:
 
 * Java SE 17 - Core Java platform
 * JUnit 5 - Unit testing framework
