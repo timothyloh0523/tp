@@ -65,7 +65,7 @@ created if it doesn't exist already. No additional configuration is necessary fo
 
 Below is the high level architecture of Coinflip:
 
-<insert class diagram here>
+//<insert class diagram here>
 
 Here are the components that comprises Coinflip (with a brief description):
 
@@ -131,7 +131,7 @@ Consists of the following classes:
 
 ### Logic Component
 
-<insert class diagram here>
+![](./diagrams/logic.svg)
 
 Consists of the following classes:
 
@@ -139,7 +139,7 @@ Consists of the following classes:
 
 ### Model Component
 
-<insert class diagram here>
+![](./diagrams/model.svg)
 
 Consists of the following classes:
 
