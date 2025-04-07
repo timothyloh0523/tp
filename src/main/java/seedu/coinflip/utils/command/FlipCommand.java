@@ -174,6 +174,7 @@ public class FlipCommand extends Command {
         }
     }
 
+    //@@author timothyloh0523
     private void increaseCurrentWinStreak() {
         userData.currentWinStreak += 1;
         if (userData.currentWinStreak < 0 || userData.currentWinStreak > 999999999) {

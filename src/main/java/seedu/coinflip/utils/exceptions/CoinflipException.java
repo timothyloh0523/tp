@@ -42,11 +42,13 @@ public class CoinflipException extends Exception {
             "than you currently have! " +
             "Please choose another bet amount.";
 
+    //@@author timothyloh0523
     public static final String INVALID_COMMAND = "You have entered an unrecognised command! " +
             "Please type \"help\" for a list of possible commands.";
 
     public static final String STREAK_LOADING_ERROR = "Streak data not available.";
 
+    //@@author HTY2003
     public static String message = "";
 
     public CoinflipException() {
